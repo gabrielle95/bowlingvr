@@ -52,6 +52,7 @@ int Shader::Compile()
 	this->vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(this->vertexShader, 1, &c_str_source, 0);
 	GLint compiled;
+	glCompileShader(this->vertexShader);
 	glGetShaderiv(this->vertexShader, GL_COMPILE_STATUS, &compiled);
 	if (compiled == false)
 	{
@@ -64,4 +65,54 @@ int Shader::Compile()
 		return -1;
 	}
 
+	c_str_source = this->fgSource.c_str();
+	this->fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(this->fragmentShader, 1, &c_str_source, 0);
+	glCompileShader(this->fragmentShader);
+	glGetShaderiv(this->fragmentShader, GL_COMPILE_STATUS, &compiled);
+	if (compiled == false)
+	{
+		unsigned int maxLen;
+		glGetShaderiv(this->fragmentShader, GL_INFO_LOG_LENGTH, (GLint *)&maxLen);
+		char * fgCompLog = (char *)malloc(maxLen);
+		glGetShaderInfoLog(this->fragmentShader, maxLen, (GLsizei*)&maxLen, fgCompLog);
+		cout << "Fragment Shader compile error: " << endl << fgCompLog << endl << endl;
+		free(fgCompLog);
+		return -2;
+	}
+	return 1;
+}
+
+bool Shader::Use()
+{
+	if (this->ready)
+	{
+		glUseProgram(this->shaderProgram);
+	}
+	return this->ready;
+}
+
+int Shader::Link()
+{
+	this->shaderProgram = glCreateProgram();
+
+	glAttachShader(this->shaderProgram, this->vertexShader);
+	glAttachShader(this->shaderProgram, this->fragmentShader);
+	glLinkProgram(this->shaderProgram);
+
+	GLint linked;
+
+	glGetProgramiv(this->shaderProgram, GL_LINK_STATUS, &linked);
+
+	if (linked == false)
+	{
+		unsigned int maxLen;
+		glGetProgramiv(this->shaderProgram, GL_INFO_LOG_LENGTH, (GLint *)&maxLen);
+		char *programLog = (char *)malloc(maxLen);
+		glGetProgramInfoLog(this->shaderProgram, maxLen, (GLsizei*)&maxLen, programLog);
+		cout << "Shader link error: " << endl << programLog << endl << endl;
+		free(programLog);
+		return -1;
+	}
+	return 1;
 }

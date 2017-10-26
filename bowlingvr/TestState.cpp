@@ -1,5 +1,6 @@
 #include "TestState.h"
 #include "TestState2.h"
+#include "Shader.h"
 
 TestState::TestState(Application *application) : GameState(application)
 {
@@ -8,6 +9,7 @@ TestState::TestState(Application *application) : GameState(application)
 bool TestState::Init()
 {
 	glClearColor(0,0,1,1);
+	Shader test("test.vert", "test.frag");
 	return true;
 }
 

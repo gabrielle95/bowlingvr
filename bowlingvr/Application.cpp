@@ -1,3 +1,4 @@
+#include <GL/glew.h>
 #include "Application.h"
 
 /*Application *Application::applicationInstance = nullptr;
@@ -32,6 +33,10 @@ Application::Application()
 		else
 		{
 			this->window = new Window("VR Bowling", 1600, 900); //////////
+			if (glewInit() != GLEW_OK)
+			{
+				std::cout << "Error initializing GLEW!" << std::endl;
+			}
 		}
 	}
 	catch(application_exception& exception)
