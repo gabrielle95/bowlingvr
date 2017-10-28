@@ -92,6 +92,11 @@ bool Shader::Use()
 	return this->ready;
 }
 
+GLint Shader::getAttr(string attr)
+{
+	return glGetAttribLocation(this->shaderProgram, attr.c_str());
+}
+
 int Shader::Link()
 {
 	this->shaderProgram = glCreateProgram();

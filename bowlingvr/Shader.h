@@ -10,6 +10,7 @@ class Shader
 public:
 	Shader(std::string vxname, std::string fgname);
 	bool Use();
+	GLint getAttr(std::string attr);
 private:
 	std::ifstream vxFile, fgFile;
 	std::string vxname, fgname;

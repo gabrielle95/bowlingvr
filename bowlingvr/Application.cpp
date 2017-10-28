@@ -17,6 +17,7 @@ void Application::SetState(GameStateInterface *state)
 	if (this->state != nullptr)
 	{
 		this->state->Destroy();
+		delete this->state;
 	}
 	this->state = state;
 	this->state->Init();
@@ -111,5 +112,6 @@ void Application::Stop()
 
 Application::~Application()
 {
+	delete this->state;
 	SDL_Quit();
 }

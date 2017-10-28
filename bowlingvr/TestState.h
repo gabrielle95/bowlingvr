@@ -1,5 +1,6 @@
 #pragma once
 #include "Application.h"
+#include "Shader.h"
 
 class TestState : public GameState
 {
@@ -9,4 +10,6 @@ public:
 	bool Update();
 	bool Destroy();
 	~TestState();
+private:
+	Shader *shader;
 };
