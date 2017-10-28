@@ -1,5 +1,6 @@
 #pragma once
 #include "Application.h"
+#include "TestShape.h"
 #include "Shader.h"
 
 class TestState : public GameState
@@ -12,4 +13,5 @@ public:
 	~TestState();
 private:
 	Shader *shader;
+	TestShape *testShape;
 };

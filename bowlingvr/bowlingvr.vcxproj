@@ -146,6 +146,7 @@
     <ClCompile Include="DrawableObj.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="TestShape.cpp" />
     <ClCompile Include="TestState.cpp" />
     <ClCompile Include="TestState2.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="DrawableObj.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="TestShape.h" />
     <ClInclude Include="TestState.h" />
     <ClInclude Include="TestState2.h" />
     <ClInclude Include="Window.h" />
