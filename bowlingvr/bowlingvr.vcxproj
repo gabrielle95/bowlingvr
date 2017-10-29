@@ -143,8 +143,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DrawableObj.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Room.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="TestShape.cpp" />
     <ClCompile Include="TestState.cpp" />
@@ -153,7 +155,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawableObj.h" />
+    <ClInclude Include="Room.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="TestShape.h" />
     <ClInclude Include="TestState.h" />

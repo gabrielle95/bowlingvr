@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <GL/glew.h>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "Shader.h"
 
@@ -120,4 +121,14 @@ int Shader::Link()
 		return -1;
 	}
 	return 1;
+}
+
+GLint Shader::getUniLocation(string name)
+{
+	return glGetUniformLocation(this->shaderProgram, name.c_str());
+}
+
+void Shader::setUniMatrix(GLint location, glm::mat4 matrix)
+{
+	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix)); 
 }

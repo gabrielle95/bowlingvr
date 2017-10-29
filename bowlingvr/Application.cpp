@@ -38,6 +38,10 @@ Application::Application()
 			{
 				std::cout << "Error initializing GLEW!" << std::endl;
 			}
+			else
+			{
+				glEnable(GL_DEPTH_TEST);
+			}
 		}
 	}
 	catch(application_exception& exception)

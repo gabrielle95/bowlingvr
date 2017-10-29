@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include <glm/glm.hpp>
 
 class Shader
 {
@@ -11,6 +12,8 @@ public:
 	Shader(std::string vxname, std::string fgname);
 	bool Use();
 	GLint getAttr(std::string attr);
+	GLint getUniLocation(std::string name);
+	void setUniMatrix(GLint location, glm::mat4 matrix);
 private:
 	std::ifstream vxFile, fgFile;
 	std::string vxname, fgname;
