@@ -9,5 +9,5 @@ public:
 	TestShape(Shader *shader);
 	~TestShape();
 private:
-	GLint posAttr, colAttr;
+	GLint posAttr, colAttr, uvAttr;
 };

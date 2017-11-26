@@ -1,6 +1,5 @@
 #include <Windows.h>
 #include <GL/glew.h>
-
 #include "DrawableObj.h"
 
 DrawableObj::DrawableObj()
@@ -8,8 +7,37 @@ DrawableObj::DrawableObj()
 	this->vao = 0;
 	this->vbo = 0;
 	this->ebo = 0;
+	this->textureID = 0;
 	glGenVertexArrays(1, &this->vao);
 
+}
+
+void DrawableObj::loadTexture(std::string fileName)
+{
+	this->texture = SDL_LoadBMP(fileName.c_str());
+	if (this->texture)
+	{
+		glGenTextures(1, &this->textureID);
+		if (this->textureID)
+		{
+			glBindTexture(GL_TEXTURE_2D, this->textureID);
+			glTexImage2D(GL_TEXTURE_2D,
+						 0, 
+						 GL_RGB,
+						 this->texture->w,
+						 this->texture->h, 
+						 0,
+						 GL_BGR,
+						 GL_UNSIGNED_BYTE,
+						 this->texture->pixels);
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glGenerateMipmap(GL_TEXTURE_2D);
+
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+	}
 }
 
 void DrawableObj::Bind_vao()
@@ -28,7 +56,9 @@ bool DrawableObj::Draw()
 		return false;
 	}
 	this->Bind_vao();
+	glBindTexture(GL_TEXTURE_2D, this->textureID);
 	glDrawElements(GL_TRIANGLES, this->elements.size(), GL_UNSIGNED_INT, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 	this->Unbind_vao();
 	return true;
 }
@@ -72,4 +102,9 @@ DrawableObj::~DrawableObj()
 	if (this->vbo)
 		glDeleteBuffers(1, &this->vbo);
 	glDeleteVertexArrays(1, &this->vao);
+
+	if (this->textureID)
+	{
+		SDL_FreeSurface(this->texture);
+	}
 }

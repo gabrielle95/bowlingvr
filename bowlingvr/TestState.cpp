@@ -12,11 +12,22 @@ bool TestState::Init()
 	this->shader->Use();
 	this->testShape = new TestShape(this->shader);
 	this->room = new Room(this->shader);
-	this->camera = new Camera(this->shader, 1920,1080);
+
+	/* initialize bullet*/
+	this->bwInstance = new BulletWorld();
+
+	//this->box = new Box(this->shader, btVector3(10,10,10));
+
+
+	this->camera = new Camera(this->shader, 1600,900);
 	this->camera->SetTranslation(0,0,2);
+	//SDL_WarpMouseInWindow(NULL, 500, 500);
 	SDL_WarpMouseGlobal(500, 500);
 	SDL_ShowCursor(0);
 	this->camVelocity = glm::vec3(.1f,.1f,.1f);
+	//std::cout << "caling testCreate" << std::endl;
+
+	this->bwInstance->HelloWorld();
 	return true;
 }
 
@@ -25,6 +36,9 @@ bool TestState::Update()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	this->room->Draw();
 	this->testShape->Draw();
+	//this->box->Draw();
+	
+	this->bwInstance->bwUpdate(1.f / 60.f);
 	this->camera->Update();
 
 	const uint8_t *state = SDL_GetKeyboardState(NULL);
@@ -74,9 +88,15 @@ bool TestState::Update()
 		this->camRotation.x -= 1;
 	}
 
+	if (state[SDL_SCANCODE_M])
+	{
+		this->bwInstance->debugDraw->ToggleDebugFlag(btIDebugDraw::DBG_DrawWireframe);
+	}
+
 	int xPos, yPos;
 	SDL_GetGlobalMouseState(&xPos, &yPos);
 	SDL_WarpMouseGlobal(500, 500);
+	//SDL_WarpMouseInWindow(NULL, 500, 500);
 
 	camRotation.y += mouse_speed * float(500 - xPos);
 	camRotation.x += mouse_speed * float(500 - yPos);
@@ -94,5 +114,7 @@ bool TestState::Destroy()
 
 TestState::~TestState()
 {
+	delete this->camera;
+	delete this->room;
 	delete this->shader;
 }

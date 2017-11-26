@@ -91,10 +91,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32s.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32s.lib;opengl32.lib;glu32.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -143,6 +145,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Box.cpp" />
+    <ClCompile Include="BulletDebugDraw.cpp" />
+    <ClCompile Include="BulletWorld.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DrawableObj.cpp" />
     <ClCompile Include="main.cpp" />
@@ -155,8 +160,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Box.h" />
+    <ClInclude Include="BulletDebugDraw.h" />
+    <ClInclude Include="BulletWorld.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawableObj.h" />
+    <ClInclude Include="OpenGLMotionState.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="TestShape.h" />
