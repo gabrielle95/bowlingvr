@@ -1,4 +1,5 @@
-#pragma once
+#include <GL/glew.h>
+#include <GL/GL.h>
 #include "BulletDebugDraw.h"
 
 
@@ -22,4 +23,12 @@ void BulletDebugDraw::ToggleDebugFlag(int flag)
 	else
 		// flag is disabled, so enable it
 		m_debugMode |= flag;
+}
+
+void BulletDebugDraw::SetMatrices(glm::mat4 pViewMatrix, glm::mat4 pProjectionMatrix) {
+	glUseProgram(0); // Use Fixed-function pipeline (no shaders)
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(&pViewMatrix[0][0]);
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(&pProjectionMatrix[0][0]);
 }

@@ -20,6 +20,8 @@ public:
 		return m_debugMode;
 	}
 
+	void SetMatrices(glm::mat4 pViewMatrix, glm::mat4 pProjectionMatrix);
+
 	struct LINE {
 		LINE(glm::vec3 a, glm::vec3 b, glm::vec3 color) : a(a), b(b), color(color) {};
 

@@ -140,6 +140,7 @@ BulletWorld::~BulletWorld()
 {
 	//delete this->objectManager;
 	delete this->bwWorld;
+	delete this->debugDraw;
 	delete this->bwConstraintSolver;
 	delete this->bwBPInterface;
 	delete this->bwDispatcher;

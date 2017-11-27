@@ -1,3 +1,4 @@
+#include "GL/glew.h"
 #include "TestState.h"
 #include "TestState2.h"
 
@@ -10,11 +11,15 @@ bool TestState::Init()
 	glClearColor(0,0,0,1);
 	this->shader = new Shader("test.vert", "test.frag");
 	this->shader->Use();
+	this->hasTextureUniform = this->shader->getUniLocation("hasTexture");
 	this->testShape = new TestShape(this->shader);
+
+	this->sphereObj = new ObjLoader(this->shader, "sphereModel.obj");
+
 	this->room = new Room(this->shader);
 
 	/* initialize bullet*/
-	this->bwInstance = new BulletWorld();
+	//this->bwInstance = new BulletWorld();
 
 	//this->box = new Box(this->shader, btVector3(10,10,10));
 
@@ -27,24 +32,39 @@ bool TestState::Init()
 	this->camVelocity = glm::vec3(.1f,.1f,.1f);
 	//std::cout << "caling testCreate" << std::endl;
 
-	this->bwInstance->HelloWorld();
+	//this->bwInstance->HelloWorld();
 	return true;
 }
 
 bool TestState::Update()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glUniform1i(this->hasTextureUniform, true);
+	//this->testShape->Draw();
+	glUniform1i(this->hasTextureUniform, false);
+	this->sphereObj->Draw();
 	this->room->Draw();
-	this->testShape->Draw();
 	//this->box->Draw();
 	
-	this->bwInstance->bwUpdate(1.f / 60.f);
+	/*glm::mat4 vm = this->camera->getViewMatrix();
+	glm::mat4 pm = this->camera->getProjectionMatrix();
+	this->bwInstance->debugDraw->SetMatrices(vm, pm);
+	this->bwInstance->bwWorld->debugDrawWorld();*/
+	
+	//this->bwInstance->bwUpdate(1.f / 60.f);
 	this->camera->Update();
+
+
+	/*this->lastTime = currentTime;
+	this->currentTime = SDL_GetTicks(); //ms
+	
+	this->deltaTime = float(currentTime - lastTime) / 1000.f;*/
 
 	const uint8_t *state = SDL_GetKeyboardState(NULL);
 
 	//cos(0) = 1, cos(90) = 0, cos(180) = -1, cos(270) = 0
 	//sin(0) = 0, sin(90) = 1, sin(180) = 0, sin(270) = -1
+	//std::cout << this->deltaTime << std::endl;
 
 	if (state[SDL_SCANCODE_D])
 	{
@@ -100,6 +120,13 @@ bool TestState::Update()
 
 	camRotation.y += mouse_speed * float(500 - xPos);
 	camRotation.x += mouse_speed * float(500 - yPos);
+
+	/* to restrict rotating the whole world upside down */
+	if (this->camRotation.x > 90)
+		this->camRotation.x = 90;
+	if (this->camRotation.x < -90)
+		this->camRotation.x = -90;
+
 	this->camera->SetRotation(0,1,1,1);
 	this->camera->Rotate(camRotation.x, 1, 0, 0);
 	this->camera->Rotate(camRotation.y, 0, 1, 0);

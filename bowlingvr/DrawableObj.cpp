@@ -56,9 +56,13 @@ bool DrawableObj::Draw()
 		return false;
 	}
 	this->Bind_vao();
-	glBindTexture(GL_TEXTURE_2D, this->textureID);
+	if(this->textureID)
+		glBindTexture(GL_TEXTURE_2D, this->textureID);
+
 	glDrawElements(GL_TRIANGLES, this->elements.size(), GL_UNSIGNED_INT, 0);
-	glBindTexture(GL_TEXTURE_2D, 0);
+
+	if (this->textureID)
+		glBindTexture(GL_TEXTURE_2D, 0);
 	this->Unbind_vao();
 	return true;
 }
@@ -87,7 +91,7 @@ void DrawableObj::loadElements(GLuint data[], size_t size)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * this->elements.size(), this->elements.data(), GL_STATIC_DRAW);
 }
-void DrawableObj::loadElements(std::vector<float>data)
+void DrawableObj::loadElements(std::vector<unsigned int>data)
 {
 	this->elements.insert(this->elements.end(), data.begin(), data.end());
 	glGenBuffers(1, &this->ebo);

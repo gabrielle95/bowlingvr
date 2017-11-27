@@ -5,8 +5,8 @@
 
 /*stolen online*/
 GLfloat room_vert[] = {
-	-10.0f,  0.5f, -10.0f,		0.502f, 0.502f, 0.502f, // 0 Top-left-front
-	10.0f,  0.5f, -10.0f,		0.502f, 0.502f, 0.502f, // 1 Top-right-front
+	-10.0f,  10.f, -10.0f,		0.502f, 0.502f, 0.502f, // 0 Top-left-front
+	10.0f,  10.f, -10.0f,		0.502f, 0.502f, 0.502f, // 1 Top-right-front
 	10.0f, -0.5f, -10.0f,		0, 0, 0,				// 2 Bottom-right-front
 	-10.0f, -0.5f, -10.0f,		0.502f, 0.502f, 0.502f,  // 3 Bottom-left-front
 
@@ -17,34 +17,29 @@ GLfloat room_vert[] = {
 };
 
 
-GLuint room_elem[] = {
-	7, 6, 2,
-	2, 3, 7,
-	//front
-	0, 1, 2,
-	2, 3, 0,
-	//floor
-
-	//ceiling
-	/*4,5,1,
-	1,0,4,*/
-
-	4,5,6,
-	6,7,4,
-	//left
-	 4,0,3,
-	 3,7,4,
-
-	//right
-	1,5,6,
-	6,2,1
+GLuint room_elem[] = {2,3,7,7,6,2,
+//front
+0, 1, 2,
+2, 3, 0,
+//floor
+//ceiling
+4,5,1,
+1,0,4,
+4,5,6,
+6,7,4,
+//left
+4,0,3,
+3,7,4,
+//right
+1,5,6,
+6,2,1
 };
 Room::Room(Shader *shader) : DrawableObj()
 {
 
 	this->Bind_vao();
-	this->loadVertices(room_vert, sizeof(room_vert) * sizeof(GLfloat));
-	this->loadElements(room_elem, sizeof(room_elem) * sizeof(GLint));
+	this->loadVertices(room_vert, sizeof(room_vert) /** sizeof(GLfloat)*/);
+	this->loadElements(room_elem, sizeof(room_elem) /* sizeof(GLuint)*/);
 	this->posAttr = shader->getAttr("position");
 	this->colAttr = shader->getAttr("color");
 
@@ -56,5 +51,6 @@ Room::Room(Shader *shader) : DrawableObj()
 
 Room::~Room()
 {
-
+	glDisableVertexAttribArray(this->colAttr);
+	glDisableVertexAttribArray(this->posAttr);
 }

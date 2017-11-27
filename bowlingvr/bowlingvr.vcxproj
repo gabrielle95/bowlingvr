@@ -151,6 +151,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DrawableObj.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjLoader.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="TestShape.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="BulletWorld.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawableObj.h" />
+    <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="OpenGLMotionState.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="Shader.h" />

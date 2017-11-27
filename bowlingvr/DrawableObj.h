@@ -23,7 +23,7 @@ protected:
 	void loadTexture(std::string fileName);
 
 	void loadElements(GLuint data[], size_t size);
-	void loadElements(std::vector<float>data);
+	void loadElements(std::vector<unsigned int>data);
 
 	void Bind_vao();
 	void Unbind_vao();

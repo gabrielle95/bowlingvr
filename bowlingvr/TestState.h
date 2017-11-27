@@ -2,10 +2,10 @@
 #include "Application.h"
 #include "TestShape.h"
 #include "Room.h"
+#include "ObjLoader.h"
 #include "Shader.h"
 #include "Camera.h"
 #include "BulletWorld.h"
-#include "Box.h"
 
 class TestState : public GameState
 {
@@ -21,10 +21,15 @@ private:
 	Room *room;
 	Camera *camera;
 	BulletWorld *bwInstance;
+	ObjLoader *sphereObj;
 
-	Box *box;
 	//BulletObject *physObject;
 	glm::vec3 camRotation;
 	glm::vec3 camVelocity;
 	const float mouse_speed = 0.1f;
+	GLint hasTextureUniform;
+
+	uint32_t currentTime = 0;
+	uint32_t lastTime = 0;
+	float deltaTime;
 };
