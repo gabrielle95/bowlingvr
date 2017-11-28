@@ -5,15 +5,15 @@
 
 /*stolen online*/
 GLfloat room_vert[] = {
-	-5.0f,  5.f, -5.0f,		0.502f, 0.502f, 0.502f, // 0 Top-left-front
-	5.0f,  5.f, -5.0f,		0.502f, 0.502f, 0.502f, // 1 Top-right-front
-	5.0f, -5.f, -5.0f,		0, 0, 0,				// 2 Bottom-right-front
-	-5.0f, -5.f, -5.0f,		0.502f, 0.502f, 0.502f,  // 3 Bottom-left-front
+	-10.0f,  10.f, -10.0f,		0.502f, 0.502f, 0.502f, // 0 Top-left-front
+	10.0f,  10.f, -10.0f,		0.502f, 0.502f, 0.502f, // 1 Top-right-front
+	10.0f, 0.f, -10.0f,		0, 0, 0,				// 2 Bottom-right-front
+	-10.0f, 0.f, -10.0f,		0.502f, 0.502f, 0.502f,  // 3 Bottom-left-front
 
-	-5.0f,  5.f, 5.0f,		0.502f, 0.502f, 0.502f, // 4 Top-left-back
-	5.0f,  5.f, 5.0f,		0.502f, 0.502f, 0.502f, // 5 Top-right-back
-	5.0f, -5.f, 5.0f,		0.502f, 0.502f, 0.502f, // 6 Bottom-right-back
-	-5.0f, -5.f, 5.0f,		0.412f, 0.412f, 0.412f  // 7 Bottom-left-back*/
+	-10.0f,  10.f, 10.0f,		0.502f, 0.502f, 0.502f, // 4 Top-left-back
+	10.0f,  10.f, 10.0f,		0.502f, 0.502f, 0.502f, // 5 Top-right-back
+	10.0f, 0.f, 10.0f,		0.502f, 0.502f, 0.502f, // 6 Bottom-right-back
+	-10.0f, 0.f, 10.0f,		0.412f, 0.412f, 0.412f  // 7 Bottom-left-back*/
 };
 
 
@@ -44,7 +44,7 @@ Room::Room(Shader *shader) : DrawableObj()
 	glVertexAttribPointer(this->posAttr, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
 	glEnableVertexAttribArray(this->colAttr);
 	glVertexAttribPointer(this->colAttr, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void *)(3 * sizeof(GLfloat)));
-	this->Unbind_vao();
+	//this->Unbind_vao();
 }
 
 Room::~Room()

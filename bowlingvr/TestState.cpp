@@ -17,30 +17,28 @@ bool TestState::Init()
 	/* initialize bullet*/
 	this->dynamicWorld = BulletWorld::Instance();
 
-	//this->testShape = new TestShape(this->shader);
-	//this->testShape->SetTranslation(2, -5, 3);
+	this->testShape = new TestShape(this->shader);
+	this->testShape->setShader(this->shader);
+	this->testShape->SetTranslation(0, -2, 3);
 
-	//plane - nefunguju transformacie
 	this->room = new Room(this->shader);
-	//this->room->SetTranslation(0,10,0);
+	this->room->setShader(this->shader);
 	this->room->InitStaticPlanePhysics(btScalar(10.), btVector3(0, -10, 0));
 	this->dynamicWorld->addRigidBody(this->room->rigidBody);
 
 	//big ball
 	this->sphereObj = new ObjLoader(this->shader, "sphereModel.obj");
-	/*this->sphereObj->setShader(this->shader);
-	//this->sphereObj->SetTranslation(-0.4f, -15, 5);
+	this->sphereObj->setShader(this->shader);
 	this->sphereObj->InitSpherePhysics(btScalar(0.1f), btScalar(1.f), btVector3(0,2,0));
 	this->dynamicWorld->addRigidBody(this->sphereObj->rigidBody);
-	dynamicObjects.push_back(this->sphereObj);*/
+	dynamicObjects.push_back(this->sphereObj);
 
 	//small ball
 	this->smallSp = new ObjLoader(this->shader, "sphereModel_half.obj");
-	/*this->smallSp->setShader(this->shader);
-	//this->smallSp->SetTranslation(0, -1, 5);
+	this->smallSp->setShader(this->shader);
 	this->smallSp->InitSpherePhysics(btScalar(0.1f), btScalar(0.5f), btVector3(0, 0.5, 0));
 	this->dynamicWorld->addRigidBody(this->smallSp->rigidBody);
-	dynamicObjects.push_back(this->smallSp);*/
+	dynamicObjects.push_back(this->smallSp);
 
 	this->camera = new Camera(this->shader, 1600,900);
 	this->camera->SetTranslation(0,2,2);
@@ -57,17 +55,17 @@ bool TestState::Init()
 
 bool TestState::Update()
 {
-	//this->currentTime = SDL_GetTicks();
+	this->currentTime = SDL_GetTicks();
 	this->dynamicWorld->stepSimulation(1.f / 60.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	/* draw everything that has texture */
 	glUniform1i(this->hasTextureUniform, true);
 	
-	//this->testShape->Draw();
+	this->testShape->Draw();
 	glUniform1i(this->hasTextureUniform, false);
 
-	//this->room->Draw();
+	this->room->Draw();
 	for (int j = 0; j < this->dynamicObjects.size(); j++)
 	{
 		ObjLoader* shape = this->dynamicObjects[j];
@@ -120,7 +118,7 @@ bool TestState::Update()
 	if (state[SDL_SCANCODE_C])
 	{
 		
-		this->ShootSphere(btVector3(0,2,0));
+		this->ShootSphere(btVector3(0.1f,2,0));
 	}
 
 	if (state[SDL_SCANCODE_LEFT])
@@ -170,11 +168,12 @@ void TestState::ShootSphere(btVector3 direction)
 	ObjLoader *shoot = new ObjLoader(this->shader, fd, el);
 	shoot->setShader(this->shader);
 
+	//btVector3 position = ; 
 	btVector3 velocity = direction;
 	velocity.normalize();
-	velocity *= 15.0f;
+	velocity *= 10.0f;
 
-	shoot->InitSpherePhysics(btScalar(2.5f), btScalar(0.5f), btVector3(0,0,0));
+	shoot->InitSpherePhysics(btScalar(2.5f), btScalar(0.5f), btVector3(0,2,0));
 	this->dynamicWorld->addRigidBody(shoot->rigidBody);
 	shoot->rigidBody->setLinearVelocity(velocity);
 	dynamicObjects.push_back(shoot);
