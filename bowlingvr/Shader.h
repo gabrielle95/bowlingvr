@@ -1,5 +1,6 @@
 #pragma once
-
+#ifndef SHADER_H
+#define SHADER_H
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -26,3 +27,4 @@ private:
 	int Compile();
 	int Link();
 };
+#endif

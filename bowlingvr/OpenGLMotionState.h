@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef OPENGLMS_H
+#define OPENGLMS_H
+
 #include <bullet/btBulletCollisionCommon.h>
 
 class OpenGLMotionState : public btDefaultMotionState
@@ -17,3 +20,4 @@ public:
 		trans.getOpenGLMatrix(transform);
 	}
 };
+#endif

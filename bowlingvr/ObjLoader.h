@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef OBJLOADER_H
+#define OBJLOADER_H
+
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -27,3 +30,5 @@ private:
 	std::vector<float> finalData;
 	unsigned int elementID;
 };
+
+#endif

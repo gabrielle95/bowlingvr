@@ -1,3 +1,4 @@
+#include <Windows.h>
 #include "GL/glew.h"
 #include "TestState.h"
 #include "TestState2.h"
@@ -12,17 +13,31 @@ bool TestState::Init()
 	this->shader = new Shader("test.vert", "test.frag");
 	this->shader->Use();
 	this->hasTextureUniform = this->shader->getUniLocation("hasTexture");
+
+	/* initialize bullet*/
+	this->dynamicWorld = BulletWorld::Instance();
+
 	this->testShape = new TestShape(this->shader);
 
 	this->sphereObj = new ObjLoader(this->shader, "sphereModel.obj");
+	this->sphereObj->setShader(this->shader);
+	this->sphereObj->SetTranslation(1,1,5);
+	/*DynamicObj *d_sphereObj = new DynamicObj(this->sphereObj, btScalar(1), BT_SPHERE);
+	this->dynamicObjects.push_back(d_sphereObj);
+	d_sphereObj->addBodyToWorld(this->dynamicWorld);*/
 
+	this->smallSp = new ObjLoader(this->shader, "sphereModel_half.obj");
+	this->smallSp->setShader(this->shader);
+	this->smallSp->SetTranslation(-3, 1, 7);
+	/*DynamicObj *d_smallSp = new DynamicObj(this->smallSp, btScalar(1), BT_SPHERE);
+	this->dynamicObjects.push_back(d_smallSp);
+	d_smallSp->addBodyToWorld(this->dynamicWorld);*/
+
+	//plane
 	this->room = new Room(this->shader);
-
-	/* initialize bullet*/
-	//this->bwInstance = new BulletWorld();
-
-	//this->box = new Box(this->shader, btVector3(10,10,10));
-
+	/*DynamicObj *d_room = new DynamicObj(this->room, btScalar(0), BT_PLANE);
+	this->dynamicObjects.push_back(d_room);
+	d_room->addBodyToWorld(this->dynamicWorld);*/
 
 	this->camera = new Camera(this->shader, 1600,900);
 	this->camera->SetTranslation(0,0,2);
@@ -32,16 +47,24 @@ bool TestState::Init()
 	this->camVelocity = glm::vec3(.1f,.1f,.1f);
 	//std::cout << "caling testCreate" << std::endl;
 
-	//this->bwInstance->HelloWorld();
 	return true;
 }
 
 bool TestState::Update()
 {
+	this->currentTime = SDL_GetTicks();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	this->dynamicWorld->stepSimulation(1.f/60.f);
 	glUniform1i(this->hasTextureUniform, true);
+	/* draw everything that has texture */
 	//this->testShape->Draw();
 	glUniform1i(this->hasTextureUniform, false);
+	/*for (int j = 0; j < dynamicObjects.size(); j++)
+	{
+		DynamicObj* shape = dynamicObjects[j];
+		shape->updateDrawable();
+	}*/
+	this->smallSp->Draw();
 	this->sphereObj->Draw();
 	this->room->Draw();
 	//this->box->Draw();
@@ -108,11 +131,6 @@ bool TestState::Update()
 		this->camRotation.x -= 1;
 	}
 
-	if (state[SDL_SCANCODE_M])
-	{
-		this->bwInstance->debugDraw->ToggleDebugFlag(btIDebugDraw::DBG_DrawWireframe);
-	}
-
 	int xPos, yPos;
 	SDL_GetGlobalMouseState(&xPos, &yPos);
 	SDL_WarpMouseGlobal(500, 500);
@@ -143,5 +161,7 @@ TestState::~TestState()
 {
 	delete this->camera;
 	delete this->room;
+	delete this->sphereObj;
+	delete this->smallSp;
 	delete this->shader;
 }

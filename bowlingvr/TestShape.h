@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef TESTSHAPE_H
+#define TESTSHAPE_H
+
 #include "DrawableObj.h"
 #include "Shader.h"
 
@@ -11,3 +14,4 @@ public:
 private:
 	GLint posAttr, colAttr, uvAttr;
 };
+#endif

@@ -93,6 +93,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,8 +146,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Box.cpp" />
     <ClCompile Include="BulletDebugDraw.cpp" />
+    <ClCompile Include="BulletUtils.cpp" />
     <ClCompile Include="BulletWorld.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DrawableObj.cpp" />
@@ -161,8 +162,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
-    <ClInclude Include="Box.h" />
     <ClInclude Include="BulletDebugDraw.h" />
+    <ClInclude Include="BulletUtils.h" />
     <ClInclude Include="BulletWorld.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawableObj.h" />

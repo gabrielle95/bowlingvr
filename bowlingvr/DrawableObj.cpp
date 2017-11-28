@@ -1,5 +1,8 @@
 #include <Windows.h>
 #include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtx/rotate_vector.hpp>
+#include <glm/gtx/transform.hpp>
 #include "DrawableObj.h"
 
 DrawableObj::DrawableObj()
@@ -9,7 +12,12 @@ DrawableObj::DrawableObj()
 	this->ebo = 0;
 	this->textureID = 0;
 	glGenVertexArrays(1, &this->vao);
+}
 
+void DrawableObj::setShader(Shader *shader)
+{
+	this->shader = shader;
+	this->modelUniform = this->shader->getUniLocation("modelMatrix");
 }
 
 void DrawableObj::loadTexture(std::string fileName)
@@ -55,6 +63,7 @@ bool DrawableObj::Draw()
 	{
 		return false;
 	}
+	this->shader->setUniMatrix(this->modelUniform, this->modelMatrix);
 	this->Bind_vao();
 	if(this->textureID)
 		glBindTexture(GL_TEXTURE_2D, this->textureID);
@@ -111,4 +120,31 @@ DrawableObj::~DrawableObj()
 	{
 		SDL_FreeSurface(this->texture);
 	}
+}
+
+void DrawableObj::UpdateModelMatrix()
+{
+	this->modelMatrix = this->rotation * this->translation;
+}
+
+void DrawableObj::SetTranslation(float x, float y, float z)
+{
+	this->translation = glm::translate(glm::mat4(1.0f), glm::vec3(-x, -y, -z));
+	this->UpdateModelMatrix();
+}
+
+void DrawableObj::SetRotation(float rotation, float x, float y, float z)
+{
+	this->rotation = glm::rotate(glm::mat4(1.0f), glm::radians(rotation), glm::vec3(-x, -y, -z));
+	this->UpdateModelMatrix();
+}
+
+glm::mat4 DrawableObj::getModelMatrix()
+{
+	return this->modelMatrix;
+}
+
+void DrawableObj::setModelMatrix(glm::mat4 m)
+{
+	this->modelMatrix = m;
 }

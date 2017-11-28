@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef APPLICATION_H
+#define APPLICATION_H
+
 #include "Window.h"
 #include <Windows.h>
 #include <SDL2/SDL.h>
@@ -50,3 +53,5 @@ template <class StateClass> void SetState(Application *application)
 {
 	application->SetState(new StateClass(application));
 }
+
+#endif

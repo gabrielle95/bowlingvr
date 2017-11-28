@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef WINDOW_H
+#define WINDOW_H
+
 #include <iostream>
 #include <exception>
 #include <SDL2/SDL.h>
@@ -31,3 +34,4 @@ private:
 	SDL_Window* sdlWindow;
 	SDL_GLContext sdlGLContext;
 };
+#endif

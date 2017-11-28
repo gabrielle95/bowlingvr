@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef ROOM_H
+#define ROOM_H
+
 #include "DrawableObj.h"
 #include "Shader.h"
 
@@ -11,3 +14,4 @@ public:
 private:
 	GLint posAttr, colAttr;
 };
+#endif

@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef TESTSTATE2_H
+#define TESTSTATE2_H
 #include "Application.h"
 
 class TestState2 : public GameState
@@ -11,3 +13,4 @@ public:
 	bool Destroy();
 	~TestState2();
 };
+#endif

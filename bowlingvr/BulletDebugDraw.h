@@ -1,4 +1,6 @@
 #pragma once
+#ifndef BULLETDEBUGDRAW_H
+#define BULLETDEBUGDRAW_H
 #include <iostream>
 #include <vector>
 #include <glm/gtc/type_ptr.hpp>
@@ -52,3 +54,4 @@ private:
 protected:
 	int m_debugMode;
 };
+#endif
