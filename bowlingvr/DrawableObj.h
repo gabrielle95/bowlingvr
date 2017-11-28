@@ -18,6 +18,7 @@ class DrawableObj
 public:
 	DrawableObj();
 	void SetTranslation(float x, float y, float z);
+	void SetTranslation(glm::mat4 m);
 	void SetRotation(float rotation, float x, float y, float z);
 
 	glm::mat4 GetTranslation();
@@ -25,11 +26,12 @@ public:
 
 	void setShader(Shader *shader);
 
-	void InitSpherePhysics(btScalar mass, btScalar radius);
-	void InitStaticPlanePhysics(btVector3 planeNormal, btScalar planeConstant);
+	void InitSpherePhysics(btScalar mass, btScalar radius, btVector3 origin = btVector3(0, 0, 0));
+	void InitStaticPlanePhysics(btScalar dimension, btVector3 origin = btVector3(0, 0, 0));
 
 	glm::mat4 getModelMatrix();
 	void setModelMatrix(glm::mat4 m);
+
 
 	~DrawableObj();
 	bool Draw();

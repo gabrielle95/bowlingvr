@@ -31,7 +31,7 @@ BulletWorld::BulletWorld()
 	this->bwWorld->setGravity(btVector3(0, -9.807, 0)); //earth gravity
 
 	this->debugDraw = new BulletDebugDraw();
-	this->debugDraw->setDebugMode(1);
+	this->debugDraw->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
 	this->bwWorld->setDebugDrawer(this->debugDraw);
 }
 

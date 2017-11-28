@@ -41,6 +41,7 @@ Application::Application()
 			else
 			{
 				glEnable(GL_DEPTH_TEST);
+				//glEnable(GL_CULL_FACE);
 			}
 		}
 	}

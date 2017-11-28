@@ -16,18 +16,28 @@ public:
 	void Rotate(float rotation, float x, float y, float z);
 	void Update();
 
+	glm::mat4 getTranslation();
+	glm::mat4 getRotation();
+
 	glm::mat4 getModelMatrix();
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix();
 
+	//glm::vec3 position = glm::vec3(0,2,2);
+	glm::vec3 direction;
+
 private:
+	// p * v * m
 	glm::mat4 projMatrix;
 	glm::mat4 viewMat;
 	glm::mat4 modelMat = glm::mat4(1.0); //identity
+
+
 	glm::mat4 translation;
 	glm::mat4 rotation;
 
 	Shader * shader;
+
 
 	GLint vpUniform;
 

@@ -39,32 +39,47 @@ ObjLoader::ObjLoader(Shader *shader, std::string fileName) : DrawableObj()
 		this->loadVertices(this->finalData);
 		this->loadElements(this->elements);
 
-		this->posAttr = shader->getAttr("position");
-		this->colAttr = shader->getAttr("color");
-		this->uvAttr = shader->getAttr("uv");
+		this->positionAttr = shader->getAttr("position");
+		this->colorAttr = shader->getAttr("color");
+		this->uvsAttr = shader->getAttr("uv");
 
-		glEnableVertexAttribArray(this->posAttr);
-		glVertexAttribPointer(this->posAttr, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), 0);
-		glEnableVertexAttribArray(this->colAttr);
-		glVertexAttribPointer(this->colAttr, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void *)(3 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(this->uvAttr);
-		glVertexAttribPointer(this->uvAttr, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void *)(6 * sizeof(GLfloat)));
-	
+		glEnableVertexAttribArray(this->positionAttr);
+		glVertexAttribPointer(this->positionAttr, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), 0);
+		glEnableVertexAttribArray(this->colorAttr);
+		glVertexAttribPointer(this->colorAttr, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void *)(3 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(this->uvsAttr);
+		glVertexAttribPointer(this->uvsAttr, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void *)(6 * sizeof(GLfloat)));
 		this->Unbind_vao();
 
-		this->vertices.clear();
-		this->uvs.clear();
-		this->finalData.clear();
-		this->elements.clear();
-		this->elementCache.clear();
-		dataStream.clear();
-		file.close();
 		std::cout << "obj loaded successfully!" << std::endl;
 	}
 	else
 	{
 		std::cout << "failed to load obj file..." << std::endl;
 	}
+	dataStream.clear();
+	file.close();
+}
+
+ObjLoader::ObjLoader(Shader * shader, std::vector<float> finalData, std::vector<unsigned int> elements) : DrawableObj()
+{
+	this->finalData = finalData;
+	this->elements = elements;
+	this->Bind_vao();
+	this->loadVertices(this->finalData);
+	this->loadElements(this->elements);
+
+	this->positionAttr = shader->getAttr("position");
+	this->colorAttr = shader->getAttr("color");
+	this->uvsAttr = shader->getAttr("uv");
+
+	glEnableVertexAttribArray(this->positionAttr);
+	glVertexAttribPointer(this->positionAttr, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), 0);
+	glEnableVertexAttribArray(this->colorAttr);
+	glVertexAttribPointer(this->colorAttr, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void *)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(this->uvsAttr);
+	glVertexAttribPointer(this->uvsAttr, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (void *)(6 * sizeof(GLfloat)));
+	this->Unbind_vao();
 }
 
 void ObjLoader::processVertexData(std::string type, float x, float y, float z)
@@ -124,4 +139,17 @@ void ObjLoader::processFaceData(std::string triplet)
 		this->elementCache.emplace(elementString, elementID);
 		this->elementID += 1;
 	}
+}
+
+ObjLoader::~ObjLoader()
+{
+	this->finalData.clear();
+	this->elements.clear();
+	this->Unbind_vao();
+
+	this->vertices.clear();
+	this->uvs.clear();
+
+	this->elementCache.clear();
+
 }

@@ -52,6 +52,16 @@ void Camera::Update()
 	this->shader->setUniMatrix(this->vpUniform, (this->projMatrix * this->viewMat /** this->modelMat*/));
 }
 
+glm::mat4 Camera::getTranslation()
+{
+	return this->translation;
+}
+
+glm::mat4 Camera::getRotation()
+{
+	return this->rotation;
+}
+
 glm::mat4 Camera::getModelMatrix()
 {
 	return this->modelMat;
@@ -69,5 +79,7 @@ glm::mat4 Camera::getProjectionMatrix()
 
 void Camera::UpdateViewMatrix()
 {
+	//glm::vec3 up = glm::cross(this->direction, this->direction);
+	//this->viewMat = glm::lookAt(this->position, this->position+this->direction, up);
 	this->viewMat = this->rotation * this->translation; //scale not included for now
 }

@@ -24,35 +24,46 @@ void DrawableObj::setShader(Shader *shader)
 	this->modelUniform = this->shader->getUniLocation("modelMatrix");
 }
 
-void DrawableObj::InitSpherePhysics(btScalar mass, btScalar radius)
+void DrawableObj::InitSpherePhysics(btScalar mass, btScalar radius, btVector3 origin)
 {
 	this->collisionShape = new btSphereShape(radius);
 
+	btTransform trans; //= BulletUtils::btTransFrom(this->modelMatrix);
+	trans.setIdentity();
+	trans.setOrigin(origin);
+	this->motionstate = new btDefaultMotionState(trans);
+
+	btVector3 inertia = btVector3(0,0,0);
+	if (mass != 0.f)
+	{
+		this->collisionShape->calculateLocalInertia(mass, inertia);
+	}
+
+	btRigidBody::btRigidBodyConstructionInfo rbInfo
+	(mass, this->motionstate, this->collisionShape, inertia);
+	rbInfo.m_friction = 0.9f;
+	this->rigidBody = new btRigidBody(rbInfo);
+	//this->rigidBody->setUserPointer(this);
+}
+
+void DrawableObj::InitStaticPlanePhysics(btScalar dimension, btVector3 origin)
+{
+	//this->collisionShape = new btStaticPlaneShape(planeNormal, planeConstant);
+	this->collisionShape = new btBoxShape(btVector3(dimension, dimension, dimension));
+
 	btTransform trans = BulletUtils::btTransFrom(this->modelMatrix);
+	//btTransform trans;
+	trans.setOrigin(origin);
+	//trans.setIdentity();
 	this->motionstate = new btDefaultMotionState(trans);
 
 	btRigidBody::btRigidBodyConstructionInfo rbInfo
-	(mass, this->motionstate, this->collisionShape, btVector3(0, 0, 0));
+	(btScalar(0.f), this->motionstate, this->collisionShape, btVector3(0, 0, 0));
 
+	rbInfo.m_friction = 0.9f;
 	this->rigidBody = new btRigidBody(rbInfo);
-	this->rigidBody->setUserPointer(this);
-}
-
-void DrawableObj::InitStaticPlanePhysics(btVector3 planeNormal, btScalar planeConstant)
-{
-	this->collisionShape = new btStaticPlaneShape(planeNormal, planeConstant);
-
-	//btTransform trans = BulletUtils::btTransFrom(this->modelMatrix);
-	btTransform trans;
-	trans.setOrigin(btVector3(0,0,0));
-	trans.setIdentity();
-	//this->motionstate = new btDefaultMotionState(trans);
-
-	btRigidBody::btRigidBodyConstructionInfo rbInfo
-	(btScalar(0), this->motionstate, this->collisionShape, btVector3(0, 0, 0));
-
-	this->rigidBody = new btRigidBody(rbInfo);
-	this->rigidBody->setUserPointer(this);
+	this->rigidBody->setGravity(btVector3(0,0,0));
+	//this->rigidBody->setUserPointer(this);
 }
 
 void DrawableObj::loadTexture(std::string fileName)
@@ -175,6 +186,12 @@ void DrawableObj::UpdateModelMatrix()
 void DrawableObj::SetTranslation(float x, float y, float z)
 {
 	this->translation = glm::translate(glm::mat4(1.0f), glm::vec3(-x, -y, -z));
+	this->UpdateModelMatrix();
+}
+
+void DrawableObj::SetTranslation(glm::mat4 m)
+{
+	this->translation = m;
 	this->UpdateModelMatrix();
 }
 

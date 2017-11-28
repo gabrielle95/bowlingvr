@@ -17,6 +17,7 @@ public:
 	bool Init();
 	bool Update();
 	bool Destroy();
+	void ShootSphere(btVector3 direction);
 	~TestState();
 private:
 	Shader *shader;
@@ -28,7 +29,8 @@ private:
 	ObjLoader *sphereObj;
 	ObjLoader *smallSp;
 
-	//std::vector<DynamicObj*>dynamicObjects;
+	std::vector<ObjLoader*>dynamicObjects;
+	btAlignedObjectArray<btCollisionShape*> collisionShapes;
 
 	glm::vec3 camRotation;
 	glm::vec3 camVelocity;
