@@ -18,26 +18,28 @@ bool TestState::Init()
 	this->dynamicWorld = BulletWorld::Instance();
 
 	this->testShape = new TestShape(this->shader);
+	//this->testShape->SetTranslation(2, -5, 3);
 
+	//big ball
 	this->sphereObj = new ObjLoader(this->shader, "sphereModel.obj");
 	this->sphereObj->setShader(this->shader);
-	this->sphereObj->SetTranslation(1,1,5);
-	/*DynamicObj *d_sphereObj = new DynamicObj(this->sphereObj, btScalar(1), BT_SPHERE);
-	this->dynamicObjects.push_back(d_sphereObj);
-	d_sphereObj->addBodyToWorld(this->dynamicWorld);*/
+	this->sphereObj->SetTranslation(-0.4f, -15, 5);
+	this->sphereObj->InitSpherePhysics(btScalar(0.2f), btScalar(1.f));
+	this->dynamicWorld->addRigidBody(this->sphereObj->rigidBody);
 
+	//small ball
 	this->smallSp = new ObjLoader(this->shader, "sphereModel_half.obj");
 	this->smallSp->setShader(this->shader);
-	this->smallSp->SetTranslation(-3, 1, 7);
-	/*DynamicObj *d_smallSp = new DynamicObj(this->smallSp, btScalar(1), BT_SPHERE);
-	this->dynamicObjects.push_back(d_smallSp);
-	d_smallSp->addBodyToWorld(this->dynamicWorld);*/
+	this->smallSp->SetTranslation(0, -0.5, 5);
+	this->smallSp->InitSpherePhysics(btScalar(0.5f), btScalar(0.5f));
+	this->dynamicWorld->addRigidBody(this->smallSp->rigidBody);
 
-	//plane
+
+	//plane - nefunguju transformacie
 	this->room = new Room(this->shader);
-	/*DynamicObj *d_room = new DynamicObj(this->room, btScalar(0), BT_PLANE);
-	this->dynamicObjects.push_back(d_room);
-	d_room->addBodyToWorld(this->dynamicWorld);*/
+	this->room->InitStaticPlanePhysics(btVector3(0,1,0), btScalar(0));
+	this->dynamicWorld->addRigidBody(this->room->rigidBody);
+
 
 	this->camera = new Camera(this->shader, 1600,900);
 	this->camera->SetTranslation(0,0,2);
@@ -52,29 +54,30 @@ bool TestState::Init()
 
 bool TestState::Update()
 {
-	this->currentTime = SDL_GetTicks();
+	//this->currentTime = SDL_GetTicks();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	this->dynamicWorld->stepSimulation(1.f/60.f);
-	glUniform1i(this->hasTextureUniform, true);
+	
 	/* draw everything that has texture */
+	glUniform1i(this->hasTextureUniform, true);
+	
 	//this->testShape->Draw();
 	glUniform1i(this->hasTextureUniform, false);
+
 	/*for (int j = 0; j < dynamicObjects.size(); j++)
 	{
 		DynamicObj* shape = dynamicObjects[j];
 		shape->updateDrawable();
 	}*/
+	
+	this->dynamicWorld->stepSimulation(1.f / 60.f);
+	
+	//this->room->Draw();
+	
 	this->smallSp->Draw();
 	this->sphereObj->Draw();
-	this->room->Draw();
-	//this->box->Draw();
 	
-	/*glm::mat4 vm = this->camera->getViewMatrix();
-	glm::mat4 pm = this->camera->getProjectionMatrix();
-	this->bwInstance->debugDraw->SetMatrices(vm, pm);
-	this->bwInstance->bwWorld->debugDrawWorld();*/
+	//this->dynamicWorld->debugDrawWorld();
 	
-	//this->bwInstance->bwUpdate(1.f / 60.f);
 	this->camera->Update();
 
 

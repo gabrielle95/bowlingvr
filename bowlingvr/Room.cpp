@@ -7,29 +7,29 @@
 GLfloat room_vert[] = {
 	-10.0f,  10.f, -10.0f,		0.502f, 0.502f, 0.502f, // 0 Top-left-front
 	10.0f,  10.f, -10.0f,		0.502f, 0.502f, 0.502f, // 1 Top-right-front
-	10.0f, -0.5f, -10.0f,		0, 0, 0,				// 2 Bottom-right-front
-	-10.0f, -0.5f, -10.0f,		0.502f, 0.502f, 0.502f,  // 3 Bottom-left-front
+	10.0f, -2.f, -10.0f,		0, 0, 0,				// 2 Bottom-right-front
+	-10.0f, -2.f, -10.0f,		0.502f, 0.502f, 0.502f,  // 3 Bottom-left-front
 
 	-10.0f,  10.f, 10.0f,		0.502f, 0.502f, 0.502f, // 4 Top-left-back
 	10.0f,  10.f, 10.0f,		0.502f, 0.502f, 0.502f, // 5 Top-right-back
-	10.0f, -0.5f, 10.0f,		0.502f, 0.502f, 0.502f, // 6 Bottom-right-back
-	-10.0f, -0.5f, 10.0f,		0.412f, 0.412f, 0.412f  // 7 Bottom-left-back*/
+	10.0f, -2.f, 10.0f,		0.502f, 0.502f, 0.502f, // 6 Bottom-right-back
+	-10.0f, -2.f, 10.0f,		0.412f, 0.412f, 0.412f  // 7 Bottom-left-back*/
 };
 
 
 GLuint room_elem[] = {
-0, 1, 2,
-2, 3, 0,
+/*0, 1, 2,
+2, 3, 0,*/
 2, 3, 7,
 7, 6, 2,
-4,5,1,
+/*4,5,1,
 1,0,4,
 4,5,6,
 6,7,4,
 4,0,3,
 3,7,4,
 1,5,6,
-6,2,1
+6,2,1*/
 };
 Room::Room(Shader *shader) : DrawableObj()
 {

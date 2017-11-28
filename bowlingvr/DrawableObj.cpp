@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/transform.hpp>
+#include "BulletUtils.h"
 #include "DrawableObj.h"
 
 DrawableObj::DrawableObj()
@@ -11,6 +12,9 @@ DrawableObj::DrawableObj()
 	this->vbo = 0;
 	this->ebo = 0;
 	this->textureID = 0;
+	this->rigidBody = nullptr;
+	this->collisionShape = nullptr;
+	this->motionstate = nullptr;
 	glGenVertexArrays(1, &this->vao);
 }
 
@@ -18,6 +22,37 @@ void DrawableObj::setShader(Shader *shader)
 {
 	this->shader = shader;
 	this->modelUniform = this->shader->getUniLocation("modelMatrix");
+}
+
+void DrawableObj::InitSpherePhysics(btScalar mass, btScalar radius)
+{
+	this->collisionShape = new btSphereShape(radius);
+
+	btTransform trans = BulletUtils::btTransFrom(this->modelMatrix);
+	this->motionstate = new btDefaultMotionState(trans);
+
+	btRigidBody::btRigidBodyConstructionInfo rbInfo
+	(mass, this->motionstate, this->collisionShape, btVector3(0, 0, 0));
+
+	this->rigidBody = new btRigidBody(rbInfo);
+	this->rigidBody->setUserPointer(this);
+}
+
+void DrawableObj::InitStaticPlanePhysics(btVector3 planeNormal, btScalar planeConstant)
+{
+	this->collisionShape = new btStaticPlaneShape(planeNormal, planeConstant);
+
+	//btTransform trans = BulletUtils::btTransFrom(this->modelMatrix);
+	btTransform trans;
+	trans.setOrigin(btVector3(0,0,0));
+	trans.setIdentity();
+	//this->motionstate = new btDefaultMotionState(trans);
+
+	btRigidBody::btRigidBodyConstructionInfo rbInfo
+	(btScalar(0), this->motionstate, this->collisionShape, btVector3(0, 0, 0));
+
+	this->rigidBody = new btRigidBody(rbInfo);
+	this->rigidBody->setUserPointer(this);
 }
 
 void DrawableObj::loadTexture(std::string fileName)
@@ -63,7 +98,17 @@ bool DrawableObj::Draw()
 	{
 		return false;
 	}
+
+	if (this->motionstate != nullptr)
+	{
+		btTransform trans;
+		this->motionstate->getWorldTransform(trans);
+		glm::mat4 transmat = BulletUtils::glmMat4From(trans);
+		this->modelMatrix = transmat;
+	}
+
 	this->shader->setUniMatrix(this->modelUniform, this->modelMatrix);
+
 	this->Bind_vao();
 	if(this->textureID)
 		glBindTexture(GL_TEXTURE_2D, this->textureID);

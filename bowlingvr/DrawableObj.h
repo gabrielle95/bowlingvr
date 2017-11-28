@@ -25,11 +25,16 @@ public:
 
 	void setShader(Shader *shader);
 
+	void InitSpherePhysics(btScalar mass, btScalar radius);
+	void InitStaticPlanePhysics(btVector3 planeNormal, btScalar planeConstant);
+
 	glm::mat4 getModelMatrix();
 	void setModelMatrix(glm::mat4 m);
 
 	~DrawableObj();
 	bool Draw();
+
+	btRigidBody *rigidBody;
 private:
 	Shader *shader;
 	GLuint vao, vbo, ebo;
@@ -43,6 +48,9 @@ private:
 	
 	glm::mat4 modelMatrix;
 	GLint modelUniform;
+
+	btCollisionShape *collisionShape;
+	btDefaultMotionState *motionstate;
 
 	void UpdateModelMatrix();
 protected:
