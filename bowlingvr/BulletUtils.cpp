@@ -10,6 +10,7 @@ BulletUtils::~BulletUtils(void)
 {
 }
 
+/* not used rn*/
 btRigidBody * BulletUtils::CreateRigidBody(btScalar mass, const btTransform & startTransform, btCollisionShape * shape)
 {
 	btVector3 localInertia(0, 0, 0);

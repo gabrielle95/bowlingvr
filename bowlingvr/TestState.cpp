@@ -17,9 +17,9 @@ bool TestState::Init()
 	/* initialize bullet*/
 	this->dynamicWorld = BulletWorld::Instance();
 
-	this->testShape = new TestShape(this->shader);
+	/*this->testShape = new TestShape(this->shader);
 	this->testShape->setShader(this->shader);
-	this->testShape->SetTranslation(0, -2, 3);
+	this->testShape->SetTranslation(0, -2, 3);*/
 
 	this->room = new Room(this->shader);
 	this->room->setShader(this->shader);
@@ -29,7 +29,7 @@ bool TestState::Init()
 	//big ball
 	this->sphereObj = new ObjLoader(this->shader, "sphereModel.obj");
 	this->sphereObj->setShader(this->shader);
-	this->sphereObj->InitSpherePhysics(btScalar(0.1f), btScalar(1.f), btVector3(0,2,0));
+	this->sphereObj->InitSpherePhysics(btScalar(0.1f), btScalar(1.f), btVector3(0,2,-2));
 	this->dynamicWorld->addRigidBody(this->sphereObj->rigidBody);
 	dynamicObjects.push_back(this->sphereObj);
 
@@ -62,7 +62,7 @@ bool TestState::Update()
 	/* draw everything that has texture */
 	glUniform1i(this->hasTextureUniform, true);
 	
-	this->testShape->Draw();
+	//this->testShape->Draw();
 	glUniform1i(this->hasTextureUniform, false);
 
 	this->room->Draw();
