@@ -7,8 +7,8 @@
 #include "ObjLoader.h"
 #include "Shader.h"
 #include "Camera.h"
+#include "CDebugDraw.h"
 #include "BulletWorld.h"
-//#include "DynamicObj.h"
 
 class TestState : public GameState
 {
@@ -17,6 +17,7 @@ public:
 	bool Init();
 	bool Update();
 	bool Destroy();
+	void drawLines(std::vector<CDebugDraw::LINE>& lines);
 	void ShootSphere(btVector3 direction);
 	~TestState();
 private:
@@ -34,11 +35,13 @@ private:
 
 	glm::vec3 camRotation;
 	glm::vec3 camVelocity;
-	const float mouse_speed = 0.1f;
+	const float mouse_speed = 1.f;
+	float deltaTime = 0.f;
+	float deltaNow = 0.f;
+	float deltaThen = 0.f;
 	GLint hasTextureUniform;
 
 	uint32_t currentTime = 0;
 	uint32_t lastTime = 0;
-	float deltaTime;
 };
 #endif

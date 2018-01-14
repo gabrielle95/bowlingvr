@@ -5,17 +5,18 @@
 #include <vector>
 #include <bullet/btBulletDynamicsCommon.h>
 #include "BulletDebugDraw.h"
-//#include"OpenGLMotionState.h"
+#include "CDebugDraw.h"
 
 class BulletWorld
 {
 	
 public:	
 	BulletWorld();
-	static btDynamicsWorld *Instance();
+	static BulletWorld *Instance();
 	~BulletWorld();
 
-	BulletDebugDraw *debugDraw;
+	CDebugDraw *debugDraw;
+	btDynamicsWorld *dynamicWorld;
 
 private:
 	static BulletWorld *bwInstancePtr;
@@ -24,7 +25,5 @@ private:
 	btConstraintSolver *bwConstraintSolver;
 	btCollisionConfiguration *bwColConfig;
 
-protected:
-	static btDynamicsWorld *bwWorld;
 };
 #endif

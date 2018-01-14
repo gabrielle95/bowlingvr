@@ -13,5 +13,6 @@ public:
 	~Room();
 private:
 	GLint posAttr, colAttr;
+	Shader *shader;
 };
 #endif

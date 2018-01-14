@@ -3,16 +3,15 @@
 
 
 BulletWorld *BulletWorld::bwInstancePtr = nullptr;
-btDynamicsWorld *BulletWorld::bwWorld;
 
-btDynamicsWorld* BulletWorld::Instance() /* singleton */
+BulletWorld* BulletWorld::Instance() /* singleton */
 {
 	if (BulletWorld::bwInstancePtr == nullptr)
 	{
 		BulletWorld::bwInstancePtr = new BulletWorld();
-		return BulletWorld::bwWorld;
+		//return BulletWorld::bwWorld;
 	}
-	return BulletWorld::bwWorld;
+	return BulletWorld::bwInstancePtr;
 }
 
 BulletWorld::BulletWorld()
@@ -23,21 +22,22 @@ BulletWorld::BulletWorld()
 	this->bwConstraintSolver = new btSequentialImpulseConstraintSolver();
 
 	/* create the bullet world*/
-	this->bwWorld = new btDiscreteDynamicsWorld(this->bwDispatcher,
+	this->dynamicWorld = new btDiscreteDynamicsWorld(this->bwDispatcher,
 		this->bwBPInterface,
 		this->bwConstraintSolver,
 		this->bwColConfig);
 
-	this->bwWorld->setGravity(btVector3(0, -9.807, 0)); //earth gravity
+	this->dynamicWorld->setGravity(btVector3(0, -9.807, 0)); //earth gravity
 
-	this->debugDraw = new BulletDebugDraw();
+	//this->debugDraw = new BulletDebugDraw_DeprecatedOpenGL();
+	this->debugDraw = new CDebugDraw();
 	this->debugDraw->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
-	this->bwWorld->setDebugDrawer(this->debugDraw);
+	this->dynamicWorld->setDebugDrawer(this->debugDraw);
 }
 
 BulletWorld::~BulletWorld()
 {
-	delete this->bwWorld;
+	delete this->dynamicWorld;
 	delete this->debugDraw;
 	delete this->bwConstraintSolver;
 	delete this->bwBPInterface;

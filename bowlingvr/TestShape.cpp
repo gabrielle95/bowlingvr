@@ -20,6 +20,7 @@ GLuint elem[] = {
 };
 TestShape::TestShape(Shader *shader) : DrawableObj()
 {
+	DrawableObj::setShader(shader);
 	this->Bind_vao();
 	this->loadVertices(vert, sizeof(vert) * sizeof(GLfloat));
 	this->loadElements(elem, sizeof(elem) * sizeof(GLint));

@@ -35,6 +35,7 @@ ObjLoader::ObjLoader(Shader *shader, std::string fileName) : DrawableObj()
 				break;
 			}
 		}
+		DrawableObj::setShader(shader);
 		this->Bind_vao();
 		this->loadVertices(this->finalData);
 		this->loadElements(this->elements);

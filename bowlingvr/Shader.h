@@ -15,6 +15,8 @@ public:
 	GLint getAttr(std::string attr);
 	GLint getUniLocation(std::string name);
 	void setUniMatrix(GLint location, glm::mat4 matrix);
+	GLuint getShaderProgram();
+
 private:
 	std::ifstream vxFile, fgFile;
 	std::string vxname, fgname;

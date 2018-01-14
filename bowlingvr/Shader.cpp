@@ -132,3 +132,8 @@ void Shader::setUniMatrix(GLint location, glm::mat4 matrix)
 {
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix)); 
 }
+
+GLuint Shader::getShaderProgram()
+{
+	return this->shaderProgram;
+}

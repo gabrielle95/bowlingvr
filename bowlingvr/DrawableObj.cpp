@@ -110,6 +110,8 @@ bool DrawableObj::Draw()
 		return false;
 	}
 
+	/* OpenGL model matrix based on btphysic body motion state */
+	/* The OpenGL model renders where the physic body is located */
 	if (this->motionstate != nullptr)
 	{
 		btTransform trans;

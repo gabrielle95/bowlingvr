@@ -146,10 +146,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="BulletDebugDraw.cpp" />
     <ClCompile Include="BulletUtils.cpp" />
     <ClCompile Include="BulletWorld.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CDebugDraw.cpp" />
     <ClCompile Include="DrawableObj.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjLoader.cpp" />
@@ -162,10 +162,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
-    <ClInclude Include="BulletDebugDraw.h" />
     <ClInclude Include="BulletUtils.h" />
     <ClInclude Include="BulletWorld.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CDebugDraw.h" />
     <ClInclude Include="DrawableObj.h" />
     <ClInclude Include="ObjLoader.h" />
     <ClInclude Include="OpenGLMotionState.h" />

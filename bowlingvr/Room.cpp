@@ -33,7 +33,7 @@ GLuint room_elem[] = {
 };
 Room::Room(Shader *shader) : DrawableObj()
 {
-
+	DrawableObj::setShader(shader);
 	this->Bind_vao();
 	this->loadVertices(room_vert, sizeof(room_vert) /** sizeof(GLfloat)*/);
 	this->loadElements(room_elem, sizeof(room_elem) /* sizeof(GLuint)*/);
@@ -44,7 +44,7 @@ Room::Room(Shader *shader) : DrawableObj()
 	glVertexAttribPointer(this->posAttr, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
 	glEnableVertexAttribArray(this->colAttr);
 	glVertexAttribPointer(this->colAttr, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void *)(3 * sizeof(GLfloat)));
-	//this->Unbind_vao();
+	this->Unbind_vao();
 }
 
 Room::~Room()
