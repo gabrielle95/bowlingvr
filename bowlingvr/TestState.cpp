@@ -17,56 +17,54 @@ bool TestState::Init()
 	/* initialize bullet*/
 	this->dynamicWorld = BulletWorld::Instance()->dynamicWorld;
 
-	//this->wireframe = new Wireframe(this->shader);
-
-	//BulletWorld::Instance()->debugDraw->SetShader(this->shader);
-
 	this->testShape = new TestShape(this->shader);
-	//this->testShape->setShader(this->shader);
 	this->testShape->SetTranslation(0, -2, 5);
 
 	/* ROOM */
 	this->room = new Room(this->shader);
-	//this->room->setShader(this->shader);
 	this->room->InitStaticPlanePhysics(btScalar(10.), btVector3(0, -10, 0));
 	this->dynamicWorld->addRigidBody(this->room->rigidBody);
 
 	//big ball
-	this->sphereObj = new ObjLoader(this->shader, "sphereModel.obj");
-	//this->sphereObj->setShader(this->shader);
+	/*this->sphereObj = new ObjLoader(this->shader, "sphereModel.obj");
 	this->sphereObj->InitSpherePhysics(btScalar(0.1f), btScalar(1.f), btVector3(0,2,-2));
 	this->dynamicWorld->addRigidBody(this->sphereObj->rigidBody);
-	dynamicObjects.push_back(this->sphereObj);
+	dynamicObjects.push_back(this->sphereObj);*/
 
 	//small ball
 	this->smallSp = new ObjLoader(this->shader, "sphereModel_half.obj");
-	//this->smallSp->setShader(this->shader);
-	this->smallSp->InitSpherePhysics(btScalar(0.1f), btScalar(0.5f), btVector3(0, 0.5, 0));
+	/*this->smallSp->InitSpherePhysics(btScalar(0.1f), btScalar(0.5f), btVector3(0, 0.5, 0));
 	this->dynamicWorld->addRigidBody(this->smallSp->rigidBody);
-	dynamicObjects.push_back(this->smallSp);
+	dynamicObjects.push_back(this->smallSp);*/
 
+
+	//cam
 	this->camera = new Camera(this->shader, 1600,900);
 	this->camera->SetTranslation(0,2,2);
-	//raycasting?
-	//this->dynamicWorld->rayTest();
-	//SDL_WarpMouseInWindow(NULL, 500, 500);
+
 	SDL_WarpMouseGlobal(500, 500);
 	SDL_ShowCursor(0);
 	this->camVelocity = glm::vec3(this->mouse_speed*5, this->mouse_speed*5, this->mouse_speed*5);
-	//std::cout << "caling testCreate" << std::endl;
-
-	//BulletWorld::Instance()->debugDraw->shaderProgram = this->shader->getShaderProgram();
-
+	
 	return true;
 }
 
 bool TestState::Update()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+
+
+	this->dynamicWorld->stepSimulation(1.f / 90.f);
+
+	/* DEBUG DRAW */
+	if (this->debugMode) {
+		BulletWorld::Instance()->debugDraw->SetMatrices(this->camera->getViewMatrix(), this->camera->getProjectionMatrix());
+		this->dynamicWorld->debugDrawWorld();
+		this->shader->Use();
+	}
+
 	/* draw everything that has texture */
 	glUniform1i(this->hasTextureUniform, true);
-	
 	this->testShape->Draw();
 	glUniform1i(this->hasTextureUniform, false);
 
@@ -76,18 +74,13 @@ bool TestState::Update()
 		ObjLoader* shape = this->dynamicObjects[j];
 		shape->Draw();
 	}
-	
-	
-	//this->dynamicWorld->debugDrawWorld();
-	/*this->smallSp->Draw();
-	this->sphereObj->Draw();*/
 
-	
+	this->camera->Update();
 
 	this->deltaNow = SDL_GetTicks();
 	/*this->lastTime = currentTime;
 	this->currentTime = SDL_GetTicks(); //ms*/
-	
+
 	this->deltaTime = (this->deltaNow - this->deltaThen) / 1000.0;
 
 	const uint8_t *state = SDL_GetKeyboardState(NULL);
@@ -121,11 +114,27 @@ bool TestState::Update()
 	}
 
 
-	if (state[SDL_SCANCODE_C])
+	if (!this->pressedC && state[SDL_SCANCODE_C])
 	{
-		
-		this->ShootSphere(btVector3(0.1f,2,0));
+		this->pressedC = true;
+		glm::mat4 vm = glm::inverse(this->camera->getViewMatrix());
+		this->ShootSphere(btVector3(-vm[2][0], -vm[2][1], -vm[2][2]), btVector3(vm[3][0], vm[3][1], vm[3][2]));
 	}
+	else if (!state[SDL_SCANCODE_C])
+	{
+		this->pressedC = false;
+	}
+
+	if (!this->pressedP && state[SDL_SCANCODE_P])
+	{
+		this->pressedP = true;
+		this->debugMode = !this->debugMode;
+	}
+	else if(!state[SDL_SCANCODE_P])
+	{
+		this->pressedP = false;
+	}
+		
 
 /*	if (state[SDL_SCANCODE_LEFT])
 	{	
@@ -167,19 +176,12 @@ bool TestState::Update()
 	
 	this->deltaThen = this->deltaNow;
 	//printf("Secs per frame: %f\n", deltaTime);
-	
-	this->dynamicWorld->stepSimulation(1.f / 90.f);
-	this->camera->Update();
 
-	/* DEBUG DRAW */
-	/* normal drawing must be off to work properly */
-	//BulletWorld::Instance()->debugDraw->SetMatrices(this->camera->getViewMatrix(), this->camera->getProjectionMatrix());
-	//this->dynamicWorld->debugDrawWorld();
 	
 	return true;
 }
 
-void TestState::ShootSphere(btVector3 direction)
+void TestState::ShootSphere(btVector3 direction, btVector3 origin)
 {
 	std::vector<float> fd(this->smallSp->finalData);
 	std::vector<unsigned int> el(this->smallSp->elements);
@@ -190,7 +192,7 @@ void TestState::ShootSphere(btVector3 direction)
 	velocity.normalize();
 	velocity *= 10.0f;
 
-	shoot->InitSpherePhysics(btScalar(2.5f), btScalar(0.5f), btVector3(0,2,0));
+	shoot->InitSpherePhysics(btScalar(2.5f), btScalar(0.5f), origin);
 	this->dynamicWorld->addRigidBody(shoot->rigidBody);
 	shoot->rigidBody->setLinearVelocity(velocity);
 	dynamicObjects.push_back(shoot);
@@ -220,37 +222,6 @@ bool TestState::Destroy()
 	return true;
 }
 
-/*void TestState::drawLines(std::vector<CDebugDraw::LINE> & lines)
-{
-	glDisable(GL_CULL_FACE);
-	std::vector<GLfloat> vertices;
-	std::vector<GLuint> indices;
-	unsigned int indexI = 0;
-
-	for (std::vector<CDebugDraw::LINE>::iterator it = lines.begin(); it != lines.end(); it++)
-	{
-		CDebugDraw::LINE l = (*it);
-		vertices.push_back(l.a.x);
-		vertices.push_back(l.a.y);
-		vertices.push_back(l.a.z);
-
-		vertices.push_back(l.b.x);
-		vertices.push_back(l.b.y);
-		vertices.push_back(l.b.z);
-
-		indices.push_back(indexI);
-		indices.push_back(indexI + 1);
-		indexI += 2;
-	}
-
-	this->wireframe->ModelMat = this->camera->getModelMatrix();
-	this->wireframe->ViewProjMat = this->camera->getProjectionMatrix() * this->camera->getViewMatrix();
-	this->wireframe->Draw(vertices, indices);
-
-	lines.clear();
-
-}
-*/
 TestState::~TestState()
 {
 	for (int j = 0; j < this->dynamicObjects.size(); j++)

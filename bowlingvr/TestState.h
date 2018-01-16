@@ -18,7 +18,7 @@ public:
 	bool Update();
 	bool Destroy();
 	void drawLines(std::vector<CDebugDraw::LINE>& lines);
-	void ShootSphere(btVector3 direction);
+	void ShootSphere(btVector3 direction, btVector3 origin);
 	~TestState();
 private:
 	Shader *shader;
@@ -43,5 +43,9 @@ private:
 
 	uint32_t currentTime = 0;
 	uint32_t lastTime = 0;
+
+	bool debugMode = false;
+	bool pressedP = false;
+	bool pressedC = false;
 };
 #endif

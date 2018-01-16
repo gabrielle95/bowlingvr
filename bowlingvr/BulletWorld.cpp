@@ -29,9 +29,12 @@ BulletWorld::BulletWorld()
 
 	this->dynamicWorld->setGravity(btVector3(0, -9.807, 0)); //earth gravity
 
-	//this->debugDraw = new BulletDebugDraw_DeprecatedOpenGL();
 	this->debugDraw = new CDebugDraw();
-	this->debugDraw->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
+	//DBG_DrawAabb
+	//DBG_DrawWireframe
+	//DBG_DrawContactPoints
+	//DBG_DrawConstraints
+	this->debugDraw->setDebugMode(btIDebugDraw::DBG_DrawAabb);
 	this->dynamicWorld->setDebugDrawer(this->debugDraw);
 }
 

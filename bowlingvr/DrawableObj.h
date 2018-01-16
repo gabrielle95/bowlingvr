@@ -26,6 +26,8 @@ public:
 
 	void setShader(Shader *shader);
 
+	void InitPinPhysics();
+
 	void InitSpherePhysics(btScalar mass, btScalar radius, btVector3 origin = btVector3(0, 0, 0));
 	void InitStaticPlanePhysics(btScalar dimension, btVector3 origin = btVector3(0, 0, 0));
 

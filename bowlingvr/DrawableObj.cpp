@@ -24,12 +24,15 @@ void DrawableObj::setShader(Shader *shader)
 	this->modelUniform = this->shader->getUniLocation("modelMatrix");
 }
 
+//void DrawableObj::InitPinPhysics()
+
+
 void DrawableObj::InitSpherePhysics(btScalar mass, btScalar radius, btVector3 origin)
 {
 	this->collisionShape = new btSphereShape(radius);
 
 	btTransform trans; //= BulletUtils::btTransFrom(this->modelMatrix);
-	trans.setIdentity();
+	//trans.setIdentity();
 	trans.setOrigin(origin);
 	this->motionstate = new btDefaultMotionState(trans);
 

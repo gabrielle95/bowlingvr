@@ -21,10 +21,8 @@ void CDebugDraw::drawLine(const btVector3& from, const btVector3& to, const btVe
 
 void CDebugDraw::SetMatrices(glm::mat4 pViewMatrix, glm::mat4 pProjectionMatrix) {
 	glUseProgram(0);
-	//pViewMatrix *= glm::mat4(1.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(&pViewMatrix[0][0]);
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(&pProjectionMatrix[0][0]);
-
 }

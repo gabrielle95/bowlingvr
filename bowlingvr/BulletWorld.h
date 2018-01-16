@@ -4,7 +4,6 @@
 /* using bullet3-2.87*/
 #include <vector>
 #include <bullet/btBulletDynamicsCommon.h>
-#include "BulletDebugDraw.h"
 #include "CDebugDraw.h"
 
 class BulletWorld
