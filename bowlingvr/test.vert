@@ -14,5 +14,6 @@ void main()
 {
 	Color = color;
 	uvs = uv;
-	gl_Position =  mvpMatrix * modelMatrix * vec4(position, 1.0);
+	//gl_Position =  mvpMatrix * modelMatrix * vec4(position, 1.0);
+	gl_Position =  mvpMatrix * vec4(position, 1.0);
 }

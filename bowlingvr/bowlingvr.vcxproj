@@ -151,12 +151,8 @@
     <ClCompile Include="BulletWorld.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CDebugDraw.cpp" />
-    <ClCompile Include="DrawableObj.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ObjLoader.cpp" />
-    <ClCompile Include="Room.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="TestShape.cpp" />
     <ClCompile Include="TestState.cpp" />
     <ClCompile Include="TestState2.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -168,12 +164,7 @@
     <ClInclude Include="BulletWorld.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CDebugDraw.h" />
-    <ClInclude Include="DrawableObj.h" />
-    <ClInclude Include="ObjLoader.h" />
-    <ClInclude Include="OpenGLMotionState.h" />
-    <ClInclude Include="Room.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="TestShape.h" />
     <ClInclude Include="TestState.h" />
     <ClInclude Include="TestState2.h" />
     <ClInclude Include="Window.h" />

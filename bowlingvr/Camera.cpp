@@ -49,7 +49,7 @@ void Camera::Rotate(float rotation, float x, float y, float z)
 
 void Camera::Update()
 {
-	this->shader->setUniMatrix(this->vpUniform, (this->projMatrix * this->viewMat /** this->modelMat*/));
+	this->shader->setUniMatrix(this->vpUniform, (this->projMatrix * this->viewMat /* this->modelMat*/));
 }
 
 glm::mat4 Camera::getTranslation()
@@ -75,6 +75,11 @@ glm::mat4 Camera::getViewMatrix()
 glm::mat4 Camera::getProjectionMatrix()
 {
 	return this->projMatrix;
+}
+
+void Camera::setModelMatrix(glm::mat4 m)
+{
+	this->modelMat = m;
 }
 
 void Camera::UpdateViewMatrix()

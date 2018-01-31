@@ -22,7 +22,7 @@ public:
 	glm::mat4 getModelMatrix();
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix();
-
+	void setModelMatrix(glm::mat4 m);
 	glm::vec3 direction;
 
 private:

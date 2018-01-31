@@ -1,11 +1,12 @@
 #include "Windows.h"
 #include <GL/glew.h>
+
 #include "BulletUtils.h"
 #include "AssimpModel.h"
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 
-void AssimpModel::RenderModel()
+void AssimpModel::RenderModel(glm::mat4 p, glm::mat4 v)
 {
 	if (this->motionstate != nullptr)
 	{
@@ -15,7 +16,8 @@ void AssimpModel::RenderModel()
 		this->modelMatrix = transmat;
 	}
 
-	this->shader->setUniMatrix(this->modelUniform, this->modelMatrix);
+	this->mvpMatrix = p * v * this->modelMatrix;
+	this->shader->setUniMatrix(this->mvpUniform, this->mvpMatrix);
 	this->shader->Use();
 	for (int i = 0; i < this->meshEntries.size(); ++i) {
 		this->meshEntries.at(i)->render();
@@ -86,7 +88,8 @@ AssimpModel::AssimpModel(Shader * shader, std::string filePath)
 	std::cout << "Assimp: SUCCESS loading " << filePath << "!" << std::endl;
 
 	this->shader = shader;
-	this->modelUniform = this->shader->getUniLocation("modelMatrix");
+	//this->modelUniform = this->shader->getUniLocation("modelMatrix");
+	this->mvpUniform = this->shader->getUniLocation("mvpMatrix");
 
 	for(int i = 0; i < scene->mNumMeshes; i++)
 	{
@@ -97,12 +100,8 @@ AssimpModel::AssimpModel(Shader * shader, std::string filePath)
 AssimpModel::AssimpModel(Shader * shader, std::vector<MeshEntry*> meshEntries)
 {
 	this->shader = shader;
-	this->modelUniform = this->shader->getUniLocation("modelMatrix");
+	this->mvpUniform = this->shader->getUniLocation("mvpMatrix");
 	this->meshEntries = meshEntries;
-	/*for (int i = 0; i < meshEntries.size(); i++)
-	{
-		this->meshEntries.push_back(new AssimpModel::MeshEntry(meshEntries[i]));
-	}*/
 }
 
 AssimpModel::~AssimpModel()

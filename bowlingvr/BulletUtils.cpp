@@ -10,24 +10,6 @@ BulletUtils::~BulletUtils(void)
 {
 }
 
-/* not used rn*/
-btRigidBody * BulletUtils::CreateRigidBody(btScalar mass, const btTransform & startTransform, btCollisionShape * shape)
-{
-	btVector3 localInertia(0, 0, 0);
-	if (mass != 0.f)  //rigidbody is dynamic if and only if mass is non zero, otherwise static
-		shape->calculateLocalInertia(mass, localInertia);
-
-	//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
-	btDefaultMotionState* myMotionState = new OpenGLMotionState(startTransform);
-
-	btRigidBody::btRigidBodyConstructionInfo cInfo(mass, myMotionState, shape, localInertia);
-
-	btRigidBody* body = new btRigidBody(cInfo);
-	body->setContactProcessingThreshold(0);
-
-	return body;
-}
-
 btTransform BulletUtils::btTransFrom(const btVector3 & origin, const btQuaternion & rot)
 {
 	btTransform ret;

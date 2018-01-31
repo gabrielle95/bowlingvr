@@ -2,9 +2,6 @@
 #ifndef TESTSTATE_H
 #define TESTSTATE_H
 #include "Application.h"
-#include "TestShape.h"
-#include "Room.h"
-#include "ObjLoader.h"
 #include "AssimpModel.h"
 #include "Shader.h"
 #include "Camera.h"
@@ -18,19 +15,18 @@ public:
 	bool Init();
 	bool Update();
 	bool Destroy();
-	//void drawLines(std::vector<CDebugDraw::LINE>& lines);
 	void ShootSphere(btVector3 direction, btVector3 origin);
 	~TestState();
+
 private:
 	Shader *shader;
-	TestShape *testShape;
-	Room *room;
+
 	Camera *camera;
 	btDynamicsWorld *dynamicWorld; //bulletPhysics
 
-	ObjLoader *sphereObj;
-	ObjLoader *smallSp;
 	AssimpModel *assimpTest;
+	AssimpModel *assimpTestt;
+	AssimpModel *room;
 
 	std::vector<AssimpModel*>dynamicObjects;
 	btAlignedObjectArray<btCollisionShape*> collisionShapes;

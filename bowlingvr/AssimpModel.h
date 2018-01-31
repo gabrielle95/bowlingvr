@@ -1,12 +1,11 @@
 #pragma once
 
-
 #include <assimp/scene.h>
 #include <assimp/mesh.h>
 
 #include <string>
 #include <vector>
-#include "DrawableObj.h"
+#include <bullet/btBulletDynamicsCommon.h>
 #include "Shader.h"
 
 
@@ -37,7 +36,7 @@ public:
 	std::vector<MeshEntry*> meshEntries;
 
 
-	void RenderModel();
+	void RenderModel(glm::mat4 p, glm::mat4 v);
 
 	bool InitPhysicsBody(btBODIES SHAPE,
 		btScalar mass = btScalar(0),
@@ -58,7 +57,9 @@ public:
 private:
 	bool loaded;
 	glm::mat4 modelMatrix;
-	GLint modelUniform;
+	glm::mat4 mvpMatrix;
+
+	GLint mvpUniform;
 	btCollisionShape *collisionShape;
 	btDefaultMotionState *motionstate;
 	
