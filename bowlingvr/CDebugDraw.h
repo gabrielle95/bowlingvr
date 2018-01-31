@@ -24,7 +24,6 @@ public:
 
     virtual void drawLine(const btVector3& from, const btVector3& to, const btVector3& color);
 	void SetMatrices(glm::mat4 pViewMatrix, glm::mat4 pProjectionMatrix);
-	//void SetShader(Shader * shader);
     virtual void drawContactPoint(const btVector3& PointOnB, const btVector3& normalOnB, btScalar distance, int lifeTime, const btVector3& color) {}
     virtual void drawTriangle(const btVector3 & a, const btVector3 & b, const btVector3 & c, const btVector3 & color, btScalar alpha) {}
 
@@ -37,11 +36,8 @@ public:
     std::vector<LINE> & GetLines() { return lines; }
 
 private:
-    // pole pomocnych car k vykresleni - caru definuji dva body a barva
-    std::vector<LINE> lines;
-    
+    std::vector<LINE> lines;  
     int m_debugMode;
-	//Shader *shader;
 };
 
 #endif

@@ -26,16 +26,18 @@ bool TestState::Init()
 	this->dynamicWorld->addRigidBody(this->room->rigidBody);
 
 	//big ball
-	/*this->sphereObj = new ObjLoader(this->shader, "sphereModel.obj");
-	this->sphereObj->InitSpherePhysics(btScalar(0.1f), btScalar(1.f), btVector3(0,2,-2));
+	this->sphereObj = new ObjLoader(this->shader, "sphereModel.obj");
+	this->sphereObj->InitSpherePhysics(btScalar(20.f), btScalar(1.f), btVector3(0,1,-2));
 	this->dynamicWorld->addRigidBody(this->sphereObj->rigidBody);
-	dynamicObjects.push_back(this->sphereObj);*/
+	dynamicObjects.push_back(this->sphereObj);
 
 	//small ball
 	this->smallSp = new ObjLoader(this->shader, "sphereModel_half.obj");
 	/*this->smallSp->InitSpherePhysics(btScalar(0.1f), btScalar(0.5f), btVector3(0, 0.5, 0));
 	this->dynamicWorld->addRigidBody(this->smallSp->rigidBody);
 	dynamicObjects.push_back(this->smallSp);*/
+
+	this->assimpTest = new AssimpModel(this->shader, "sphereModel.obj");
 
 
 	//cam
@@ -64,7 +66,7 @@ bool TestState::Update()
 	}
 
 	/* draw everything that has texture */
-	glUniform1i(this->hasTextureUniform, true);
+	/*glUniform1i(this->hasTextureUniform, true);
 	this->testShape->Draw();
 	glUniform1i(this->hasTextureUniform, false);
 
@@ -73,7 +75,7 @@ bool TestState::Update()
 	{
 		ObjLoader* shape = this->dynamicObjects[j];
 		shape->Draw();
-	}
+	}*/
 
 	this->camera->Update();
 
@@ -156,7 +158,12 @@ bool TestState::Update()
 	int xPos, yPos;
 
 	SDL_GetGlobalMouseState(&xPos, &yPos);
+	//SDL_GetMouseState(&xPos, &yPos);
+	//SDL_GetRelativeMouseState(&xPos, &yPos);
+	//SDL_WarpMouseInWindow(NULL, 500, 500);
 	SDL_WarpMouseGlobal(500, 500);
+
+	
 
 	camRotation.y += deltaTime * mouse_speed * float(500 - xPos);
 	camRotation.x += deltaTime * mouse_speed * float(500 - yPos);
@@ -192,7 +199,7 @@ void TestState::ShootSphere(btVector3 direction, btVector3 origin)
 	velocity.normalize();
 	velocity *= 10.0f;
 
-	shoot->InitSpherePhysics(btScalar(2.5f), btScalar(0.5f), origin);
+	shoot->InitSpherePhysics(btScalar(10.f), btScalar(0.5f), origin);
 	this->dynamicWorld->addRigidBody(shoot->rigidBody);
 	shoot->rigidBody->setLinearVelocity(velocity);
 	dynamicObjects.push_back(shoot);

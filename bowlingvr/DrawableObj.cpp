@@ -44,7 +44,10 @@ void DrawableObj::InitSpherePhysics(btScalar mass, btScalar radius, btVector3 or
 
 	btRigidBody::btRigidBodyConstructionInfo rbInfo
 	(mass, this->motionstate, this->collisionShape, inertia);
-	rbInfo.m_friction = 0.9f;
+	rbInfo.m_friction = 0.5f;
+	rbInfo.m_rollingFriction = 0.2f;
+	rbInfo.m_spinningFriction = 0.2f;
+	rbInfo.m_linearDamping = 0.2f;
 	this->rigidBody = new btRigidBody(rbInfo);
 	//this->rigidBody->setUserPointer(this);
 }
@@ -63,7 +66,7 @@ void DrawableObj::InitStaticPlanePhysics(btScalar dimension, btVector3 origin)
 	btRigidBody::btRigidBodyConstructionInfo rbInfo
 	(btScalar(0.f), this->motionstate, this->collisionShape, btVector3(0, 0, 0));
 
-	rbInfo.m_friction = 0.9f;
+	rbInfo.m_friction = 0.5f;
 	this->rigidBody = new btRigidBody(rbInfo);
 	this->rigidBody->setGravity(btVector3(0,0,0));
 	//this->rigidBody->setUserPointer(this);

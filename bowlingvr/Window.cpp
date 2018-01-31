@@ -22,6 +22,8 @@ Window::Window(const std::string& title, int x, int y, int width, int height)
 	}
 	else
 	{
+		//SDL_SetWindowGrab(this->sdlWindow, SDL_TRUE);
+		//SDL_SetRelativeMouseMode(SDL_TRUE);
 		this->InitRenderer();
 	}
 }
@@ -46,6 +48,11 @@ void Window::InitRenderer()
 void Window::Update()
 {
 	SDL_GL_SwapWindow(this->sdlWindow);
+}
+
+SDL_Window * Window::GetSDLWindowPtr()
+{
+	return this->sdlWindow;
 }
 
 Window::~Window()

@@ -23,6 +23,11 @@ void Application::SetState(GameStateInterface *state)
 	this->state->Init();
 }
 
+Window * Application::GetMainWindowPtr()
+{
+	return this->window;
+}
+
 Application::Application()
 {
 	try

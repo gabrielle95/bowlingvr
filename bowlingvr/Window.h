@@ -7,7 +7,7 @@
 #include <exception>
 #include <SDL2/SDL.h>
 
-#define WFLAGS SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
+#define WFLAGS SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_INPUT_GRABBED
 
 class window_exception : public std::runtime_error
 {
@@ -27,6 +27,7 @@ public:
 	Window(const std::string& title, int width, int height);
 	Window(const std::string& title, int x, int y, int width, int height);
 	void Update();
+	SDL_Window *GetSDLWindowPtr();
 	~Window();
 
 private:

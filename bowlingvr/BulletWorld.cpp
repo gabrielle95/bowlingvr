@@ -9,7 +9,6 @@ BulletWorld* BulletWorld::Instance() /* singleton */
 	if (BulletWorld::bwInstancePtr == nullptr)
 	{
 		BulletWorld::bwInstancePtr = new BulletWorld();
-		//return BulletWorld::bwWorld;
 	}
 	return BulletWorld::bwInstancePtr;
 }

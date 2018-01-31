@@ -23,7 +23,6 @@ public:
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix();
 
-	//glm::vec3 position = glm::vec3(0,2,2);
 	glm::vec3 direction;
 
 private:

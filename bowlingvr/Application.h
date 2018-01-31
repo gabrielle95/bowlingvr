@@ -32,6 +32,7 @@ public:
 	bool Run();
 	void Stop();
 	void SetState(GameStateInterface *state);
+	Window *GetMainWindowPtr();
 private:
 	bool active;
 	Window* window;
