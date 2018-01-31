@@ -32,7 +32,7 @@ private:
 	ObjLoader *smallSp;
 	AssimpModel *assimpTest;
 
-	std::vector<ObjLoader*>dynamicObjects;
+	std::vector<AssimpModel*>dynamicObjects;
 	btAlignedObjectArray<btCollisionShape*> collisionShapes;
 
 	glm::vec3 camRotation;

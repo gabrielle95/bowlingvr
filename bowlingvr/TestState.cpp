@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include "GL/glew.h"
+
 #include "TestState.h"
 #include "TestState2.h"
 
@@ -17,27 +18,30 @@ bool TestState::Init()
 	/* initialize bullet*/
 	this->dynamicWorld = BulletWorld::Instance()->dynamicWorld;
 
-	this->testShape = new TestShape(this->shader);
-	this->testShape->SetTranslation(0, -2, 5);
+	//this->testShape = new TestShape(this->shader);
+	//this->testShape->SetTranslation(0, -2, 5);
 
 	/* ROOM */
-	this->room = new Room(this->shader);
+	/*this->room = new Room(this->shader);
 	this->room->InitStaticPlanePhysics(btScalar(10.), btVector3(0, -10, 0));
-	this->dynamicWorld->addRigidBody(this->room->rigidBody);
+	this->dynamicWorld->addRigidBody(this->room->rigidBody);*/
 
 	//big ball
-	this->sphereObj = new ObjLoader(this->shader, "sphereModel.obj");
+	/*this->sphereObj = new ObjLoader(this->shader, "sphereModel.obj");
 	this->sphereObj->InitSpherePhysics(btScalar(20.f), btScalar(1.f), btVector3(0,1,-2));
 	this->dynamicWorld->addRigidBody(this->sphereObj->rigidBody);
-	dynamicObjects.push_back(this->sphereObj);
+	dynamicObjects.push_back(this->sphereObj);*/
 
 	//small ball
-	this->smallSp = new ObjLoader(this->shader, "sphereModel_half.obj");
+	//this->smallSp = new ObjLoader(this->shader, "sphereModel_half.obj");
 	/*this->smallSp->InitSpherePhysics(btScalar(0.1f), btScalar(0.5f), btVector3(0, 0.5, 0));
 	this->dynamicWorld->addRigidBody(this->smallSp->rigidBody);
 	dynamicObjects.push_back(this->smallSp);*/
 
-	this->assimpTest = new AssimpModel(this->shader, "sphereModel.obj");
+	//this->room = new AssimpModel(this->shader);
+	this->assimpTest = new AssimpModel(this->shader, "sphereModel_half.obj");
+	assimpTest->InitPhysicsBody(AssimpModel::btBODIES::BALL, btScalar(1.f), btScalar(0.5f));
+	this->dynamicWorld->addRigidBody(this->assimpTest->rigidBody);
 
 
 	//cam
@@ -76,7 +80,11 @@ bool TestState::Update()
 		ObjLoader* shape = this->dynamicObjects[j];
 		shape->Draw();
 	}*/
-
+	for (int i = 0; i < this->dynamicObjects.size(); i++) {
+		AssimpModel* shape = this->dynamicObjects[i];
+		shape->RenderModel();
+	}
+	this->assimpTest->RenderModel();
 	this->camera->Update();
 
 	this->deltaNow = SDL_GetTicks();
@@ -190,16 +198,18 @@ bool TestState::Update()
 
 void TestState::ShootSphere(btVector3 direction, btVector3 origin)
 {
-	std::vector<float> fd(this->smallSp->finalData);
+	/*std::vector<float> fd(this->smallSp->finalData);
 	std::vector<unsigned int> el(this->smallSp->elements);
 	ObjLoader *shoot = new ObjLoader(this->shader, fd, el);
-	shoot->setShader(this->shader);
+	shoot->setShader(this->shader);*/
 
+	AssimpModel *shoot = new AssimpModel(this->shader, this->assimpTest->meshEntries);
 	btVector3 velocity = direction;
 	velocity.normalize();
 	velocity *= 10.0f;
 
-	shoot->InitSpherePhysics(btScalar(10.f), btScalar(0.5f), origin);
+	//shoot->InitSpherePhysics(btScalar(10.f), btScalar(0.5f), origin);
+	shoot->InitPhysicsBody(AssimpModel::btBODIES::BALL, btScalar(10.f), btScalar(0.5f), 0, origin);
 	this->dynamicWorld->addRigidBody(shoot->rigidBody);
 	shoot->rigidBody->setLinearVelocity(velocity);
 	dynamicObjects.push_back(shoot);
@@ -220,8 +230,8 @@ void TestState::ShootSphere(btVector3 direction, btVector3 origin)
 		//printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 	}*/
 
-	fd.clear();
-	el.clear();
+	//fd.clear();
+	//el.clear();
 }
 
 bool TestState::Destroy()
@@ -233,7 +243,7 @@ TestState::~TestState()
 {
 	for (int j = 0; j < this->dynamicObjects.size(); j++)
 	{
-		ObjLoader* shape = this->dynamicObjects[j];
+		AssimpModel* shape = this->dynamicObjects[j];
 		delete shape;
 	}
 	delete this->camera;
