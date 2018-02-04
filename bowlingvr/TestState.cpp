@@ -43,12 +43,15 @@ bool TestState::Init()
 	this->dynamicWorld->addRigidBody(this->assimpTestt->rigidBody);*/
 	//string path(string(cCurrentPath) + "\\models\\venue\\objects\\Venue01.obj");
 
-	this->room = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\Venue01\\objects\\Venue01.obj");
-	this->assimpTestt = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\cube\\cube.obj");
-	//this->room = new AssimpModel(this->shader, "venue.obj");
-	//room->InitPhysicsBody(AssimpModel::btBODIES::PLANE, 0, 0, btScalar(2.f), btVector3(0,-2, 0));
-	//this->dynamicWorld->addRigidBody(this->room->rigidBody);
+	this->room = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\room\\room.obj");
+	room->InitPhysicsBody(btBODIES::PLANE, 0, 0, btVector3(10, 0.1, 10), btVector3(0, -0.1, 0));
+	this->dynamicWorld->addRigidBody(this->room->rigidBody);
+	
+	this->assimpTestt = new Model(this->modelShader, "bowling_pin_000.obj");
+	assimpTestt->InitPhysicsBody(btBODIES::PLANE, 1.5, 0, btVector3(0.075, 0.3, 0.075), btVector3(0, 0.3, 0));
+	this->dynamicWorld->addRigidBody(this->assimpTestt->rigidBody);
 
+	this->sphere = new Model(this->modelShader, "sphere-m10-r01.obj");
 	//cam
 	this->camera = new Camera(this->modelShader, 1600,900);
 	this->camera->SetTranslation(0,1,10);
@@ -71,7 +74,12 @@ bool TestState::Update()
 	if (this->debugMode) {
 		BulletWorld::Instance()->debugDraw->SetMatrices(this->camera->getViewMatrix(), this->camera->getProjectionMatrix());
 		this->dynamicWorld->debugDrawWorld();
+		
 		this->modelShader->Use();
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 	
 	
@@ -84,10 +92,10 @@ bool TestState::Update()
 	glm::mat4 p = this->camera->getProjectionMatrix();
 	glm::mat4 v = this->camera->getViewMatrix();
 
-	/*for (int i = 0; i < this->dynamicObjects.size(); i++) {
-		AssimpModel* shape = this->dynamicObjects[i];
-		shape->RenderModel(p,v);
-	}*/
+	for (int i = 0; i < this->dynamicObjects.size(); i++) {
+		Model* shape = this->dynamicObjects[i];
+		shape->Render(p,v);
+	}
 	//this->assimpTest->RenderModel(p, v);
 	
 	this->assimpTestt->Render(p, v);
@@ -135,8 +143,8 @@ bool TestState::Update()
 	if (!this->pressedC && state[SDL_SCANCODE_C])
 	{
 		this->pressedC = true;
-		//glm::mat4 vm = glm::inverse(this->camera->getViewMatrix());
-		//this->ShootSphere(btVector3(-vm[2][0], -vm[2][1], -vm[2][2]), btVector3(vm[3][0], vm[3][1], vm[3][2]));
+		glm::mat4 vm = glm::inverse(this->camera->getViewMatrix());
+		this->ShootSphere(btVector3(-vm[2][0], -vm[2][1], -vm[2][2]), btVector3(vm[3][0], vm[3][1], vm[3][2]));
 	}
 	else if (!state[SDL_SCANCODE_C])
 	{
@@ -207,15 +215,15 @@ bool TestState::Update()
 void TestState::ShootSphere(btVector3 direction, btVector3 origin)
 {
 
-	/*AssimpModel *shoot = new AssimpModel(this->shader, this->assimpTest->meshEntries);
+	Model *shoot = new Model(this->modelShader, this->sphere->meshes);
 	btVector3 velocity = direction;
 	velocity.normalize();
 	velocity *= 10.0f;
 
-	shoot->InitPhysicsBody(AssimpModel::btBODIES::BALL, btScalar(10.f), btScalar(0.5f), 0, origin);
+	shoot->InitPhysicsBody(btBODIES::BALL, btScalar(10.f), btScalar(0.1f), origin, origin);
 	this->dynamicWorld->addRigidBody(shoot->rigidBody);
 	shoot->rigidBody->setLinearVelocity(velocity);
-	dynamicObjects.push_back(shoot);*/
+	dynamicObjects.push_back(shoot);
 }
 
 bool TestState::Destroy()
@@ -227,12 +235,12 @@ TestState::~TestState()
 {
 	for (int j = 0; j < this->dynamicObjects.size(); j++)
 	{
-		AssimpModel* shape = this->dynamicObjects[j];
+		Model* shape = this->dynamicObjects[j];
 		delete shape;
 	}
 	delete this->camera;
 	delete this->room;
-	//delete this->assimpTest;
-	//delete this->assimpTestt;
-	//delete this->shader;
+	delete this->sphere;
+	delete this->assimpTestt;
+	delete this->modelShader;
 }

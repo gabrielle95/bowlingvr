@@ -26,11 +26,11 @@ private:
 	Camera *camera;
 	btDynamicsWorld *dynamicWorld; //bulletPhysics
 
-	AssimpModel *assimpTest;
+	Model *sphere;
 	Model *assimpTestt;
 	Model *room;
 
-	std::vector<AssimpModel*>dynamicObjects;
+	std::vector<Model*>dynamicObjects;
 	btAlignedObjectArray<btCollisionShape*> collisionShapes;
 
 	glm::vec3 camRotation;

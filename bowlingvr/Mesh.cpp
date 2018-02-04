@@ -152,6 +152,9 @@ GLuint Mesh::textureFromFile(const char * path, std::string dir)
 	int width, height, n;
 
 	SDL_Surface * image = IMG_Load(filename.c_str());
+	if (image == NULL) {
+		return 0;
+	}
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
 	if (image->format->BytesPerPixel == 4) {

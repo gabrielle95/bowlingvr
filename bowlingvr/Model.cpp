@@ -5,12 +5,19 @@
 //#include <SOIL2/SOIL2.h>
 //#include <il/il.h>
 #include <glm/gtc/type_ptr.hpp>
+#include "BulletUtils.h"
 #include "Model.h"
 
 Model::Model(Shader * shader, const std::string& path)
 {
 	this->shader = shader;
 	LoadModel(path);
+}
+
+Model::Model(Shader * shader, std::vector<Mesh*> meshEntries)
+{
+	this->shader = shader;
+	this->meshes = meshEntries;
 }
 
 Model::~Model()
@@ -60,8 +67,66 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 	}
 }
 
+bool Model::InitPhysicsBody(btBODIES SHAPE, btScalar mass, btScalar radius, btVector3 planeDimension, btVector3 origin)
+{
+	btTransform trans = BulletUtils::btTransFrom(this->modelMatrix);
+	trans.setOrigin(origin);
+	this->motionstate = new btDefaultMotionState(trans);
+	btVector3 inertia = btVector3(0, 0, 0);
+
+
+	switch (SHAPE) {
+	case BALL:
+		this->collisionShape = new btSphereShape(radius);
+
+		if (mass != 0.f)
+		{
+			this->collisionShape->calculateLocalInertia(mass, inertia);
+		}
+
+		{
+			btRigidBody::btRigidBodyConstructionInfo rbInfo
+			(mass, this->motionstate, this->collisionShape, inertia);
+			rbInfo.m_friction = 0.3f;
+			rbInfo.m_rollingFriction = 0.3f;
+			rbInfo.m_spinningFriction = 0.3f;
+			rbInfo.m_linearDamping = 0.3f;
+			this->rigidBody = new btRigidBody(rbInfo);
+		}
+		break;
+
+	case PLANE:
+		this->collisionShape = new btBoxShape(planeDimension);
+		if (mass != 0.f)
+		{
+			this->collisionShape->calculateLocalInertia(mass, inertia);
+		}
+
+		{
+			btRigidBody::btRigidBodyConstructionInfo rbInfo
+			(mass, this->motionstate, this->collisionShape, inertia);
+
+			rbInfo.m_friction = 0.7f;
+			this->rigidBody = new btRigidBody(rbInfo);
+			//this->rigidBody->setGravity(btVector3(0, 0, 0));
+		}
+		break;
+	default:
+		break;
+	}
+	return true;
+}
+
 void Model::Render(glm::mat4 pm, glm::mat4 vm)
 {
+	if (this->motionstate != nullptr)
+	{
+		btTransform trans;
+		this->motionstate->getWorldTransform(trans);
+		glm::mat4 transmat = BulletUtils::glmMat4From(trans);
+		this->modelMatrix = transmat;
+	}
+
 	this->shader->Use();
 	this->uPMatrix = this->shader->getUniLocation("uPMatrix");
 	this->uMVMatrix = this->shader->getUniLocation("uMVMatrix");
@@ -85,4 +150,5 @@ void Model::Render(glm::mat4 pm, glm::mat4 vm)
 		this->meshes.at(i)->Render(this->shader);
 	}
 }
+
 
