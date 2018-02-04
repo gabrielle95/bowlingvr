@@ -11,7 +11,7 @@ TestState::TestState(Application *application) : GameState(application)
 
 bool TestState::Init()
 {
-	glClearColor(0.0,0.0,0.0,0);
+	glClearColor(0.1,0.1,0.1,0.1);
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	glEnable(GL_TEXTURE_2D);
 	//this->shader = new Shader("test.vert", "test.frag");
@@ -43,8 +43,8 @@ bool TestState::Init()
 	this->dynamicWorld->addRigidBody(this->assimpTestt->rigidBody);*/
 	//string path(string(cCurrentPath) + "\\models\\venue\\objects\\Venue01.obj");
 
-	this->room = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\nanosuit\\nanosuit.obj");
-	this->assimpTestt = new Model(this->modelShader, "bowling_pin_000.obj");
+	this->room = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\Venue01\\objects\\Venue01.obj");
+	this->assimpTestt = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\cube\\cube.obj");
 	//this->room = new AssimpModel(this->shader, "venue.obj");
 	//room->InitPhysicsBody(AssimpModel::btBODIES::PLANE, 0, 0, btScalar(2.f), btVector3(0,-2, 0));
 	//this->dynamicWorld->addRigidBody(this->room->rigidBody);
@@ -89,8 +89,10 @@ bool TestState::Update()
 		shape->RenderModel(p,v);
 	}*/
 	//this->assimpTest->RenderModel(p, v);
+	
 	this->assimpTestt->Render(p, v);
-	//this->room->Render(p, v);
+	
+	this->room->Render(p, v);
 	this->camera->Update();
 
 	this->deltaNow = SDL_GetTicks();

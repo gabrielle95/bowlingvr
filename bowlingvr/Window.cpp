@@ -42,7 +42,7 @@ void Window::InitRenderer()
 		{
 			throw context_exception(SDL_GetError());
 		}
-		IMG_Init(IMG_INIT_PNG);
+		//IMG_Init(IMG_INIT_PNG);
 	}
 
 }

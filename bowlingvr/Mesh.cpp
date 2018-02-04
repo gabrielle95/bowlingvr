@@ -132,13 +132,14 @@ void Mesh::loadMaterialTextures(aiMaterial *mat, aiTextureType type)
 		texture.id = 0;
 		texture.type = aiTextureType_NONE;
 		//texture.path = NULL;
-		textures.push_back(texture);
-		return;
 	}
-	aiGetMaterialTexture(mat, type, 0, &str);
-	texture.type = type;
-	texture.path = str.C_Str();
-	texture.id = textureFromFile(str.C_Str(), this->directory);
+	else {
+		aiGetMaterialTexture(mat, type, 0, &str);
+		texture.type = type;
+		texture.path = str.C_Str();
+		texture.id = textureFromFile(str.C_Str(), this->directory);
+	}
+	textures.push_back(texture);
 }
 
 GLuint Mesh::textureFromFile(const char * path, std::string dir)
@@ -153,17 +154,31 @@ GLuint Mesh::textureFromFile(const char * path, std::string dir)
 	SDL_Surface * image = IMG_Load(filename.c_str());
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+	if (image->format->BytesPerPixel == 4) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
+	}
+	else {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image->w, image->h, 0, GL_RGB, GL_UNSIGNED_BYTE, image->pixels);
+	}
+	
 
-	SDL_FreeSurface(image);
+	
+
+	glGenerateMipmap(GL_TEXTURE_2D);
 
 	// Parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glBindTexture(GL_TEXTURE_2D, 0);
-
+	// Parameters
+	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glBindTexture(GL_TEXTURE_2D, 0);*/
+	SDL_FreeSurface(image);
 	return textureID;
 }
 
@@ -176,18 +191,18 @@ void Mesh::Render(Shader *shader)
 		switch (textures[i].type)
 		{
 		case aiTextureType_AMBIENT:
-			glUniform1i(shader->getUniLocation("texture_ambient1"), texIx);
+			glUniform1i(shader->getUniLocation("texture_ambient1"), i);
 			break;
 		case aiTextureType_DIFFUSE:
-			glUniform1i(shader->getUniLocation("texture_diffuse1"), texIx);
+			glUniform1i(shader->getUniLocation("texture_diffuse1"), i);
 			break;
 		case aiTextureType_SPECULAR:
-			glUniform1i(shader->getUniLocation("texture_specular1"), texIx);
+			glUniform1i(shader->getUniLocation("texture_specular1"), i);
 			break;
 		default:
 			continue;
 		}
-		glActiveTexture(GL_TEXTURE0 + texIx);
+		glActiveTexture(GL_TEXTURE0 + i);
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 		texIx++;
 	}
