@@ -94,6 +94,7 @@ AssimpModel::AssimpModel(Shader * shader, std::string filePath)
 	for(int i = 0; i < scene->mNumMeshes; i++)
 	{
 		this->meshEntries.push_back(new AssimpModel::MeshEntry(scene->mMeshes[i]));
+
 	}
 }
 
@@ -197,7 +198,6 @@ AssimpModel::MeshEntry::MeshEntry(aiMesh * mesh)
 
 		delete[] indices;
 	}
-
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);

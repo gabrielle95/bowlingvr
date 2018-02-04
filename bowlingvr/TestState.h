@@ -3,6 +3,7 @@
 #define TESTSTATE_H
 #include "Application.h"
 #include "AssimpModel.h"
+#include "Model.h"
 #include "Shader.h"
 #include "Camera.h"
 #include "CDebugDraw.h"
@@ -20,13 +21,14 @@ public:
 
 private:
 	Shader *shader;
+	Shader *modelShader;
 
 	Camera *camera;
 	btDynamicsWorld *dynamicWorld; //bulletPhysics
 
 	AssimpModel *assimpTest;
-	AssimpModel *assimpTestt;
-	AssimpModel *room;
+	Model *assimpTestt;
+	Model *room;
 
 	std::vector<AssimpModel*>dynamicObjects;
 	btAlignedObjectArray<btCollisionShape*> collisionShapes;

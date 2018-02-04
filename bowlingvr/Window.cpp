@@ -37,10 +37,12 @@ void Window::InitRenderer()
 	}
 	else
 	{
+		//VSYNC 1 on 0 off
 		if (SDL_GL_SetSwapInterval(1) < 0)
 		{
 			throw context_exception(SDL_GetError());
 		}
+		IMG_Init(IMG_INIT_PNG);
 	}
 
 }

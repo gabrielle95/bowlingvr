@@ -60,8 +60,8 @@ private:
 	glm::mat4 mvpMatrix;
 
 	GLint mvpUniform;
-	btCollisionShape *collisionShape;
-	btDefaultMotionState *motionstate;
+	btCollisionShape *collisionShape = nullptr;
+	btDefaultMotionState *motionstate = nullptr;
 	
 
 };

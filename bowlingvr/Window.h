@@ -6,6 +6,7 @@
 #include <iostream>
 #include <exception>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #define WFLAGS SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_INPUT_GRABBED
 
