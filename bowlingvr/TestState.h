@@ -2,7 +2,6 @@
 #ifndef TESTSTATE_H
 #define TESTSTATE_H
 #include "Application.h"
-#include "AssimpModel.h"
 #include "Model.h"
 #include "Shader.h"
 #include "Camera.h"

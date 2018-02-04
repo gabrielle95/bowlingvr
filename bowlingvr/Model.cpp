@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include <assimp/Importer.hpp>
-#include <assimp/scene.h>
+
+
 #include <assimp/postprocess.h>
 //#include <SOIL2/SOIL2.h>
 //#include <il/il.h>
