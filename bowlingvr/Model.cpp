@@ -75,7 +75,6 @@ bool Model::InitPhysicsBody(btBODIES SHAPE, btScalar mass, btScalar radius, btVe
 	this->motionstate = new btDefaultMotionState(trans);
 	btVector3 inertia = btVector3(0, 0, 0);
 
-
 	switch (SHAPE) {
 	case BALL:
 		this->collisionShape = new btSphereShape(radius);
@@ -107,12 +106,12 @@ bool Model::InitPhysicsBody(btBODIES SHAPE, btScalar mass, btScalar radius, btVe
 			btRigidBody::btRigidBodyConstructionInfo rbInfo
 			(mass, this->motionstate, this->collisionShape, inertia);
 
-			rbInfo.m_friction = 0.7f;
+			rbInfo.m_friction = 0.1f;
 			this->rigidBody = new btRigidBody(rbInfo);
-			//this->rigidBody->setGravity(btVector3(0, 0, 0));
 		}
 		break;
 	default:
+		//new btConeShape(0.5,0.5);
 		break;
 	}
 	return true;

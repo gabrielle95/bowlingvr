@@ -6,9 +6,6 @@
 #include <iostream>
 #include <map>
 #include <vector>
-
-//#include <GL/glew.h>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <bullet/btBulletDynamicsCommon.h>
@@ -35,12 +32,14 @@ public:
 
 	btRigidBody *rigidBody;
 	std::vector<Mesh*> meshes;
-private:
+	glm::mat4 modelMatrix;
+
+protected:
 	bool success;
 	Shader *shader;
 	
 	size_t numMeshes;
-	glm::mat4 modelMatrix;
+	
 	glm::mat4 mvMatrix;
 	GLuint uPMatrix;
 	GLuint uMVMatrix;
@@ -48,7 +47,6 @@ private:
 
 	void LoadModel(const std::string& path);
 	void processNode(aiNode *node, const aiScene* scene);
-
 
 	btCollisionShape *collisionShape = nullptr;
 	btDefaultMotionState *motionstate = nullptr;

@@ -14,6 +14,7 @@ bool TestState::Init()
 	glClearColor(0.1,0.1,0.1,0.1);
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	glEnable(GL_TEXTURE_2D);
+	//glShadeModel(GL_SMOOTH);
 	//this->shader = new Shader("test.vert", "test.frag");
 	//this->shader->Use();
 	//this->hasTextureUniform = this->shader->getUniLocation("hasTexture");
@@ -34,24 +35,66 @@ bool TestState::Init()
 	cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
 
 	printf("The current working directory is %s\n", cCurrentPath);
-	//this->assimpTest = new AssimpModel(this->modelShader, "sphereModel_half.obj");
-	/*assimpTest->InitPhysicsBody(AssimpModel::btBODIES::BALL, btScalar(1.f), btScalar(0.5f));
-	this->dynamicWorld->addRigidBody(this->assimpTest->rigidBody);
 
-	this->assimpTestt = new AssimpModel(this->shader, "purple.obj");
-	assimpTestt->InitPhysicsBody(AssimpModel::btBODIES::BALL, btScalar(1.f), btScalar(1.f),0, btVector3(0, 10, 0));
-	this->dynamicWorld->addRigidBody(this->assimpTestt->rigidBody);*/
-	//string path(string(cCurrentPath) + "\\models\\venue\\objects\\Venue01.obj");
 
-	this->room = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\room\\room.obj");
-	room->InitPhysicsBody(btBODIES::PLANE, 0, 0, btVector3(10, 0.1, 10), btVector3(0, -0.1, 0));
-	this->dynamicWorld->addRigidBody(this->room->rigidBody);
+	this->room = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\room\\untitled.obj");
+	//room->InitPhysicsBody(btBODIES::PLANE, 0, 0, btVector3(10, 0.1, 10), btVector3(0, -0.1, 0));
+	//this->dynamicWorld->addRigidBody(this->room->rigidBody);
 	
-	this->assimpTestt = new Model(this->modelShader, "bowling_pin_000.obj");
-	assimpTestt->InitPhysicsBody(btBODIES::PLANE, 1.5, 0, btVector3(0.075, 0.3, 0.075), btVector3(0, 0.3, 0));
-	this->dynamicWorld->addRigidBody(this->assimpTestt->rigidBody);
+	std::vector<btVector3> wallPositions;
+	wallPositions.push_back(btVector3(0, -0.1, 0)); //floor
+	wallPositions.push_back(btVector3(0, 10, 0)); //ceiling
 
-	this->sphere = new Model(this->modelShader, "sphere-m10-r01.obj");
+	wallPositions.push_back(btVector3(0, -0.1, 10)); //back
+	wallPositions.push_back(btVector3(0, -0.1, -10)); //front
+	wallPositions.push_back(btVector3(10, -0.1, 0)); //right
+	wallPositions.push_back(btVector3(-10, -0.1, 0)); //left
+
+	std::vector<btVector3>wallDimensions;
+	wallDimensions.push_back(btVector3(10, 0.1, 10));//up and down
+	wallDimensions.push_back(btVector3(10, 10, 0.1));//acc to x
+	wallDimensions.push_back(btVector3(0.1, 10, 10));//acc to z
+	
+	int j = 0;
+	for (int i = 0; i < wallDimensions.size(); i++) {
+		this->dynamicWorld->addRigidBody
+		(BulletUtils::createInvisibleBoxCollider(0.0, wallDimensions[i], wallPositions[j], room->modelMatrix));
+		this->dynamicWorld->addRigidBody
+		(BulletUtils::createInvisibleBoxCollider(0.0, wallDimensions[i], wallPositions[j+1], room->modelMatrix));
+		j += 2;
+	}
+	wallPositions.clear();
+	wallDimensions.clear();
+	//this->pin = new Pin(this->modelShader, "bowling_pin_000.obj", 1.5, 0.0375, 0.3, btVector3(0, 0.3, 0));
+	//this->dynamicWorld->addRigidBody(this->pin->rigidBody);
+	/*this->assimpTestt = new Model(this->modelShader, "bowling_pin_000.obj");
+	assimpTestt->InitPhysicsBody(btBODIES::PLANE, 1.5, 0, btVector3(0.075, 0.3, 0.075), btVector3(0, 0.3, 0));
+	this->dynamicWorld->addRigidBody(this->assimpTestt->rigidBody);*/
+
+	this->sphere = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\ball\\sphere-m10-r01.obj");
+	this->pin = new Model(this->modelShader, "bowling_pin_000.obj");
+
+	std::vector<btVector3> pinPositions;
+	pinPositions.push_back(btVector3(-1.f, 0.3f, 0.f));
+	pinPositions.push_back(btVector3(-0.5f, 0.3f, 0.f));
+	pinPositions.push_back(btVector3(0.0f, 0.3f, 0.f));
+	pinPositions.push_back(btVector3(0.5f, 0.3f, 0.f));
+
+	pinPositions.push_back(btVector3(-0.75f, 0.3f, 1.f));
+	pinPositions.push_back(btVector3(-0.25f, 0.3f, 1.f));
+	pinPositions.push_back(btVector3(0.25f, 0.3f, 1.f));
+
+	pinPositions.push_back(btVector3(-0.5f, 0.3f, 2.f));
+	pinPositions.push_back(btVector3(0.0f, 0.3f, 2.f));
+
+	pinPositions.push_back(btVector3(-0.25f, 0.3f, 3.f));
+	
+	for (int i = 0; i < pinPositions.size(); i++) {
+		Pin *tmp = new Pin(this->modelShader, this->pin->meshes, 1.5, 0.075, 0.5, pinPositions[i]);
+		pins.push_back(tmp);
+		this->dynamicWorld->addRigidBody(tmp->rigidBody);
+	}
+	pinPositions.clear();
 	//cam
 	this->camera = new Camera(this->modelShader, 1600,900);
 	this->camera->SetTranslation(0,1,10);
@@ -96,10 +139,14 @@ bool TestState::Update()
 		Model* shape = this->dynamicObjects[i];
 		shape->Render(p,v);
 	}
-	//this->assimpTest->RenderModel(p, v);
+
+	for (int i = 0; i < this->pins.size(); i++) {
+		Pin* shape = this->pins[i];
+		shape->Render(p, v);
+	}
 	
-	this->assimpTestt->Render(p, v);
-	
+	//this->assimpTestt->Render(p, v);
+	//this->pin->Render(p, v);
 	this->room->Render(p, v);
 	this->camera->Update();
 
@@ -161,24 +208,6 @@ bool TestState::Update()
 		this->pressedP = false;
 	}
 		
-
-/*	if (state[SDL_SCANCODE_LEFT])
-	{	
-		this->camRotation.y += 1;
-	}
-	if (state[SDL_SCANCODE_RIGHT])
-	{
-		this->camRotation.y -= 1;
-	}
-	if (state[SDL_SCANCODE_UP])
-	{
-		this->camRotation.x += 1;
-	}
-	if (state[SDL_SCANCODE_DOWN])
-	{
-		this->camRotation.x -= 1;
-	}
-*/
 	int xPos, yPos;
 
 	SDL_GetGlobalMouseState(&xPos, &yPos);
@@ -215,12 +244,12 @@ bool TestState::Update()
 void TestState::ShootSphere(btVector3 direction, btVector3 origin)
 {
 
-	Model *shoot = new Model(this->modelShader, this->sphere->meshes);
+	Ball *shoot = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.1f), origin);
 	btVector3 velocity = direction;
 	velocity.normalize();
 	velocity *= 10.0f;
 
-	shoot->InitPhysicsBody(btBODIES::BALL, btScalar(10.f), btScalar(0.1f), origin, origin);
+	//shoot->InitPhysicsBody(btBODIES::BALL, btScalar(10.f), btScalar(0.1f), origin, origin);
 	this->dynamicWorld->addRigidBody(shoot->rigidBody);
 	shoot->rigidBody->setLinearVelocity(velocity);
 	dynamicObjects.push_back(shoot);
@@ -238,6 +267,14 @@ TestState::~TestState()
 		Model* shape = this->dynamicObjects[j];
 		delete shape;
 	}
+
+	for (int j = 0; j < this->pins.size(); j++)
+	{
+		Pin* shape = this->pins[j];
+		delete shape;
+	}
+	dynamicObjects.clear();
+	pins.clear();
 	delete this->camera;
 	delete this->room;
 	delete this->sphere;

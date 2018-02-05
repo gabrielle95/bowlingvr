@@ -33,7 +33,7 @@ BulletWorld::BulletWorld()
 	//DBG_DrawWireframe
 	//DBG_DrawContactPoints
 	//DBG_DrawConstraints
-	this->debugDraw->setDebugMode(btIDebugDraw::DBG_DrawAabb);
+	this->debugDraw->setDebugMode(btIDebugDraw::DBG_DrawWireframe);
 	this->dynamicWorld->setDebugDrawer(this->debugDraw);
 }
 

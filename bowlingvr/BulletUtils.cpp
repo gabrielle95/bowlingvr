@@ -40,3 +40,27 @@ glm::mat4 BulletUtils::glmMat4From(const btTransform & trans)
 		m[0].z(), m[1].z(), m[2].z(), 0,
 		v.x(), v.y(), v.z(), 1);
 }
+
+btRigidBody * BulletUtils::createInvisibleBoxCollider(btScalar mass, btVector3 dimension, btVector3 origin, glm::mat4 m)
+{
+	btDefaultMotionState *motionstate;
+	btTransform trans = BulletUtils::btTransFrom(m);
+	trans.setOrigin(origin);
+	motionstate = new btDefaultMotionState(trans);
+	btVector3 inertia = btVector3(0, 0, 0);
+
+	btCollisionShape *collisionShape;
+	collisionShape = new btBoxShape(dimension);
+	if (mass != 0.f)
+	{
+		collisionShape->calculateLocalInertia(mass, inertia);
+	}
+
+	btRigidBody::btRigidBodyConstructionInfo rbInfo
+	(mass, motionstate, collisionShape, inertia);
+
+	btRigidBody *rigidBody;
+	rbInfo.m_friction = 0.1f;
+	rigidBody = new btRigidBody(rbInfo);
+	return rigidBody;
+}

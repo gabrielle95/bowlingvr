@@ -3,6 +3,7 @@
 #define TESTSTATE_H
 #include "Application.h"
 #include "Model.h"
+#include "Entities.h"
 #include "Shader.h"
 #include "Camera.h"
 #include "CDebugDraw.h"
@@ -28,6 +29,10 @@ private:
 	Model *sphere;
 	Model *assimpTestt;
 	Model *room;
+	Model *pin;
+
+	std::vector<Pin*>pins;
+	std::vector<Box*> walls;
 
 	std::vector<Model*>dynamicObjects;
 	btAlignedObjectArray<btCollisionShape*> collisionShapes;
