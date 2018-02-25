@@ -23,7 +23,7 @@
     <ProjectGuid>{C31B4EF1-8C55-4F28-B2A3-24DCF68CE264}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>bowlingvr</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -153,6 +153,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="PlayerBody.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="TestState.cpp" />
     <ClCompile Include="TestState2.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Entities.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="PlayerBody.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="TestState.h" />
     <ClInclude Include="TestState2.h" />

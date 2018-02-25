@@ -4,6 +4,7 @@
 #include "Application.h"
 #include "Model.h"
 #include "Entities.h"
+#include "PlayerBody.h"
 #include "Shader.h"
 #include "Camera.h"
 #include "CDebugDraw.h"
@@ -33,6 +34,8 @@ private:
 
 	Alley *alley;
 
+	PlayerBody *Player;
+
 	std::vector<Pin*> pins;
 	std::vector<Box*> walls;
 
@@ -50,9 +53,12 @@ private:
 	uint32_t currentTime = 0;
 	uint32_t lastTime = 0;
 
+	btVector3 pt;
+
 	bool debugMode = false;
 	bool pressedP = false;
 	bool pressedC = false;
+	bool pressedSpace = false;
 
 };
 #endif

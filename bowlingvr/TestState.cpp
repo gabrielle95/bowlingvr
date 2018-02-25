@@ -14,16 +14,6 @@ bool TestState::Init()
 	glClearColor(0.1,0.1,0.1,0.1);
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	glEnable(GL_TEXTURE_2D);
-	//glShadeModel(GL_SMOOTH);
-	//this->shader = new Shader("test.vert", "test.frag");
-	//this->shader->Use();
-	//this->hasTextureUniform = this->shader->getUniLocation("hasTexture");
-
-	this->modelShader = new Shader("modelShader.vert", "modelShader.frag");
-	this->hasTextureUniform = this->modelShader->getUniLocation("hasTexture");
-	this->modelShader->Use();
-	/* initialize bullet*/
-	this->dynamicWorld = BulletWorld::Instance()->dynamicWorld;
 
 	char cCurrentPath[FILENAME_MAX];
 
@@ -36,10 +26,21 @@ bool TestState::Init()
 
 	printf("The current working directory is %s\n", cCurrentPath);
 
+	//glShadeModel(GL_SMOOTH);
+	//this->shader = new Shader("test.vert", "test.frag");
+	//this->shader->Use();
+	//this->hasTextureUniform = this->shader->getUniLocation("hasTexture");
+	std::cout << "BOWLING:: Compiling shaders..." << std::endl;
+	this->modelShader = new Shader("modelShader.vert", "modelShader.frag");
+	this->hasTextureUniform = this->modelShader->getUniLocation("hasTexture");
+	this->modelShader->Use();
+	/* initialize bullet*/
+	this->dynamicWorld = BulletWorld::Instance()->dynamicWorld;
+
 	/* MODEL INITIALISATION */
-	
+	std::cout << "BOWLING:: Loading models..." << std::endl;
 	// soon, everything shall be an alley *looks with mischief*
-	this->room = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\room\\room.obj");
+	this->room = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\room_alley.obj");
 	this->room->pInit(0, btVector3(0, 0, 0));
 	this->dynamicWorld->addRigidBody(room->rigidBody);
 
@@ -71,10 +72,12 @@ bool TestState::Init()
 	this->sphere = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\ball\\sphere-m10-r025.obj");
 	this->pin = new Model(this->modelShader, "bowling_pin_000.obj");
 
-	this->alley = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\venue.obj");
-	std::cout << "BOWLING:: Initialising Alley hull..." << std::endl;
+	/*this->alley = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\venue.obj");
 	this->alley->pInit(0, btVector3(0,0.5,0));
-	this->dynamicWorld->addRigidBody(alley->rigidBody);
+	this->dynamicWorld->addRigidBody(alley->rigidBody);*/
+
+	this->Player = new PlayerBody(btVector3(0, 1.7, 10));
+	this->dynamicWorld->addRigidBody(Player->rigidBody);
 
 	std::vector<btVector3> pinPositions;
 	pinPositions.push_back(btVector3(-1.f, 0.3f, 0.f));
@@ -98,13 +101,16 @@ bool TestState::Init()
 	}
 	pinPositions.clear();
 	//cam
+	std::cout << "BOWLING:: Initializing camera..." << std::endl;
 	this->camera = new Camera(this->modelShader, 1600,900);
 	this->camera->SetTranslation(0,1.7,10);
+	//this->camera->setViewMatrix(glm::inverse(this->Player->modelMatrix));
 
 	SDL_WarpMouseGlobal(500, 500);
 	SDL_ShowCursor(0);
 	this->camVelocity = glm::vec3(this->mouse_speed*5, this->mouse_speed*5, this->mouse_speed*5);
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE );
+	std::cout << "BOWLING:: READY" << std::endl;
 	return true;
 }
 
@@ -126,8 +132,6 @@ bool TestState::Update()
 	else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	
-	
 
 	/* draw everything that has texture */
 	/*glUniform1i(this->hasTextureUniform, true);
@@ -149,7 +153,7 @@ bool TestState::Update()
 	
 	//this->assimpTestt->Render(p, v);
 	//this->pin->Render(p, v);
-	this->alley->Render(p, v);
+	//this->alley->Render(p, v);
 	this->room->Render(p, v);
 	this->camera->Update();
 
@@ -188,7 +192,19 @@ bool TestState::Update()
 			0,
 			this->camVelocity.z * this->deltaTime * cos(glm::radians(this->camRotation.y)));
 	}
+	if (!pressedSpace && state[SDL_SCANCODE_SPACE]) 
+	{
+		this->pressedSpace = true;
+		this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), 4, this->Player->rigidBody->getLinearVelocity().z()));
 
+	}
+	else if (!state[SDL_SCANCODE_SPACE])
+	{
+		this->pressedSpace = false;
+	}
+
+	//this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity()));
+	//std::cout << this->Player->rigidBody->getLinearVelocity().y() << std::endl;
 
 	if (!this->pressedC && state[SDL_SCANCODE_C])
 	{

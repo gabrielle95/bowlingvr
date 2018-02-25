@@ -151,6 +151,7 @@ GLuint Mesh::textureFromFile(const char * path, std::string dir)
 	glGenTextures(1, &textureID);
 	int width, height, n;
 
+
 	SDL_Surface * image = IMG_Load(filename.c_str());
 	if (image == NULL) {
 		return 0;
