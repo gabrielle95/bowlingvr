@@ -36,24 +36,26 @@ bool TestState::Init()
 
 	printf("The current working directory is %s\n", cCurrentPath);
 
-
-	this->room = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\room\\untitled.obj");
-	//room->InitPhysicsBody(btBODIES::PLANE, 0, 0, btVector3(10, 0.1, 10), btVector3(0, -0.1, 0));
-	//this->dynamicWorld->addRigidBody(this->room->rigidBody);
+	/* MODEL INITIALISATION */
 	
-	std::vector<btVector3> wallPositions;
-	wallPositions.push_back(btVector3(0, -0.1, 0)); //floor
-	wallPositions.push_back(btVector3(0, 10, 0)); //ceiling
+	// soon, everything shall be an alley *looks with mischief*
+	this->room = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\room\\room.obj");
+	this->room->pInit(0, btVector3(0, 0, 0));
+	this->dynamicWorld->addRigidBody(room->rigidBody);
 
-	wallPositions.push_back(btVector3(0, -0.1, 10)); //back
-	wallPositions.push_back(btVector3(0, -0.1, -10)); //front
-	wallPositions.push_back(btVector3(10, -0.1, 0)); //right
-	wallPositions.push_back(btVector3(-10, -0.1, 0)); //left
+	/*std::vector<btVector3> wallPositions;
+	wallPositions.push_back(btVector3(0, -0.1, 0)); //floor
+	wallPositions.push_back(btVector3(0, 30, 0)); //ceiling
+
+	wallPositions.push_back(btVector3(0, -0.1, 30)); //back
+	wallPositions.push_back(btVector3(0, -0.1, -30)); //front
+	wallPositions.push_back(btVector3(30, -0.1, 0)); //right
+	wallPositions.push_back(btVector3(-30, -0.1, 0)); //left
 
 	std::vector<btVector3>wallDimensions;
-	wallDimensions.push_back(btVector3(10, 0.1, 10));//up and down
-	wallDimensions.push_back(btVector3(10, 10, 0.1));//acc to x
-	wallDimensions.push_back(btVector3(0.1, 10, 10));//acc to z
+	wallDimensions.push_back(btVector3(30, 0.1, 30));//up and down
+	wallDimensions.push_back(btVector3(30, 30, 0.1));//acc to x
+	wallDimensions.push_back(btVector3(0.1, 30, 30));//acc to z
 	
 	int j = 0;
 	for (int i = 0; i < wallDimensions.size(); i++) {
@@ -65,14 +67,14 @@ bool TestState::Init()
 	}
 	wallPositions.clear();
 	wallDimensions.clear();
-	//this->pin = new Pin(this->modelShader, "bowling_pin_000.obj", 1.5, 0.0375, 0.3, btVector3(0, 0.3, 0));
-	//this->dynamicWorld->addRigidBody(this->pin->rigidBody);
-	/*this->assimpTestt = new Model(this->modelShader, "bowling_pin_000.obj");
-	assimpTestt->InitPhysicsBody(btBODIES::PLANE, 1.5, 0, btVector3(0.075, 0.3, 0.075), btVector3(0, 0.3, 0));
-	this->dynamicWorld->addRigidBody(this->assimpTestt->rigidBody);*/
-
-	this->sphere = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\ball\\sphere-m10-r01.obj");
+	*/
+	this->sphere = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\ball\\sphere-m10-r025.obj");
 	this->pin = new Model(this->modelShader, "bowling_pin_000.obj");
+
+	this->alley = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\venue.obj");
+	std::cout << "BOWLING:: Initialising Alley hull..." << std::endl;
+	this->alley->pInit(0, btVector3(0,0.5,0));
+	this->dynamicWorld->addRigidBody(alley->rigidBody);
 
 	std::vector<btVector3> pinPositions;
 	pinPositions.push_back(btVector3(-1.f, 0.3f, 0.f));
@@ -97,7 +99,7 @@ bool TestState::Init()
 	pinPositions.clear();
 	//cam
 	this->camera = new Camera(this->modelShader, 1600,900);
-	this->camera->SetTranslation(0,1,10);
+	this->camera->SetTranslation(0,1.7,10);
 
 	SDL_WarpMouseGlobal(500, 500);
 	SDL_ShowCursor(0);
@@ -147,6 +149,7 @@ bool TestState::Update()
 	
 	//this->assimpTestt->Render(p, v);
 	//this->pin->Render(p, v);
+	this->alley->Render(p, v);
 	this->room->Render(p, v);
 	this->camera->Update();
 
@@ -244,7 +247,7 @@ bool TestState::Update()
 void TestState::ShootSphere(btVector3 direction, btVector3 origin)
 {
 
-	Ball *shoot = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.1f), origin);
+	Ball *shoot = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.25f), origin);
 	btVector3 velocity = direction;
 	velocity.normalize();
 	velocity *= 10.0f;

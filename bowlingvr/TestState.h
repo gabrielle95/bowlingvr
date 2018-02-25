@@ -28,10 +28,12 @@ private:
 
 	Model *sphere;
 	Model *assimpTestt;
-	Model *room;
+	Alley *room;
 	Model *pin;
 
-	std::vector<Pin*>pins;
+	Alley *alley;
+
+	std::vector<Pin*> pins;
 	std::vector<Box*> walls;
 
 	std::vector<Model*>dynamicObjects;
@@ -48,7 +50,7 @@ private:
 	uint32_t currentTime = 0;
 	uint32_t lastTime = 0;
 
-	bool debugMode = true;
+	bool debugMode = false;
 	bool pressedP = false;
 	bool pressedC = false;
 
