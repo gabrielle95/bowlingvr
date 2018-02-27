@@ -7,9 +7,9 @@ out vec3 Normal;
 out vec3 FragPos;
 out vec2 TexCoords;
 
-uniform mat4 mvpMatrix;
-uniform mat4 uMVMatrix;
-uniform mat4 uPMatrix;
+uniform mat4 mvpMatrix; //proj * view * model
+uniform mat4 uMVMatrix; // view * model
+uniform mat4 uPMatrix; // proj
 
 void main()
 {

@@ -28,7 +28,6 @@ private:
 	btDynamicsWorld *dynamicWorld; //bulletPhysics
 
 	Model *sphere;
-	Model *assimpTestt;
 	Alley *room;
 	Model *pin;
 
@@ -60,5 +59,7 @@ private:
 	bool pressedC = false;
 	bool pressedSpace = false;
 
+	//mouse position
+	int xPos, yPos;
 };
 #endif

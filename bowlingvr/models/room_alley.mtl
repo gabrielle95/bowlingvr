@@ -1,5 +1,5 @@
 # Blender MTL File: 'alley.blend'
-# Material Count: 4
+# Material Count: 7
 
 newmtl billboard
 Ns 96.078431
@@ -11,6 +11,28 @@ Ni 1.000000
 d 1.000000
 illum 2
 map_Kd textures\billboard.png
+
+newmtl bowlinglane
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd textures\bowling_lane.png
+
+newmtl bowlinglane_Start
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd textures\bowling_lane_arrows.png
 
 newmtl default_mtl
 Ns 96.078431
@@ -32,6 +54,17 @@ Ni 1.000000
 d 1.000000
 illum 2
 map_Kd textures\tiles01.png
+
+newmtl metal-listy
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd textures\Metal01.png
 
 newmtl walls
 Ns 96.078431

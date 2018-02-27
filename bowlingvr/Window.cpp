@@ -22,8 +22,6 @@ Window::Window(const std::string& title, int x, int y, int width, int height)
 	}
 	else
 	{
-		//SDL_SetWindowGrab(this->sdlWindow, SDL_TRUE);
-		//SDL_SetRelativeMouseMode(SDL_TRUE);
 		this->InitRenderer();
 	}
 }
@@ -42,7 +40,6 @@ void Window::InitRenderer()
 		{
 			throw context_exception(SDL_GetError());
 		}
-		//IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG | IMG_INIT_BMP);
 	}
 
 }

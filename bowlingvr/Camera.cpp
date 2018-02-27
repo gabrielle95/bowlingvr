@@ -82,6 +82,11 @@ void Camera::setModelMatrix(glm::mat4 m)
 	this->modelMat = m;
 }
 
+void Camera::setViewMatrix(glm::mat4 m)
+{
+	this->viewMat = m;
+}
+
 void Camera::UpdateViewMatrix()
 {
 	//glm::vec3 up = glm::cross(this->direction, this->direction);

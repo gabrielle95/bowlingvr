@@ -12,7 +12,7 @@ TestState::TestState(Application *application) : GameState(application)
 bool TestState::Init()
 {
 	glClearColor(0.1,0.1,0.1,0.1);
-	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glEnable(GL_TEXTURE_2D);
 
 	char cCurrentPath[FILENAME_MAX];
@@ -26,15 +26,12 @@ bool TestState::Init()
 
 	printf("The current working directory is %s\n", cCurrentPath);
 
-	//glShadeModel(GL_SMOOTH);
-	//this->shader = new Shader("test.vert", "test.frag");
-	//this->shader->Use();
-	//this->hasTextureUniform = this->shader->getUniLocation("hasTexture");
+	/* SHADER COMPILATION */
 	std::cout << "BOWLING:: Compiling shaders..." << std::endl;
 	this->modelShader = new Shader("modelShader.vert", "modelShader.frag");
-	this->hasTextureUniform = this->modelShader->getUniLocation("hasTexture");
 	this->modelShader->Use();
-	/* initialize bullet*/
+
+	/* PHYSICS INITIALISATION */
 	this->dynamicWorld = BulletWorld::Instance()->dynamicWorld;
 
 	/* MODEL INITIALISATION */
@@ -100,23 +97,25 @@ bool TestState::Init()
 		this->dynamicWorld->addRigidBody(tmp->rigidBody);
 	}
 	pinPositions.clear();
-	//cam
-	std::cout << "BOWLING:: Initializing camera..." << std::endl;
-	this->camera = new Camera(this->modelShader, 1600,900);
-	this->camera->SetTranslation(0,1.7,10);
-	//this->camera->setViewMatrix(glm::inverse(this->Player->modelMatrix));
 
-	SDL_WarpMouseGlobal(500, 500);
-	SDL_ShowCursor(0);
+	/* CAMERA INITIALISATION */
+	std::cout << "BOWLING:: Initializing camera..." << std::endl;
+	this->camera = new Camera(this->modelShader, 1920,1080);
+	this->camera->SetTranslation(0,1.7,10);
+
 	this->camVelocity = glm::vec3(this->mouse_speed*5, this->mouse_speed*5, this->mouse_speed*5);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE );
+
+	SDL_GetGlobalMouseState(&xPos, &yPos);
+	SDL_WarpMouseGlobal(500, 500);
+
 	std::cout << "BOWLING:: READY" << std::endl;
+
 	return true;
 }
 
 bool TestState::Update()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 
 	this->dynamicWorld->stepSimulation(1.f / 60.f);
@@ -155,7 +154,14 @@ bool TestState::Update()
 	//this->pin->Render(p, v);
 	//this->alley->Render(p, v);
 	this->room->Render(p, v);
+
+	btTransform ptrans;
+	this->Player->motionstate->getWorldTransform(ptrans);
+	this->camera->SetTranslation(ptrans.getOrigin().x(), ptrans.getOrigin().y() + 0.85, ptrans.getOrigin().z());
+
+	//this->camera->setViewMatrix(glm::inverse(this->Player->modelMatrix));
 	this->camera->Update();
+	
 
 	this->deltaNow = SDL_GetTicks();
 	/*this->lastTime = currentTime;
@@ -170,47 +176,59 @@ bool TestState::Update()
 
 	if (state[SDL_SCANCODE_D])
 	{
-		this->camera->Translate(this->camVelocity.x * this->deltaTime * cos(glm::radians(-this->camRotation.y)),
+		/*this->camera->Translate(this->camVelocity.x * this->deltaTime * cos(glm::radians(-this->camRotation.y)),
 			0,
-			this->camVelocity.z * this->deltaTime * sin(glm::radians(-this->camRotation.y)));
+			this->camVelocity.z * this->deltaTime * sin(glm::radians(-this->camRotation.y)));*/
+		this->Player->rigidBody->setLinearVelocity(btVector3(5, this->Player->rigidBody->getLinearVelocity().y(), this->Player->rigidBody->getLinearVelocity().z()));
 	}
 	if (state[SDL_SCANCODE_A])
 	{
-		this->camera->Translate(-this->camVelocity.x * this->deltaTime * cos(glm::radians(-this->camRotation.y)),
+		/*this->camera->Translate(-this->camVelocity.x * this->deltaTime * cos(glm::radians(-this->camRotation.y)),
 			0,
-			-this->camVelocity.z * this->deltaTime * sin(glm::radians(-this->camRotation.y)));
+			-this->camVelocity.z * this->deltaTime * sin(glm::radians(-this->camRotation.y)));*/
+		this->Player->rigidBody->setLinearVelocity(btVector3(-5, this->Player->rigidBody->getLinearVelocity().y(), this->Player->rigidBody->getLinearVelocity().z()));
 	}
 	if (state[SDL_SCANCODE_W])
 	{
-		this->camera->Translate(-this->camVelocity.x * this->deltaTime * sin(glm::radians(this->camRotation.y)),
+		/*this->camera->Translate(-this->camVelocity.x * this->deltaTime * sin(glm::radians(this->camRotation.y)),
 			0,
-			-this->camVelocity.z * this->deltaTime * cos(glm::radians(this->camRotation.y)));
+			-this->camVelocity.z * this->deltaTime * cos(glm::radians(this->camRotation.y)));*/
+		this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), this->Player->rigidBody->getLinearVelocity().y(),-5));
 	}
 	if (state[SDL_SCANCODE_S])
 	{
-		this->camera->Translate(this->camVelocity.x * this->deltaTime * sin(glm::radians(this->camRotation.y)),
+		/*this->camera->Translate(this->camVelocity.x * this->deltaTime * sin(glm::radians(this->camRotation.y)),
 			0,
-			this->camVelocity.z * this->deltaTime * cos(glm::radians(this->camRotation.y)));
+			this->camVelocity.z * this->deltaTime * cos(glm::radians(this->camRotation.y)));*/
+
+		this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), this->Player->rigidBody->getLinearVelocity().y(), 5));
 	}
+
+	/* JUMPING */
 	if (!pressedSpace && state[SDL_SCANCODE_SPACE]) 
 	{
 		this->pressedSpace = true;
-		this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), 4, this->Player->rigidBody->getLinearVelocity().z()));
+		btScalar yVel = this->Player->rigidBody->getLinearVelocity().y();
 
+		/* you can only jump if you're on the ground */
+		if (yVel < 0.05 && yVel > -0.05)
+		{
+			this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), 3.5, this->Player->rigidBody->getLinearVelocity().z()));
+		}
 	}
 	else if (!state[SDL_SCANCODE_SPACE])
 	{
 		this->pressedSpace = false;
 	}
 
-	//this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity()));
+	//this->Player->rigidBody->setLinearVelocity(btVector3(0,this->Player->rigidBody->getLinearVelocity().y(),0));
 	//std::cout << this->Player->rigidBody->getLinearVelocity().y() << std::endl;
 
 	if (!this->pressedC && state[SDL_SCANCODE_C])
 	{
 		this->pressedC = true;
 		glm::mat4 vm = glm::inverse(this->camera->getViewMatrix());
-		this->ShootSphere(btVector3(-vm[2][0], -vm[2][1], -vm[2][2]), btVector3(vm[3][0], vm[3][1], vm[3][2]));
+		this->ShootSphere(btVector3(-vm[2][0], -vm[2][1], -vm[2][2]), btVector3(vm[3][0], vm[3][1], vm[3][2] - 0.6));
 	}
 	else if (!state[SDL_SCANCODE_C])
 	{
@@ -227,18 +245,15 @@ bool TestState::Update()
 		this->pressedP = false;
 	}
 		
-	int xPos, yPos;
-
-	SDL_GetGlobalMouseState(&xPos, &yPos);
-	//SDL_GetMouseState(&xPos, &yPos);
-	//SDL_GetRelativeMouseState(&xPos, &yPos);
-	//SDL_WarpMouseInWindow(NULL, 500, 500);
-	SDL_WarpMouseGlobal(500, 500);
-
-	
-
+	if (this->application->IsWindowActive() == true)
+	{
+		SDL_GetGlobalMouseState(&xPos, &yPos);
+		SDL_WarpMouseGlobal(500, 500);
+	}
+		
 	camRotation.y += deltaTime * mouse_speed * float(500 - xPos);
 	camRotation.x += deltaTime * mouse_speed * float(500 - yPos);
+
 
 	/* to restrict rotating the whole world upside down */
 	if (this->camRotation.x > 90)
@@ -252,11 +267,8 @@ bool TestState::Update()
 	this->camera->Rotate(camRotation.x, 1, 0, 0);
 	this->camera->Rotate(camRotation.y, 0, 1, 0);
 
-	
 	this->deltaThen = this->deltaNow;
-	//printf("Secs per frame: %f\n", deltaTime);
 
-	
 	return true;
 }
 
@@ -297,6 +309,5 @@ TestState::~TestState()
 	delete this->camera;
 	delete this->room;
 	delete this->sphere;
-	delete this->assimpTestt;
 	delete this->modelShader;
 }

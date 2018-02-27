@@ -136,10 +136,10 @@ void Model::Render(glm::mat4 pm, glm::mat4 vm)
 
 
 	glm::vec4 lightAmbient = { 0.05f, 0.05f, 0.05f, 0.2f };
-	glm::vec4 lightDiffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glm::vec4 lightDiffuse = { 1.0f, 1.0f, 1.0f, 2.f };
 	glm::vec4 lightSpecular = { 1.0f, 1.0f, 1.0f, 1.0f };
-	glm::vec4 lightPosition = { 0.f, 0.5f, 15.f, 1.0f };
-	glm::vec4 lightPositionV = vm * lightPosition;//lightPosition * vm;
+	glm::vec4 lightPosition = { 0.0f, 0.5f, 15.f, 1.0f };
+	glm::vec4 lightPositionV = vm * lightPosition;
 
 	glUniform4fv(shader->getUniLocation("light_ambient"), 1, glm::value_ptr(lightAmbient));
 	glUniform4fv(shader->getUniLocation("light_diffuse"), 1, glm::value_ptr(lightDiffuse));

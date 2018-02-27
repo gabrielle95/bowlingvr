@@ -33,10 +33,14 @@ public:
 	void Stop();
 	void SetState(GameStateInterface *state);
 	Window *GetMainWindowPtr();
+	bool IsWindowActive();
 private:
-	bool active;
+	bool active; //application active
+
 	Window* window;
 	GameStateInterface *state = nullptr;
+
+	bool windowFocused;
 };
 
 class GameState : public GameStateInterface

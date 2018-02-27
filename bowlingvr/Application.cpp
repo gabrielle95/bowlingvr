@@ -28,6 +28,11 @@ Window * Application::GetMainWindowPtr()
 	return this->window;
 }
 
+bool Application::IsWindowActive()
+{
+	return this->windowFocused;
+}
+
 Application::Application()
 {
 	try
@@ -38,7 +43,7 @@ Application::Application()
 		}
 		else
 		{
-			this->window = new Window("VR Bowling", 1600, 900); //////////
+			this->window = new Window("VR Bowling", 1920, 1080); //////////
 			if (glewInit() != GLEW_OK)
 			{
 				std::cout << "Error initializing GLEW!" << std::endl;
@@ -91,14 +96,29 @@ bool Application::Run()
 			case SDL_QUIT:
 				this->Stop();
 				break;
+			case SDL_APP_TERMINATING:
+				this->Stop();
+				break;
+			case SDL_WINDOWEVENT:
+				switch (event.window.event)
+				{
+					case SDL_WINDOWEVENT_FOCUS_LOST:
+						std::cout << "SDL::Focus lost." << std::endl;
+						this->windowFocused = false;
+						SDL_ShowCursor(1);
+						break;
+					case SDL_WINDOWEVENT_FOCUS_GAINED:
+						std::cout << "SDL::Focus gained." << std::endl;
+						this->windowFocused = true;
+						SDL_ShowCursor(0);
+						break;
+				}
+				break;
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym)
 				{
 				case SDLK_ESCAPE:
 					this->Stop();
-					break;
-				case SDLK_SPACE:
-					
 					break;
 				}
 				break;
