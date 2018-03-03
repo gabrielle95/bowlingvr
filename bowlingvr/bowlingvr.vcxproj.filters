@@ -54,6 +54,9 @@
     <ClCompile Include="PlayerBody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -95,6 +98,9 @@
     <ClInclude Include="PlayerBody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="test.vert">
@@ -107,6 +113,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="modelShader.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shader.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shader.frag">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

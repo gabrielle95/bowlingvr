@@ -11,9 +11,6 @@ public:
 
 	PlayerBody(btVector3 origin = btVector3(0, 0, 0));
 
-private:
-
-	
+private:	
 	btCollisionShape *collisionShape;
 };
-

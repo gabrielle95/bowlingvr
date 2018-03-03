@@ -16,6 +16,8 @@ public:
 	void Rotate(float rotation, float x, float y, float z);
 	void Update();
 
+	glm::vec3 getPosition();
+
 	glm::mat4 getTranslation();
 	glm::mat4 getRotation();
 
@@ -39,7 +41,8 @@ private:
 	Shader * shader;
 
 
-	GLint vpUniform;
+	GLint vUniform;
+	GLint pUniform;
 
 	void UpdateViewMatrix();
 };

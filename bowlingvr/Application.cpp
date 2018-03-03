@@ -33,6 +33,16 @@ bool Application::IsWindowActive()
 	return this->windowFocused;
 }
 
+unsigned int Application::w()
+{
+	return this->width;
+}
+
+unsigned int Application::h()
+{
+	return this->height;
+}
+
 Application::Application()
 {
 	try
@@ -43,7 +53,9 @@ Application::Application()
 		}
 		else
 		{
-			this->window = new Window("VR Bowling", 1920, 1080); //////////
+			this->width = 1920;
+			this->height = 1080;
+			this->window = new Window("VR Bowling", this->width, this->height);
 			if (glewInit() != GLEW_OK)
 			{
 				std::cout << "Error initializing GLEW!" << std::endl;

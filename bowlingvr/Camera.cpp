@@ -1,5 +1,6 @@
 #include <glm/gtx/rotate_vector.hpp>
 #include <glm/gtx/transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <Windows.h>
 #include <GL/glew.h>
@@ -11,14 +12,18 @@
 Camera::Camera(Shader *shader, float w, float h)
 {
 	this->shader = shader;
-	this->vpUniform = this->shader->getUniLocation("mvpMatrix");
+	//this->vUniform = this->shader->getUniLocation("mvpMatrix");
+	this->vUniform = this->shader->getUniLocation("view");
+	this->pUniform = this->shader->getUniLocation("projection");
 	this->projMatrix = glm::perspective(glm::radians(45.0f), w/h, 0.05f, 1000.0f);
 }
 
 void Camera::SetShader(Shader *shader)
 {
 	this->shader = shader;
-	this->vpUniform = this->shader->getUniLocation("mvpMatrix");
+	//this->vUniform = this->shader->getUniLocation("mvpMatrix");
+	this->vUniform = this->shader->getUniLocation("view");
+	this->pUniform = this->shader->getUniLocation("projection");
 }
 
 // 4,4,4 -> SetTranslation(0,0,0) = 0,0,0
@@ -49,7 +54,15 @@ void Camera::Rotate(float rotation, float x, float y, float z)
 
 void Camera::Update()
 {
-	this->shader->setUniMatrix(this->vpUniform, (this->projMatrix * this->viewMat * this->modelMat));
+	//this->shader->setUniMatrix(this->vUniform, (this->projMatrix * this->viewMat/* * this->modelMat*/));
+	this->shader->setUniMatrix(this->vUniform, this->viewMat);
+	this->shader->setUniMatrix(this->pUniform, this->projMatrix);
+	glUniform3fv(this->shader->getUniLocation("viewPos"), 1, glm::value_ptr(getPosition()));
+}
+
+glm::vec3 Camera::getPosition()
+{
+	return glm::vec3(this->viewMat[3][0], this->viewMat[3][1], this->viewMat[3][2]);
 }
 
 glm::mat4 Camera::getTranslation()

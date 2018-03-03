@@ -34,6 +34,9 @@ public:
 	void SetState(GameStateInterface *state);
 	Window *GetMainWindowPtr();
 	bool IsWindowActive();
+	unsigned int w();
+	unsigned int h();
+
 private:
 	bool active; //application active
 
@@ -41,6 +44,9 @@ private:
 	GameStateInterface *state = nullptr;
 
 	bool windowFocused;
+
+	unsigned int width;
+	unsigned int height;
 };
 
 class GameState : public GameStateInterface

@@ -12,7 +12,7 @@ TestState::TestState(Application *application) : GameState(application)
 bool TestState::Init()
 {
 	glClearColor(0.1,0.1,0.1,0.1);
-	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	glEnable(GL_TEXTURE_2D);
 
 	char cCurrentPath[FILENAME_MAX];
@@ -29,6 +29,7 @@ bool TestState::Init()
 	/* SHADER COMPILATION */
 	std::cout << "BOWLING:: Compiling shaders..." << std::endl;
 	this->modelShader = new Shader("modelShader.vert", "modelShader.frag");
+	this->shader = new Shader("shader.vert", "shader.frag");
 	this->modelShader->Use();
 
 	/* PHYSICS INITIALISATION */
@@ -98,6 +99,9 @@ bool TestState::Init()
 	}
 	pinPositions.clear();
 
+	/* LIGHT INITIALISATION */ //1 for now
+	this->Lights.push_back(new Light(this->shader, 0));
+
 	/* CAMERA INITIALISATION */
 	std::cout << "BOWLING:: Initializing camera..." << std::endl;
 	this->camera = new Camera(this->modelShader, 1920,1080);
@@ -132,6 +136,7 @@ bool TestState::Update()
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
+	
 	/* draw everything that has texture */
 	/*glUniform1i(this->hasTextureUniform, true);
 	this->room->Draw(this->modelShader);
@@ -140,28 +145,32 @@ bool TestState::Update()
 	glm::mat4 p = this->camera->getProjectionMatrix();
 	glm::mat4 v = this->camera->getViewMatrix();
 
+	
+	
+	for (int i = 0; i < Lights.size(); i++)
+	{
+		Light *light = Lights[i];
+		light->Render();
+	}
+
 	for (int i = 0; i < this->dynamicObjects.size(); i++) {
 		Model* shape = this->dynamicObjects[i];
-		shape->Render(p,v);
+		shape->Render();
 	}
 
 	for (int i = 0; i < this->pins.size(); i++) {
 		Pin* shape = this->pins[i];
-		shape->Render(p, v);
+		shape->Render();
 	}
 	
-	//this->assimpTestt->Render(p, v);
-	//this->pin->Render(p, v);
-	//this->alley->Render(p, v);
-	this->room->Render(p, v);
+	this->room->Render();
+	
 
 	btTransform ptrans;
 	this->Player->motionstate->getWorldTransform(ptrans);
 	this->camera->SetTranslation(ptrans.getOrigin().x(), ptrans.getOrigin().y() + 0.85, ptrans.getOrigin().z());
-
-	//this->camera->setViewMatrix(glm::inverse(this->Player->modelMatrix));
-	this->camera->Update();
 	
+
 
 	this->deltaNow = SDL_GetTicks();
 	/*this->lastTime = currentTime;
@@ -266,6 +275,8 @@ bool TestState::Update()
 		
 	this->camera->Rotate(camRotation.x, 1, 0, 0);
 	this->camera->Rotate(camRotation.y, 0, 1, 0);
+
+	this->camera->Update();
 
 	this->deltaThen = this->deltaNow;
 

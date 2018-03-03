@@ -203,11 +203,11 @@ void Mesh::Render(Shader *shader)
 		texIx++;
 	}
 
-	glUniform4fv(shader->getUniLocation("ambientColor"), 1, glm::value_ptr(ambientColor));
-	glUniform4fv(shader->getUniLocation("diffuseColor"), 1, glm::value_ptr(diffuseColor));
-	glUniform4fv(shader->getUniLocation("specularColor"), 1, glm::value_ptr(specularColor));
-	glUniform4fv(shader->getUniLocation("emissiveColor"), 1, glm::value_ptr(emissiveColor));
-	glUniform1f(shader->getUniLocation("shininess"), shininess);
+	glUniform4fv(shader->getUniLocation("Material.ambient"), 1, glm::value_ptr(ambientColor));
+	glUniform4fv(shader->getUniLocation("Material.diffuse"), 1, glm::value_ptr(diffuseColor));
+	glUniform4fv(shader->getUniLocation("Material.specular"), 1, glm::value_ptr(specularColor));
+	glUniform4fv(shader->getUniLocation("Material.emission"), 1, glm::value_ptr(emissiveColor));
+	glUniform1f(shader->getUniLocation("Material.shininess"), shininess);
 	glUniform1i(shader->getUniLocation("ambientTexCount"), ambientCount);
 	glUniform1i(shader->getUniLocation("diffuseTexCount"), diffuseCount);
 	glUniform1i(shader->getUniLocation("specularTexCount"), specularCount);

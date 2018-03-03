@@ -6,6 +6,7 @@
 #include "Entities.h"
 #include "PlayerBody.h"
 #include "Shader.h"
+#include "Light.h"
 #include "Camera.h"
 #include "CDebugDraw.h"
 #include "BulletWorld.h"
@@ -27,10 +28,11 @@ private:
 	Camera *camera;
 	btDynamicsWorld *dynamicWorld; //bulletPhysics
 
+	std::vector<Light *> Lights;
+
 	Model *sphere;
 	Alley *room;
 	Model *pin;
-
 	Alley *alley;
 
 	PlayerBody *Player;

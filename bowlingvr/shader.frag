@@ -42,10 +42,9 @@ uniform MaterialProperties Material;
     uniform sampler2D texture_specular1;
 	
 	uniform int ambientTexCount;
-	uniform int diffuseTexCount;
-	uniform int specularTexCount;
+uniform int diffuseTexCount;
+uniform int specularTexCount;
     
-	uniform vec3 viewPos;
      
     void main()
     {

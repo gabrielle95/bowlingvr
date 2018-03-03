@@ -68,84 +68,41 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 	}
 }
 
-bool Model::InitPhysicsBody(btBODIES SHAPE, btScalar mass, btScalar radius, btVector3 planeDimension, btVector3 origin)
-{
-	btTransform trans = BulletUtils::btTransFrom(this->modelMatrix);
-	trans.setOrigin(origin);
-	this->motionstate = new btDefaultMotionState(trans);
-	btVector3 inertia = btVector3(0, 0, 0);
 
-	switch (SHAPE) {
-	case BALL:
-		this->collisionShape = new btSphereShape(radius);
-
-		if (mass != 0.f)
-		{
-			this->collisionShape->calculateLocalInertia(mass, inertia);
-		}
-
-		{
-			btRigidBody::btRigidBodyConstructionInfo rbInfo
-			(mass, this->motionstate, this->collisionShape, inertia);
-			rbInfo.m_friction = 0.3f;
-			rbInfo.m_rollingFriction = 0.3f;
-			rbInfo.m_spinningFriction = 0.3f;
-			rbInfo.m_linearDamping = 0.3f;
-			this->rigidBody = new btRigidBody(rbInfo);
-		}
-		break;
-
-	case PLANE:
-		this->collisionShape = new btBoxShape(planeDimension);
-		if (mass != 0.f)
-		{
-			this->collisionShape->calculateLocalInertia(mass, inertia);
-		}
-
-		{
-			btRigidBody::btRigidBodyConstructionInfo rbInfo
-			(mass, this->motionstate, this->collisionShape, inertia);
-
-			rbInfo.m_friction = 0.1f;
-			this->rigidBody = new btRigidBody(rbInfo);
-		}
-		break;
-	default:
-		//new btConeShape(0.5,0.5);
-		break;
-	}
-	return true;
-}
-
-void Model::Render(glm::mat4 pm, glm::mat4 vm)
+void Model::Render()
 {
 	if (this->motionstate != nullptr)
 	{
 		btTransform trans;
-		this->motionstate->getWorldTransform(trans);
+		this->rigidBody->getMotionState()->getWorldTransform(trans);
 		glm::mat4 transmat = BulletUtils::glmMat4From(trans);
 		this->modelMatrix = transmat;
 	}
 
 	this->shader->Use();
-	this->uPMatrix = this->shader->getUniLocation("uPMatrix");
+	this->shader->setUniMatrix(this->shader->getUniLocation("model"), modelMatrix);
+
+	/*this->uPMatrix = this->shader->getUniLocation("uPMatrix");
 	this->uMVMatrix = this->shader->getUniLocation("uMVMatrix");
 	this->mvMatrix = vm * this->modelMatrix;
+	
 	this->shader->setUniMatrix(this->uMVMatrix, this->mvMatrix);
-	this->shader->setUniMatrix(this->uPMatrix, pm);
+	this->shader->setUniMatrix(this->uPMatrix, pm);*/
 
-
-	glm::vec4 lightAmbient = { 0.05f, 0.05f, 0.05f, 0.2f };
-	glm::vec4 lightDiffuse = { 1.0f, 1.0f, 1.0f, 2.f };
+	//this->shader->setUniMatrix(mUniform, pm * vm * this->modelMatrix);
+	/*glm::vec4 lightAmbient = { 0.05f, 0.05f, 0.05f, 0.2f};
+	glm::vec4 lightDiffuse = { 1.0f, 1.0f, 1.0f, 1.f };
 	glm::vec4 lightSpecular = { 1.0f, 1.0f, 1.0f, 1.0f };
-	glm::vec4 lightPosition = { 0.0f, 0.5f, 15.f, 1.0f };
-	glm::vec4 lightPositionV = vm * lightPosition;
+	glm::vec4 lightPosition = { -0.3f, 0.5f, -0.3f, 1.0f };
+	glm::vec4 lightPositionV = vm * lightPosition; //dir?*/
+	//glm::vec4 eyeDirection = { -vm[2][0], -vm[2][1], -vm[2][2], 1.0 };
 
-	glUniform4fv(shader->getUniLocation("light_ambient"), 1, glm::value_ptr(lightAmbient));
-	glUniform4fv(shader->getUniLocation("light_diffuse"), 1, glm::value_ptr(lightDiffuse));
-	glUniform4fv(shader->getUniLocation("light_specular"), 1, glm::value_ptr(lightSpecular));
-	glUniform3fv(shader->getUniLocation("light_position"), 1, glm::value_ptr(lightPositionV));
-
+	/*glUniform1i(shader->getUniLocation("Lights[0].isEnabled"), 1);
+	glUniform4fv(shader->getUniLocation("Lights[0].ambient"), 1, glm::value_ptr(lightAmbient));
+	glUniform4fv(shader->getUniLocation("Lights[0].diffuse"), 1, glm::value_ptr(lightDiffuse));
+	glUniform4fv(shader->getUniLocation("Lights[0].specular"), 1, glm::value_ptr(lightSpecular));
+	glUniform3fv(shader->getUniLocation("Lights[0].position"), 1, glm::value_ptr(lightPositionV));
+	*/
 	for (int i = 0; i < this->meshes.size(); ++i) {
 		this->meshes.at(i)->Render(this->shader);
 	}
