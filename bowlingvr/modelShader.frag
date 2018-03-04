@@ -34,7 +34,7 @@ uniform MaterialProperties Material;
     in vec3 FragPos;
     in vec3 Normal;
     in vec2 TexCoords;
-     
+     in mat4 vM;
     out vec4 color;
      
     uniform sampler2D texture_ambient1;
@@ -53,7 +53,7 @@ uniform MaterialProperties Material;
 		vec4 diffuse;
 		vec4 specular = vec4(0.0,0.0,0.0,0.0);
 		
-		for (int light = 0; light < MaxLights; ++light) {
+		for (int light = 0; light < MaxLights; light++) {
 			if (! Lights[light].isEnabled)
 				continue;
             // Ambient
@@ -95,10 +95,10 @@ uniform MaterialProperties Material;
 
 		}
 		
-		vec3 final = vec3(diffuse.rgb + specular.rgb + Material.emission.rgb);
-		final = min(final, vec3(1.0));
-		color = vec4(final, diffuse.a);
-		//color = diffuse + specular + Material.emission;
+		//vec3 final = vec3(diffuse.rgb + specular.rgb + Material.emission.rgb);
+		//final = min(final, vec3(1.0));
+		//color = vec4(final, diffuse.a);
+		color = diffuse + specular + Material.emission;
         if (diffuseTexCount == 0) {
             color += ambient;
         }

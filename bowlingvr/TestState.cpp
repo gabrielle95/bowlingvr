@@ -28,8 +28,8 @@ bool TestState::Init()
 
 	/* SHADER COMPILATION */
 	std::cout << "BOWLING:: Compiling shaders..." << std::endl;
-	this->modelShader = new Shader("modelShader.vert", "modelShader.frag");
-	this->shader = new Shader("shader.vert", "shader.frag");
+	this->modelShader = new Shader("shader.vert", "shader.frag");
+	//this->shader = new Shader("shader.vert", "shader.frag");
 	this->modelShader->Use();
 
 	/* PHYSICS INITIALISATION */
@@ -100,14 +100,16 @@ bool TestState::Init()
 	pinPositions.clear();
 
 	/* LIGHT INITIALISATION */ //1 for now
-	this->Lights.push_back(new Light(this->shader, 0));
-
-	//this->Lights.push_back(new Light(this->shader, 1, glm::vec4(1.0f, 2.0f, 10.0f, 1.0), true));
+	this->Lights.push_back(new Light(this->modelShader, 0));
+	
+	this->Lights.push_back(new Light(this->modelShader, 1, glm::vec4(0.0f, 2.0f, -20.0f, 1.0)));
+	this->Lights.push_back(new Light(this->modelShader, 2, glm::vec4(0.0f, 2.0f, 20.0f, 1.0)));
+	glUniform1i(modelShader->getUniLocation("enabledLights"), 3);
 	//this->Lights.push_back(new Light(this->shader, 2, glm::vec4(-1.f, 1.0f, 5.0f, 1.0)));
 
 	/* CAMERA INITIALISATION */
 	std::cout << "BOWLING:: Initializing camera..." << std::endl;
-	this->camera = new Camera(this->modelShader, 1920,1080);
+	this->camera = new Camera(this->modelShader, this->application->w(), this->application->h());
 	this->camera->SetTranslation(0,1.7,10);
 
 	this->camVelocity = glm::vec3(this->mouse_speed*5, this->mouse_speed*5, this->mouse_speed*5);
