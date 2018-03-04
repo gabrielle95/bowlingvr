@@ -23,11 +23,9 @@ void main()
         //FragPos = vec3(uMVMatrix * vec4(position, 1.0f));
         //Normal = mat3(transpose(inverse(uMVMatrix))) * normal;
         //TexCoords = texCoords;
-		mat4 viewModel = view * model;
-		gl_Position = projection * viewModel * vec4(position, 1.0f);
-        //FragPos = vec3(viewModel * vec4(position, 1.0f));
-		FragPos = position;
-        //Normal = mat3(transpose(inverse(viewModel))) * normal;
-		Normal = normalize(normal);
+
+		gl_Position = projection * view * model * vec4(position, 1.0f);
+        FragPos = vec3(model * vec4(position, 1.0f));
+        Normal = mat3(transpose(inverse(model))) * normal;
         TexCoords = texCoords;
 }

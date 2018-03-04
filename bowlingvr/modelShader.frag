@@ -13,7 +13,7 @@
 	//vec3 coneDirection;
 	//float spotCosCutoff;
 	//float spotExponent;
-	//float constantAttenuation;
+	float constantAttenuation;
 	//float linearAttenuation;
 	//float quadraticAttenuation;
 };
@@ -95,10 +95,13 @@ uniform MaterialProperties Material;
 
 		}
 		
-		color = diffuse + specular + Material.emission;
+		vec3 final = vec3(diffuse.rgb + specular.rgb + Material.emission.rgb);
+		final = min(final, vec3(1.0));
+		color = vec4(final, diffuse.a);
+		//color = diffuse + specular + Material.emission;
         if (diffuseTexCount == 0) {
             color += ambient;
         }
-		if(color.a > 1.0)
-			color.a = 1.0;
+		//if(color.a > 1.0)
+			//color.a = 1.0;
     }

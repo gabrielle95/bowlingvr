@@ -17,6 +17,7 @@ public:
 	void Update();
 
 	glm::vec3 getPosition();
+	glm::vec3 getEyeDir();
 
 	glm::mat4 getTranslation();
 	glm::mat4 getRotation();

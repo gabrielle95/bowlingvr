@@ -57,12 +57,17 @@ void Camera::Update()
 	//this->shader->setUniMatrix(this->vUniform, (this->projMatrix * this->viewMat/* * this->modelMat*/));
 	this->shader->setUniMatrix(this->vUniform, this->viewMat);
 	this->shader->setUniMatrix(this->pUniform, this->projMatrix);
-	glUniform3fv(this->shader->getUniLocation("viewPos"), 1, glm::value_ptr(getPosition()));
+	glUniform3fv(this->shader->getUniLocation("EyeDirection"), 1, glm::value_ptr(getEyeDir()));
 }
 
 glm::vec3 Camera::getPosition()
 {
 	return glm::vec3(this->viewMat[3][0], this->viewMat[3][1], this->viewMat[3][2]);
+}
+
+glm::vec3 Camera::getEyeDir()
+{
+	return glm::vec3(-this->viewMat[2][0], -this->viewMat[2][1], -this->viewMat[2][2]);
 }
 
 glm::mat4 Camera::getTranslation()

@@ -102,6 +102,9 @@ bool TestState::Init()
 	/* LIGHT INITIALISATION */ //1 for now
 	this->Lights.push_back(new Light(this->shader, 0));
 
+	//this->Lights.push_back(new Light(this->shader, 1, glm::vec4(1.0f, 2.0f, 10.0f, 1.0), true));
+	//this->Lights.push_back(new Light(this->shader, 2, glm::vec4(-1.f, 1.0f, 5.0f, 1.0)));
+
 	/* CAMERA INITIALISATION */
 	std::cout << "BOWLING:: Initializing camera..." << std::endl;
 	this->camera = new Camera(this->modelShader, 1920,1080);
