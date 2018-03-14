@@ -21,7 +21,7 @@ public:
 	Model(Shader *shader, const std::string& path);
 	Model(Shader *shader, std::vector<Mesh*> meshEntries);
 	~Model();
-	void Render();
+	void Render(Shader * shader);
 	bool InitPhysicsBody(btBODIES SHAPE,
 		btScalar mass = btScalar(0),
 		btScalar radius = btScalar(0),

@@ -139,19 +139,23 @@ public:
 		btVector3 origin = btVector3(0, 0, 0)
 	) //let's try cone for now
 	{
+
+		this->collisionShape = new btConeShape(radius, height);
+
 		btTransform trans = BulletUtils::btTransFrom(this->modelMatrix);
+		//
 		trans.setOrigin(origin);
+
 		this->motionstate = new btDefaultMotionState(trans);
 		btVector3 inertia = btVector3(0, 0, 0);
 
-		this->collisionShape = new btConeShape(radius, height);
 		if (mass != 0.f)
 		{
 			this->collisionShape->calculateLocalInertia(mass, inertia);
 		}
 
 		btRigidBody::btRigidBodyConstructionInfo rbInfo
-		(mass, this->motionstate, this->collisionShape, inertia);
+		(mass, this->motionstate, collisionShape, inertia);
 
 		rbInfo.m_friction = 0.9f;
 		rbInfo.m_rollingFriction = 0.01f;

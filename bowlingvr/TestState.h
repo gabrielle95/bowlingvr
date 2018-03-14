@@ -22,11 +22,12 @@ public:
 	~TestState();
 
 private:
-	Shader *shader;
-	Shader *modelShader;
+	Shader *shader = nullptr;
+	Shader *modelShader = nullptr;
+	Shader *depthShader = nullptr;
 
-	Camera *camera;
-	btDynamicsWorld *dynamicWorld; //bulletPhysics
+	Camera *camera = nullptr;
+	btDynamicsWorld *dynamicWorld = nullptr; //bulletPhysics
 
 	std::vector<Light *> Lights;
 
@@ -35,7 +36,7 @@ private:
 	Model *pin;
 	Alley *alley;
 
-	PlayerBody *Player;
+	PlayerBody *Player = nullptr;
 
 	std::vector<Pin*> pins;
 	std::vector<Box*> walls;
@@ -63,5 +64,7 @@ private:
 
 	//mouse position
 	int xPos, yPos;
+
+	void RenderObjects(Shader *shader);
 };
 #endif

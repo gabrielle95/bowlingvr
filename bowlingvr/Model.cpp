@@ -69,8 +69,9 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 }
 
 
-void Model::Render()
+void Model::Render(Shader * shader)
 {
+	
 	if (this->motionstate != nullptr)
 	{
 		btTransform trans;
@@ -78,9 +79,8 @@ void Model::Render()
 		glm::mat4 transmat = BulletUtils::glmMat4From(trans);
 		this->modelMatrix = transmat;
 	}
-
-	this->shader->Use();
-	this->shader->setUniMatrix(this->shader->getUniLocation("model"), modelMatrix);
+	shader->Use();
+	shader->setUniMatrix(shader->getUniLocation("model"), modelMatrix);
 
 	/*this->uPMatrix = this->shader->getUniLocation("uPMatrix");
 	this->uMVMatrix = this->shader->getUniLocation("uMVMatrix");
@@ -104,7 +104,7 @@ void Model::Render()
 	glUniform3fv(shader->getUniLocation("Lights[0].position"), 1, glm::value_ptr(lightPositionV));
 	*/
 	for (int i = 0; i < this->meshes.size(); ++i) {
-		this->meshes.at(i)->Render(this->shader);
+		this->meshes.at(i)->Render(shader);
 	}
 }
 

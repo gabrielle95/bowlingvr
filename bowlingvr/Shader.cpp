@@ -6,11 +6,12 @@
 
 using namespace std;
 
-Shader::Shader(string vxname, string fgname)
+Shader::Shader(string vxname, string fgname, string gsname)
 {
 	this->ready = false;
 	this->vxname = vxname;
 	this->fgname = fgname;
+	this->gsname = gsname;
 
 	if (this->Load() < 1)
 	{
@@ -81,6 +82,26 @@ int Shader::Compile()
 		free(fgCompLog);
 		return -2;
 	}
+
+	if (gsname != "null")
+	{
+		c_str_source = this->gsSource.c_str();
+		this->geomShader = glCreateShader(GL_GEOMETRY_SHADER);
+		glShaderSource(this->geomShader, 1, &c_str_source, 0);
+		glCompileShader(this->geomShader);
+		glGetShaderiv(this->geomShader, GL_COMPILE_STATUS, &compiled);
+		if (compiled == false)
+		{
+			unsigned int maxLen;
+			glGetShaderiv(this->geomShader, GL_INFO_LOG_LENGTH, (GLint *)&maxLen);
+			char * fgCompLog = (char *)malloc(maxLen);
+			glGetShaderInfoLog(this->geomShader, maxLen, (GLsizei*)&maxLen, fgCompLog);
+			cout << "Fragment Shader compile error: " << endl << fgCompLog << endl << endl;
+			free(fgCompLog);
+			return -2;
+		}
+	}
+	
 	return 1;
 }
 
@@ -131,6 +152,21 @@ GLint Shader::getUniLocation(string name)
 void Shader::setUniMatrix(GLint location, glm::mat4 matrix)
 {
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix)); 
+}
+
+void Shader::setInt(string location, int value)
+{
+	glUniform1i(getUniLocation(location), value);
+}
+
+void Shader::setFloat(string location, float value)
+{
+	glUniform1f(getUniLocation(location), value);
+}
+
+void Shader::setVec3(string location, glm::vec3 value)
+{
+	glUniform3fv(getUniLocation(location), 1, glm::value_ptr(value));
 }
 
 GLuint Shader::getShaderProgram()

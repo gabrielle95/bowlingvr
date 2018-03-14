@@ -14,6 +14,8 @@ bool TestState::Init()
 	glClearColor(0.1,0.1,0.1,0.1);
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 
 	char cCurrentPath[FILENAME_MAX];
 
@@ -21,21 +23,34 @@ bool TestState::Init()
 	{
 		printf("cwd error \n");
 	}
-
 	cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
-
 	printf("The current working directory is %s\n", cCurrentPath);
 
 	/* SHADER COMPILATION */
 	std::cout << "BOWLING:: Compiling shaders..." << std::endl;
+
 	this->modelShader = new Shader("shader.vert", "shader.frag");
-	//this->shader = new Shader("shader.vert", "shader.frag");
-	this->modelShader->Use();
+	assert(this->modelShader != nullptr);
+	modelShader->Use();
+
+	this->depthShader = new Shader("depthshader.vert", "depthshader.frag");
+	assert(this->depthShader != nullptr);
+
+	//this->modelShader->Use();
+	//modelShader->setInt("depthMap", 0);
+
 
 	/* PHYSICS INITIALISATION */
 	this->dynamicWorld = BulletWorld::Instance()->dynamicWorld;
 
+	assert(this->dynamicWorld != nullptr);
+
 	/* MODEL INITIALISATION */
+
+	/* ALLEY COLLISION DIRTY FIX */
+	btRigidBody * alleyFix = BulletUtils::createInvisibleBoxCollider(0, btVector3(1.35, 0.1, 27), btVector3(-0.35, -0.199, -12), glm::mat4(1.0));
+	this->dynamicWorld->addRigidBody(alleyFix);
+
 	std::cout << "BOWLING:: Loading models..." << std::endl;
 	// soon, everything shall be an alley *looks with mischief*
 	this->room = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\room_alley.obj");
@@ -78,19 +93,19 @@ bool TestState::Init()
 	this->dynamicWorld->addRigidBody(Player->rigidBody);
 
 	std::vector<btVector3> pinPositions;
-	pinPositions.push_back(btVector3(-1.f, 0.3f, 0.f));
-	pinPositions.push_back(btVector3(-0.5f, 0.3f, 0.f));
-	pinPositions.push_back(btVector3(0.0f, 0.3f, 0.f));
-	pinPositions.push_back(btVector3(0.5f, 0.3f, 0.f));
+	pinPositions.push_back(btVector3(-1.f, 0.3f, -38.f));
+	pinPositions.push_back(btVector3(-0.5f, 0.3f, -38.f));
+	pinPositions.push_back(btVector3(0.0f, 0.3f, -38.f));
+	pinPositions.push_back(btVector3(0.5f, 0.3f, -38.f));
 
-	pinPositions.push_back(btVector3(-0.75f, 0.3f, 1.f));
-	pinPositions.push_back(btVector3(-0.25f, 0.3f, 1.f));
-	pinPositions.push_back(btVector3(0.25f, 0.3f, 1.f));
+	pinPositions.push_back(btVector3(-0.75f, 0.3f, -37.5f));
+	pinPositions.push_back(btVector3(-0.25f, 0.3f, -37.5f));
+	pinPositions.push_back(btVector3(0.25f, 0.3f, -37.5f));
 
-	pinPositions.push_back(btVector3(-0.5f, 0.3f, 2.f));
-	pinPositions.push_back(btVector3(0.0f, 0.3f, 2.f));
+	pinPositions.push_back(btVector3(-0.5f, 0.3f, -37.f));
+	pinPositions.push_back(btVector3(0.0f, 0.3f, -37.f));
 
-	pinPositions.push_back(btVector3(-0.25f, 0.3f, 3.f));
+	pinPositions.push_back(btVector3(-0.25f, 0.3f, -36.5f));
 	
 	for (int i = 0; i < pinPositions.size(); i++) {
 		Pin *tmp = new Pin(this->modelShader, this->pin->meshes, 1.5, 0.075, 0.5, pinPositions[i]);
@@ -100,16 +115,23 @@ bool TestState::Init()
 	pinPositions.clear();
 
 	/* LIGHT INITIALISATION */ //1 for now
-	this->Lights.push_back(new Light(this->modelShader, 0));
+	//std::vector<glm::vec4> lightPositions;
+
+	//this->Lights.push_back(new Light(this->modelShader, 0));
+	//lightPositions.push_back(Lights[0]->position);
+	this->Lights.push_back(new Light(this->modelShader, 0, glm::vec4(-2.0f, 2.5f, -25.0f, 1.0)));
+	this->Lights.push_back(new Light(this->modelShader, 1, glm::vec4(-2.0f, 2.5f, 25.0f, 1.0)));
 	
-	this->Lights.push_back(new Light(this->modelShader, 1, glm::vec4(0.0f, 2.0f, -20.0f, 1.0)));
-	this->Lights.push_back(new Light(this->modelShader, 2, glm::vec4(0.0f, 2.0f, 20.0f, 1.0)));
-	glUniform1i(modelShader->getUniLocation("enabledLights"), 3);
-	//this->Lights.push_back(new Light(this->shader, 2, glm::vec4(-1.f, 1.0f, 5.0f, 1.0)));
+	glUniform1i(modelShader->getUniLocation("enabledLights"), 2);
+	/* SHADOW MAP INIT */
+
+	///NEFUNGUJE NIC
 
 	/* CAMERA INITIALISATION */
 	std::cout << "BOWLING:: Initializing camera..." << std::endl;
 	this->camera = new Camera(this->modelShader, this->application->w(), this->application->h());
+	assert(this->camera != nullptr);
+
 	this->camera->SetTranslation(0,1.7,10);
 
 	this->camVelocity = glm::vec3(this->mouse_speed*5, this->mouse_speed*5, this->mouse_speed*5);
@@ -124,59 +146,35 @@ bool TestState::Init()
 
 bool TestState::Update()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
-
 	this->dynamicWorld->stepSimulation(1.f / 60.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	/* DEBUG DRAW */
-	if (this->debugMode) {
-		BulletWorld::Instance()->debugDraw->SetMatrices(this->camera->getViewMatrix(), this->camera->getProjectionMatrix());
-		this->dynamicWorld->debugDrawWorld();
-		
-		this->modelShader->Use();
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else {
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
+	/* RENDERING SHADOWMAP - 1st pass */
+	///
+	//this->shadowMap->BindToDepthMap(this->depthShader);
+	//RenderObjects(depthShader);
+	//this->shadowMap->Unbind();
 
-	
-	/* draw everything that has texture */
-	/*glUniform1i(this->hasTextureUniform, true);
-	this->room->Draw(this->modelShader);
-	glUniform1i(this->hasTextureUniform, false);*/
-	//this->assimpTestt->Draw(this->modelShader);
-	glm::mat4 p = this->camera->getProjectionMatrix();
-	glm::mat4 v = this->camera->getViewMatrix();
+	/* RENDERING SCENE - 2nd pass */
 
-	
-	
-	for (int i = 0; i < Lights.size(); i++)
-	{
-		Light *light = Lights[i];
-		light->Render();
-	}
+	//bind shadows
+	//this->shadowMap->ConfigureShadows(modelShader);
+	//modelShader->Use();
+	//modelShader->setFloat("far_plane", 25.f);
+	//modelShader->setVec3("viewPos", this->camera->getPosition());
 
-	for (int i = 0; i < this->dynamicObjects.size(); i++) {
-		Model* shape = this->dynamicObjects[i];
-		shape->Render();
-	}
+	//this->shadowMap->BindShadows();
+	RenderObjects(modelShader);
 
-	for (int i = 0; i < this->pins.size(); i++) {
-		Pin* shape = this->pins[i];
-		shape->Render();
-	}
-	
-	this->room->Render();
-	
+
+	/* TRANSFORMATIONS */
 
 	btTransform ptrans;
 	this->Player->motionstate->getWorldTransform(ptrans);
 	this->camera->SetTranslation(ptrans.getOrigin().x(), ptrans.getOrigin().y() + 0.85, ptrans.getOrigin().z());
-	
 
 
+	/* TIME */
 	this->deltaNow = SDL_GetTicks();
 	/*this->lastTime = currentTime;
 	this->currentTime = SDL_GetTicks(); //ms*/
@@ -286,6 +284,40 @@ bool TestState::Update()
 	this->deltaThen = this->deltaNow;
 
 	return true;
+}
+
+void TestState::RenderObjects(Shader *shader)
+{
+	/* DEBUG DRAW */
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	if (this->debugMode) {
+		BulletWorld::Instance()->debugDraw->SetMatrices(this->camera->getViewMatrix(), this->camera->getProjectionMatrix());
+		this->dynamicWorld->debugDrawWorld();
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	else {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+
+	for (int i = 0; i < Lights.size(); i++)
+	{
+		Light *light = Lights[i];
+		light->Render(shader);
+	}
+
+	for (int i = 0; i < this->dynamicObjects.size(); i++) {
+		Model* shape = this->dynamicObjects[i];
+		shape->Render(shader);
+	}
+
+	for (int i = 0; i < this->pins.size(); i++) {
+		Pin* shape = this->pins[i];
+		shape->Render(shader);
+	}
+
+	this->room->Render(shader);
 }
 
 void TestState::ShootSphere(btVector3 direction, btVector3 origin)

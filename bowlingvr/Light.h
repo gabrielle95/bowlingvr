@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 #include <string>
+#include <vector>
 #include "Shader.h"
 
 class Light
@@ -11,18 +12,17 @@ public:
 		unsigned int lightIndex,
 		glm::vec4 position = { 0, 2.0f, 0, 1.0f },
 		bool isSpot = false,
-		glm::vec4 ambient = { 0.05f, 0.05f, 0.05f, 0.2f },
-		glm::vec4 diffuse = { 1.0f, 1.0f, 1.0f, 1.f },
+		glm::vec4 ambient = { 0.05f, 0.05f, 0.05f, 0.0f },
+		glm::vec4 diffuse = { 0.5f, 0.5f, 0.5f, 0.5f },
 		glm::vec4 specular = { 1.0f, 1.0f, 1.0f, 1.0f },
 		glm::vec4 cone_direction = {0.0, -1.0, 0.0, 1.0},
 		float spot_cos_cutoff = 0.1,
 		float spot_exponent = 10
 	);
 
-	void Render();
-	void SetTranslation(glm::vec3 pos);
+	void Render(Shader *shader);
 
-	glm::mat4 modelMatrix;
+	glm::vec4 position;
 
 private:
 	Shader * shader;
@@ -31,7 +31,7 @@ private:
 	glm::vec4 ambient;
 	glm::vec4 diffuse;
 	glm::vec4 specular;
-	glm::vec4 position;
+
 	float shininess;
 	float strength;
 	//

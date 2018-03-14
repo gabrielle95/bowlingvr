@@ -34,7 +34,6 @@ uniform MaterialProperties Material;
     in vec3 FragPos;
     in vec3 Normal;
     in vec2 TexCoords;
-     in mat4 vM;
     out vec4 color;
      
     uniform sampler2D texture_ambient1;
