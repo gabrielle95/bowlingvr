@@ -156,6 +156,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="PlayerBody.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Shadowmap.cpp" />
     <ClCompile Include="TestState.cpp" />
     <ClCompile Include="TestState2.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="PlayerBody.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Shadowmap.h" />
     <ClInclude Include="TestState.h" />
     <ClInclude Include="TestState2.h" />
     <ClInclude Include="Window.h" />

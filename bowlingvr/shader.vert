@@ -20,7 +20,7 @@ out vec3 EyeDirection_cameraspace;
 
 uniform int enabledLights;
 out int EnabledLightCnt;
-uniform vec3 LightPosition_worldspace[10];
+uniform vec3 LightPosition_worldspace[10]; //to convert to lightDirection cameraspace
 
 uniform mat4 model;
 uniform mat4 view;
@@ -49,7 +49,7 @@ void main()
 		
 		gl_Position = projection * MV * pos;
 		//viewPos = (view * pos).xyz;
-		FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0); //light camera space
+		//FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0); //light camera space
 		//EnabledLightCnt = enabledLights;
 
 }

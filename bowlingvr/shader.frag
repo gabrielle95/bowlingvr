@@ -29,21 +29,20 @@ uniform MaterialProperties Material;
 in vec3 FragPos;
 in vec3 Normal;
 in vec2 TexCoords;
+
 in vec3 lightDir[10]; //cameraspace
 in vec3 EyeDirection_cameraspace;
 
 uniform vec3 viewPos;
 
 // for shadows
-in int EnabledLightCnt;
-
 in vec4 FragPosLightSpace;
 uniform mat4 lightSpaceMatrix;
-uniform sampler2D shadowMap;
 
 
-uniform sampler2D diffuseTexture;
+//uniform sampler2D diffuseTexture;
 uniform samplerCube depthMap;
+
 uniform float far_plane;
 
 //out
@@ -57,38 +56,41 @@ uniform int ambientTexCount;
 uniform int diffuseTexCount;
 uniform int specularTexCount;
 
-float ShadowCalculation(vec4 fragPosLightSpace, vec3 lightPos)
+// array of offset direction for sampling
+vec3 gridSamplingDisk[20] = vec3[]
+(
+   vec3(1, 1,  1), vec3( 1, -1,  1), vec3(-1, -1,  1), vec3(-1, 1,  1), 
+   vec3(1, 1, -1), vec3( 1, -1, -1), vec3(-1, -1, -1), vec3(-1, 1, -1),
+   vec3(1, 1,  0), vec3( 1, -1,  0), vec3(-1, -1,  0), vec3(-1, 1,  0),
+   vec3(1, 0,  1), vec3(-1,  0,  1), vec3( 1,  0, -1), vec3(-1, 0, -1),
+   vec3(0, 1,  1), vec3( 0, -1,  1), vec3( 0, -1, -1), vec3( 0, 1, -1)
+);
+
+float ShadowCalculation(vec3 fragPos, vec3 lightPos)
 {
-    // perform perspective divide
-    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
-    // transform to [0,1] range
-    projCoords = projCoords * 0.5 + 0.5;
-    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
-    float closestDepth = texture(shadowMap, projCoords.xy).r; 
-    // get depth of current fragment from light's perspective
-    float currentDepth = projCoords.z;
-    // calculate bias (based on depth map resolution and slope)
-    vec3 normal = normalize(Normal);
-    vec3 lightDir = normalize(lightPos - FragPos);
-    float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
-    // check whether current frag pos is in shadow
-    // float shadow = currentDepth - bias > closestDepth  ? 1.0 : 0.0;
-    // PCF
+	// get vector between fragment position and light position
+    vec3 fragToLight = fragPos - lightPos;
+
+    // now get current linear depth as the length between the fragment and light position
+    float currentDepth = length(fragToLight);
+    // test for shadows
+
     float shadow = 0.0;
-    vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
-    for(int x = -1; x <= 1; ++x)
+    float bias = 0.70;
+    int samples = 20;
+    float viewDistance = length(viewPos - fragPos);
+    float diskRadius = (1.0 + (viewDistance / far_plane)) / 100.0;
+    for(int i = 0; i < samples; ++i)
     {
-        for(int y = -1; y <= 1; ++y)
-        {
-            float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r; 
-            shadow += currentDepth - bias > pcfDepth  ? 1.0 : 0.0;        
-        }    
+        float closestDepth = texture(depthMap, fragToLight + gridSamplingDisk[i] * diskRadius).r;
+        closestDepth *= far_plane;   // undo mapping [0;1]
+        if(currentDepth - bias > closestDepth)
+            shadow += 1.0;
     }
-    shadow /= 9.0;
-    
-    // keep the shadow at 0.0 when outside the far_plane region of the light's frustum.
-    if(projCoords.z > 1.0)
-        shadow = 0.0;
+    shadow /= float(samples);
+        
+    // display closestDepth as debug (to visualize depth cubemap)
+    // FragColor = vec4(vec3(closestDepth / far_plane), 1.0);    
         
     return shadow;
 }
@@ -106,7 +108,8 @@ void main()
 	float constantAtt = 1.0;
 	float shadow;
 	
-	vec4 colorFactor; 
+	vec4 colorFactor;
+	vec4 emission = Material.emission;
 	
 	for(int i = 0; i < MaxLights; i++)
 	{
@@ -122,7 +125,7 @@ void main()
 		vec3 L = normalize(lightDir[i]); //light direction cameraspace
 		
 		//shadow	
-		//shadow = ShadowCalculation(FragPosLightSpace, Lights[i].position);
+		shadow = ShadowCalculation(FragPos, Lights[i].position);
 		
 		//diffuse
 		float diffuse = max(clamp( dot( N,L ), 0,1 ),0.05);
@@ -164,10 +167,10 @@ void main()
 		 //ambient
 		 vec4 amb = Lights[i].ambient * (texture(texture_ambient1, TexCoords) + Material.ambient);
 		
-		finalColor += (amb +  (diff + spec)) * colorFactor;
+		finalColor += (amb + (1.0 - shadow) * (diff + spec)) * (colorFactor);
 
 	}
 	
-	color = finalColor + Material.emission;
+	color = (finalColor + Material.emission);
 }
 

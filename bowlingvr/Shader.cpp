@@ -40,8 +40,20 @@ int Shader::Load()
 	if (!this->fgFile)
 		return -2;
 
+	
+
 	this->vxStream << vxFile.rdbuf();
 	this->fgStream << fgFile.rdbuf();
+
+	if (gsname != "null")
+	{
+		this->gsFile.open(this->gsname, ios::in);
+		if (!this->gsFile)
+			return -3;
+
+		this->gsStream << gsFile.rdbuf();
+		this->gsSource = this->gsStream.str();
+	}
 
 	this->vxSource = this->vxStream.str();
 	this->fgSource = this->fgStream.str();
@@ -96,7 +108,7 @@ int Shader::Compile()
 			glGetShaderiv(this->geomShader, GL_INFO_LOG_LENGTH, (GLint *)&maxLen);
 			char * fgCompLog = (char *)malloc(maxLen);
 			glGetShaderInfoLog(this->geomShader, maxLen, (GLsizei*)&maxLen, fgCompLog);
-			cout << "Fragment Shader compile error: " << endl << fgCompLog << endl << endl;
+			cout << "Geometry Shader compile error: " << endl << fgCompLog << endl << endl;
 			free(fgCompLog);
 			return -2;
 		}
@@ -124,7 +136,11 @@ int Shader::Link()
 	this->shaderProgram = glCreateProgram();
 
 	glAttachShader(this->shaderProgram, this->vertexShader);
+	if (gsname != "null")
+		glAttachShader(this->shaderProgram, this->geomShader);
+
 	glAttachShader(this->shaderProgram, this->fragmentShader);
+	
 	glLinkProgram(this->shaderProgram);
 
 	GLint linked;

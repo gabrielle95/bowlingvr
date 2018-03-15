@@ -11,11 +11,13 @@ TestState::TestState(Application *application) : GameState(application)
 
 bool TestState::Init()
 {
-	glClearColor(0.1,0.1,0.1,0.1);
-	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+
+	glClearColor(0.1,0.1,0.1,0.1);
+	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+
 
 	char cCurrentPath[FILENAME_MAX];
 
@@ -32,8 +34,9 @@ bool TestState::Init()
 	this->modelShader = new Shader("shader.vert", "shader.frag");
 	assert(this->modelShader != nullptr);
 	modelShader->Use();
+	//modelShader->setInt("depthMap", 10);
 
-	this->depthShader = new Shader("depthshader.vert", "depthshader.frag");
+	this->depthShader = new Shader("depthshader.vert", "depthshader.frag", "depthshader.geom");
 	assert(this->depthShader != nullptr);
 
 	//this->modelShader->Use();
@@ -48,11 +51,11 @@ bool TestState::Init()
 	/* MODEL INITIALISATION */
 
 	/* ALLEY COLLISION DIRTY FIX */
-	btRigidBody * alleyFix = BulletUtils::createInvisibleBoxCollider(0, btVector3(1.35, 0.1, 27), btVector3(-0.35, -0.199, -12), glm::mat4(1.0));
+	btRigidBody * alleyFix = BulletUtils::createInvisibleBoxCollider(0, btVector3(1.35, 0.09, 27), btVector3(-0.35, -0.19999999, -12), glm::mat4(1.0));
 	this->dynamicWorld->addRigidBody(alleyFix);
 
 	std::cout << "BOWLING:: Loading models..." << std::endl;
-	// soon, everything shall be an alley *looks with mischief*
+
 	this->room = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\room_alley.obj");
 	this->room->pInit(0, btVector3(0, 0, 0));
 	this->dynamicWorld->addRigidBody(room->rigidBody);
@@ -83,6 +86,7 @@ bool TestState::Init()
 	wallDimensions.clear();
 	*/
 	this->sphere = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\ball\\sphere-m10-r025.obj");
+
 	this->pin = new Model(this->modelShader, "bowling_pin_000.obj");
 
 	/*this->alley = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\venue.obj");
@@ -117,15 +121,19 @@ bool TestState::Init()
 	/* LIGHT INITIALISATION */ //1 for now
 	//std::vector<glm::vec4> lightPositions;
 
-	//this->Lights.push_back(new Light(this->modelShader, 0));
-	//lightPositions.push_back(Lights[0]->position);
-	this->Lights.push_back(new Light(this->modelShader, 0, glm::vec4(-2.0f, 2.5f, -25.0f, 1.0)));
-	this->Lights.push_back(new Light(this->modelShader, 1, glm::vec4(-2.0f, 2.5f, 25.0f, 1.0)));
+	this->Lights.push_back(new Light(this->modelShader, 0, glm::vec4(-2.0f, 2.5f, -15.0f, 1.0)));
+	//this->Lights.push_back(new Light(this->modelShader, 1, glm::vec4(-2.0f, 2.5f, 25.0f, 1.0)));
 	
-	glUniform1i(modelShader->getUniLocation("enabledLights"), 2);
+	glUniform1i(modelShader->getUniLocation("enabledLights"), 1);
 	/* SHADOW MAP INIT */
+	oneLight = new Shadowmap(2048, 2048);
+	assert(oneLight != nullptr);
 
-	///NEFUNGUJE NIC
+	oneLight->CreateCubemapMatrices(glm::vec3(-2.0f, 2.5f, -15.0f));
+
+	/*twoLight = new Shadowmap(1024,1024);
+	assert(twoLight != nullptr);
+	twoLight->CreateCubemapMatrices(glm::vec3(-2.0f, 2.5f, 25.0f));*/
 
 	/* CAMERA INITIALISATION */
 	std::cout << "BOWLING:: Initializing camera..." << std::endl;
@@ -151,20 +159,28 @@ bool TestState::Update()
 
 	/* RENDERING SHADOWMAP - 1st pass */
 	///
-	//this->shadowMap->BindToDepthMap(this->depthShader);
-	//RenderObjects(depthShader);
-	//this->shadowMap->Unbind();
+	this->oneLight->RenderToDepthmap(depthShader);
+	RenderObjects(depthShader);
+	this->oneLight->UnbindFBO();
 
 	/* RENDERING SCENE - 2nd pass */
 
-	//bind shadows
-	//this->shadowMap->ConfigureShadows(modelShader);
-	//modelShader->Use();
-	//modelShader->setFloat("far_plane", 25.f);
-	//modelShader->setVec3("viewPos", this->camera->getPosition());
+	glViewport(0, 0, application->w(), application->h());
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	modelShader->Use();
+	modelShader->setFloat("far_plane", 200.f);
+	modelShader->setVec3("viewPos", this->camera->getPosition());
 
-	//this->shadowMap->BindShadows();
+	this->oneLight->BindDepthTexture();
+
 	RenderObjects(modelShader);
+
+	//Render the lights
+	for (int i = 0; i < Lights.size(); i++)
+	{
+		Light *light = Lights[i];
+		light->Render(modelShader);
+	}
 
 
 	/* TRANSFORMATIONS */
@@ -299,12 +315,6 @@ void TestState::RenderObjects(Shader *shader)
 	}
 	else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-
-	for (int i = 0; i < Lights.size(); i++)
-	{
-		Light *light = Lights[i];
-		light->Render(shader);
 	}
 
 	for (int i = 0; i < this->dynamicObjects.size(); i++) {

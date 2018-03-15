@@ -15,7 +15,7 @@ Camera::Camera(Shader *shader, float w, float h)
 	//this->vUniform = this->shader->getUniLocation("mvpMatrix");
 	this->vUniform = this->shader->getUniLocation("view");
 	this->pUniform = this->shader->getUniLocation("projection");
-	this->projMatrix = glm::perspective(glm::radians(45.0f), w/h, 0.05f, 1000.0f);
+	this->projMatrix = glm::perspective(glm::radians(45.0f), w/h, 0.05f, 200.0f);
 }
 
 void Camera::SetShader(Shader *shader)
@@ -108,6 +108,7 @@ void Camera::setViewMatrix(glm::mat4 m)
 void Camera::UpdateViewMatrix()
 {
 	//glm::vec3 up = glm::cross(this->direction, this->direction);
-	//this->viewMat = glm::lookAt(glm::vec3(0,10,0), glm::vec3(0,10,0) + glm::vec3(0,-1,0), glm::vec3(0,0,-1));
+	//glm::vec3 lightPos(-2.0f, 2.5f, -25.0f);
+	//this->viewMat = glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
 	this->viewMat = this->rotation * this->translation; //scale not included for now
 }

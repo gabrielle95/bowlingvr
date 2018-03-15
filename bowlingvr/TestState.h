@@ -7,6 +7,7 @@
 #include "PlayerBody.h"
 #include "Shader.h"
 #include "Light.h"
+#include "Shadowmap.h"
 #include "Camera.h"
 #include "CDebugDraw.h"
 #include "BulletWorld.h"
@@ -30,6 +31,8 @@ private:
 	btDynamicsWorld *dynamicWorld = nullptr; //bulletPhysics
 
 	std::vector<Light *> Lights;
+	Shadowmap *oneLight = nullptr;
+	Shadowmap *twoLight = nullptr;
 
 	Model *sphere;
 	Alley *room;
@@ -66,5 +69,15 @@ private:
 	int xPos, yPos;
 
 	void RenderObjects(Shader *shader);
+
+	void PrintError() {
+		GLenum err;
+		for (;;) {
+			err = glGetError();
+			if (err == GL_NO_ERROR) break;
+			printf("Error: %d - %s\n", err, glewGetErrorString(err));
+		}
+	}
+
 };
 #endif
