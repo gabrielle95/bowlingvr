@@ -166,7 +166,7 @@ void main()
 	
 	//threshold for bloom pp
 
-	float brightness = dot(finalColor.rgb, vec3(0.2125, 0.7154, 0.0721));
+	/*float brightness = dot(finalColor.rgb, vec3(0.2125, 0.7154, 0.0721));
     if(brightness > 0.30)
 	{
         BrightColor = vec4(finalColor.rgb, 1.0);
@@ -174,7 +174,8 @@ void main()
 	else
 	{
         BrightColor = vec4(0.0, 0.0, 0.0, 1.0);
-	}	
+	}	*/
+	BrightColor = Material.emission;
 	FragColor = finalColor;
 }
 

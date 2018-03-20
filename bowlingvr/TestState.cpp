@@ -241,9 +241,6 @@ bool TestState::Update()
 		this->pressedSpace = false;
 	}
 
-	//this->Player->rigidBody->setLinearVelocity(btVector3(0,this->Player->rigidBody->getLinearVelocity().y(),0));
-	//std::cout << this->Player->rigidBody->getLinearVelocity().y() << std::endl;
-
 	if (!this->pressedC && state[SDL_SCANCODE_C])
 	{
 		this->pressedC = true;
@@ -312,40 +309,54 @@ bool TestState::Update()
 	modelShader->setFloat("far_plane", 200.f);
 	modelShader->setVec3("viewPos", this->camera->getPosition());
 
-
+	//Apply shadows
+	this->oneLight->BindDepthTexture();
 	//Render the objects
 	RenderObjects(modelShader);
 
 	//Render the lights
 	RenderLights(modelShader);
 
-	//Apply shadows
-	this->oneLight->BindDepthTexture();
+	
 
-	//BLOOM->Bind();
-	//RenderQuad(bloomShader);
-	//glClear(GL_DEPTH_BUFFER_BIT);
 	BLOOM->UnbindFPFramebuffer();
-	//how to draw it from FBO to screen?
-
 
 	glViewport(0, 0, application->w(), application->h());
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 
-	bloomShader->Use();
-	/*GLint err = glGetError();
-	if (err != GL_NO_ERROR)
-		std::cout << err << std::endl;*/
-
+	//bloomShader->Use();
 
 	//BLOOM->Bind();
-	bloomShader->setInt("bloomBlur", 1);
-	RenderQuad(bloomShader);
+	//RenderQuad();
 
-	//modelShader->Use();
-	//RenderQuad(bloomShader);
-	//glBindTexture(GL_TEXTURE_2D, 0);
-	
+	// 2. blur bright fragments with two-pass Gaussian Blur 
+	// --------------------------------------------------
+	bool horizontal = true, first_iteration = true;
+	unsigned int amount = 10;
+	blurShader->Use();
+	for (unsigned int i = 0; i < amount; i++)
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, BLOOM->pingpongFBO[horizontal]);
+		blurShader->setInt("horizontal", horizontal);
+		glBindTexture(GL_TEXTURE_2D, first_iteration ? BLOOM->fbo_textures[1] : BLOOM->pingpongColorbuffers[!horizontal]);  // bind texture of other framebuffer (or scene if first iteration)
+		RenderQuad();
+		horizontal = !horizontal;
+		if (first_iteration)
+			first_iteration = false;
+	}
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	// 3. now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
+	// --------------------------------------------------------------------------------------------------------------------------
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	bloomShader->Use();
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, BLOOM->fbo_textures[0]);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, BLOOM->pingpongColorbuffers[!horizontal]);
+	bloomShader->setInt("bloom", bloom);
+	bloomShader->setFloat("exposure", exposure);
+	RenderQuad();
 
 	this->deltaThen = this->deltaNow;
 
@@ -406,7 +417,7 @@ void TestState::ShootSphere(btVector3 direction, btVector3 origin)
 // renderQuad() renders a 1x1 XY quad in NDC
 // -----------------------------------------
 
-void TestState::RenderQuad(Shader *shader)
+void TestState::RenderQuad()
 {
 	if (quadVAO == 0)
 	{
@@ -432,7 +443,6 @@ void TestState::RenderQuad(Shader *shader)
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 	}
 	glBindVertexArray(quadVAO);
-	glBindTexture(GL_TEXTURE_2D, BLOOM->fbo_textures[1]);	// use the color attachment texture as the texture of the quad plane
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindVertexArray(0);

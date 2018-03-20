@@ -83,5 +83,5 @@ private:
 
 	void RenderObjects(Shader *shader);
 	void RenderLights(Shader *shader);
-	void RenderQuad(Shader *shader);
+	void RenderQuad();
 };

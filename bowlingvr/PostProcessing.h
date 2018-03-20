@@ -16,7 +16,9 @@ public:
 
 	GLuint fbo_textures[2];
 
-	GLuint texture;
+	unsigned int pingpongFBO[2];
+	unsigned int pingpongColorbuffers[2];
+
 private:
 	GLuint fbo;
 	
