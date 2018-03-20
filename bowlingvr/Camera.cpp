@@ -55,6 +55,7 @@ void Camera::Rotate(float rotation, float x, float y, float z)
 void Camera::Update()
 {
 	//this->shader->setUniMatrix(this->vUniform, (this->projMatrix * this->viewMat/* * this->modelMat*/));
+	this->shader->Use();
 	this->shader->setUniMatrix(this->vUniform, this->viewMat);
 	this->shader->setUniMatrix(this->pUniform, this->projMatrix);
 	//glUniform3fv(this->shader->getUniLocation("viewPos"), 1, glm::value_ptr(getPosition()));

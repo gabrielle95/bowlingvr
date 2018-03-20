@@ -1,6 +1,5 @@
 #pragma once
-#ifndef TESTSTATE_H
-#define TESTSTATE_H
+
 #include "Application.h"
 #include "Model.h"
 #include "Entities.h"
@@ -8,6 +7,7 @@
 #include "Shader.h"
 #include "Light.h"
 #include "Shadowmap.h"
+#include "PostProcessing.h"
 #include "Camera.h"
 #include "CDebugDraw.h"
 #include "BulletWorld.h"
@@ -23,9 +23,11 @@ public:
 	~TestState();
 
 private:
-	Shader *shader = nullptr;
 	Shader *modelShader = nullptr;
 	Shader *depthShader = nullptr;
+	Shader *emissionShader = nullptr;
+	Shader *blurShader = nullptr;
+	Shader *bloomShader = nullptr;
 
 	Camera *camera = nullptr;
 	btDynamicsWorld *dynamicWorld = nullptr; //bulletPhysics
@@ -33,6 +35,7 @@ private:
 	std::vector<Light *> Lights;
 	Shadowmap *oneLight = nullptr;
 	Shadowmap *twoLight = nullptr;
+	PostProcessing *BLOOM = nullptr;
 
 	Model *sphere;
 	Alley *room;
@@ -67,17 +70,18 @@ private:
 
 	//mouse position
 	int xPos, yPos;
+	GLint err;
+
+	unsigned int quadVAO = 0;
+	unsigned int quadVBO;
+	unsigned int quadEBO;
+	std::vector<float> quadvertices;
+	std::vector<unsigned int>quadindices;
+
+	float exposure = 1.0f;
+	bool bloom = true;
 
 	void RenderObjects(Shader *shader);
-
-	void PrintError() {
-		GLenum err;
-		for (;;) {
-			err = glGetError();
-			if (err == GL_NO_ERROR) break;
-			printf("Error: %d - %s\n", err, glewGetErrorString(err));
-		}
-	}
-
+	void RenderLights(Shader *shader);
+	void RenderQuad(Shader *shader);
 };
-#endif

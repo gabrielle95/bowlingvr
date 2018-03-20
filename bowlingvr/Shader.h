@@ -18,7 +18,7 @@ public:
 	void setInt(std::string location, int value);
 	void setFloat(std::string location, float value);
 	void setVec3(std::string location, glm::vec3 value);
-	GLuint getShaderProgram();
+	std::string getName();
 
 private:
 	std::ifstream vxFile, fgFile, gsFile;

@@ -28,27 +28,36 @@ bool TestState::Init()
 	cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
 	printf("The current working directory is %s\n", cCurrentPath);
 
+	/***********************/
 	/* SHADER COMPILATION */
+	/**********************/
 	std::cout << "BOWLING:: Compiling shaders..." << std::endl;
 
 	this->modelShader = new Shader("shader.vert", "shader.frag");
 	assert(this->modelShader != nullptr);
 	modelShader->Use();
-	//modelShader->setInt("depthMap", 10);
 
 	this->depthShader = new Shader("depthshader.vert", "depthshader.frag", "depthshader.geom");
 	assert(this->depthShader != nullptr);
 
-	//this->modelShader->Use();
-	//modelShader->setInt("depthMap", 0);
+	this->emissionShader = new Shader("emissionShader.vert", "emissionShader.frag");
+	assert(this->emissionShader != nullptr);
 
+	this->blurShader = new Shader("blur.vert", "blur.frag");
 
+	this->bloomShader = new Shader("bloom.vert", "bloom.frag");
+
+	/***************************/
 	/* PHYSICS INITIALISATION */
-	this->dynamicWorld = BulletWorld::Instance()->dynamicWorld;
+	/*************************/
 
+	this->dynamicWorld = BulletWorld::Instance()->dynamicWorld;
 	assert(this->dynamicWorld != nullptr);
 
+	/*************************/
 	/* MODEL INITIALISATION */
+	/************************/
+
 
 	/* ALLEY COLLISION DIRTY FIX */
 	btRigidBody * alleyFix = BulletUtils::createInvisibleBoxCollider(0, btVector3(1.35, 0.09, 27), btVector3(-0.35, -0.19999999, -12), glm::mat4(1.0));
@@ -118,24 +127,38 @@ bool TestState::Init()
 	}
 	pinPositions.clear();
 
-	/* LIGHT INITIALISATION */ //1 for now
-	//std::vector<glm::vec4> lightPositions;
+
+	/*************************/
+	/* LIGHT INITIALISATION */
+	/************************/
 
 	this->Lights.push_back(new Light(this->modelShader, 0, glm::vec4(-2.0f, 2.5f, -15.0f, 1.0)));
 	//this->Lights.push_back(new Light(this->modelShader, 1, glm::vec4(-2.0f, 2.5f, 25.0f, 1.0)));
-	
-	glUniform1i(modelShader->getUniLocation("enabledLights"), 1);
+	modelShader->setInt("enabledLights", 1);
+
+
+	/********************/
 	/* SHADOW MAP INIT */
+	/*******************/
 	oneLight = new Shadowmap(2048, 2048);
 	assert(oneLight != nullptr);
 
 	oneLight->CreateCubemapMatrices(glm::vec3(-2.0f, 2.5f, -15.0f));
 
-	/*twoLight = new Shadowmap(1024,1024);
-	assert(twoLight != nullptr);
-	twoLight->CreateCubemapMatrices(glm::vec3(-2.0f, 2.5f, 25.0f));*/
+	//twoLight = new Shadowmap(1024,1024);
+	//assert(twoLight != nullptr);
+	//twoLight->CreateCubemapMatrices(glm::vec3(-2.0f, 2.5f, 25.0f));
 
+	/*********************/
+	/* POST PROCESSING */
+	/********************/
+	this->BLOOM = new PostProcessing(application->w(), application->h());
+	this->BLOOM->ConfigureShaders(blurShader, bloomShader);
+
+	/**************************/
 	/* CAMERA INITIALISATION */
+	/*************************/
+
 	std::cout << "BOWLING:: Initializing camera..." << std::endl;
 	this->camera = new Camera(this->modelShader, this->application->w(), this->application->h());
 	assert(this->camera != nullptr);
@@ -154,48 +177,17 @@ bool TestState::Init()
 
 bool TestState::Update()
 {
-	this->dynamicWorld->stepSimulation(1.f / 60.f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	/* RENDERING SHADOWMAP - 1st pass */
-	///
-	this->oneLight->RenderToDepthmap(depthShader);
-	RenderObjects(depthShader);
-	this->oneLight->UnbindFBO();
+	/* TIME */
+	this->deltaNow = SDL_GetTicks();
+	this->deltaTime = (this->deltaNow - this->deltaThen) / 1000.0;
 
-	/* RENDERING SCENE - 2nd pass */
-
-	glViewport(0, 0, application->w(), application->h());
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	modelShader->Use();
-	modelShader->setFloat("far_plane", 200.f);
-	modelShader->setVec3("viewPos", this->camera->getPosition());
-
-	this->oneLight->BindDepthTexture();
-
-	RenderObjects(modelShader);
-
-	//Render the lights
-	for (int i = 0; i < Lights.size(); i++)
-	{
-		Light *light = Lights[i];
-		light->Render(modelShader);
-	}
-
-
+	
 	/* TRANSFORMATIONS */
 
 	btTransform ptrans;
 	this->Player->motionstate->getWorldTransform(ptrans);
 	this->camera->SetTranslation(ptrans.getOrigin().x(), ptrans.getOrigin().y() + 0.85, ptrans.getOrigin().z());
-
-
-	/* TIME */
-	this->deltaNow = SDL_GetTicks();
-	/*this->lastTime = currentTime;
-	this->currentTime = SDL_GetTicks(); //ms*/
-
-	this->deltaTime = (this->deltaNow - this->deltaThen) / 1000.0;
 
 	const uint8_t *state = SDL_GetKeyboardState(NULL);
 
@@ -207,21 +199,21 @@ bool TestState::Update()
 		/*this->camera->Translate(this->camVelocity.x * this->deltaTime * cos(glm::radians(-this->camRotation.y)),
 			0,
 			this->camVelocity.z * this->deltaTime * sin(glm::radians(-this->camRotation.y)));*/
-		this->Player->rigidBody->setLinearVelocity(btVector3(5, this->Player->rigidBody->getLinearVelocity().y(), this->Player->rigidBody->getLinearVelocity().z()));
+		this->Player->rigidBody->setLinearVelocity(btVector3(250 * this->deltaTime, this->Player->rigidBody->getLinearVelocity().y(), this->Player->rigidBody->getLinearVelocity().z()));
 	}
 	if (state[SDL_SCANCODE_A])
 	{
 		/*this->camera->Translate(-this->camVelocity.x * this->deltaTime * cos(glm::radians(-this->camRotation.y)),
 			0,
 			-this->camVelocity.z * this->deltaTime * sin(glm::radians(-this->camRotation.y)));*/
-		this->Player->rigidBody->setLinearVelocity(btVector3(-5, this->Player->rigidBody->getLinearVelocity().y(), this->Player->rigidBody->getLinearVelocity().z()));
+		this->Player->rigidBody->setLinearVelocity(btVector3(-250 * this->deltaTime, this->Player->rigidBody->getLinearVelocity().y(), this->Player->rigidBody->getLinearVelocity().z()));
 	}
 	if (state[SDL_SCANCODE_W])
 	{
 		/*this->camera->Translate(-this->camVelocity.x * this->deltaTime * sin(glm::radians(this->camRotation.y)),
 			0,
 			-this->camVelocity.z * this->deltaTime * cos(glm::radians(this->camRotation.y)));*/
-		this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), this->Player->rigidBody->getLinearVelocity().y(),-5));
+		this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), this->Player->rigidBody->getLinearVelocity().y(),-250 * this->deltaTime));
 	}
 	if (state[SDL_SCANCODE_S])
 	{
@@ -229,7 +221,7 @@ bool TestState::Update()
 			0,
 			this->camVelocity.z * this->deltaTime * cos(glm::radians(this->camRotation.y)));*/
 
-		this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), this->Player->rigidBody->getLinearVelocity().y(), 5));
+		this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), this->Player->rigidBody->getLinearVelocity().y(), 250* this->deltaTime));
 	}
 
 	/* JUMPING */
@@ -297,6 +289,64 @@ bool TestState::Update()
 
 	this->camera->Update();
 
+	this->dynamicWorld->stepSimulation(this->deltaTime);
+	
+	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	/* RENDERING SHADOWMAP to FBO */
+
+	this->oneLight->RenderToDepthmap(depthShader);
+	RenderObjects(depthShader);
+	this->oneLight->UnbindFBO();
+
+	/* RENDERING SCENE with textures to FBO for PP */
+	///
+
+	BLOOM->BindFPFramebuffer();
+	glViewport(0, 0, application->w(), application->h());
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+	modelShader->Use();
+	modelShader->setFloat("far_plane", 200.f);
+	modelShader->setVec3("viewPos", this->camera->getPosition());
+
+
+	//Render the objects
+	RenderObjects(modelShader);
+
+	//Render the lights
+	RenderLights(modelShader);
+
+	//Apply shadows
+	this->oneLight->BindDepthTexture();
+
+	//BLOOM->Bind();
+	//RenderQuad(bloomShader);
+	//glClear(GL_DEPTH_BUFFER_BIT);
+	BLOOM->UnbindFPFramebuffer();
+	//how to draw it from FBO to screen?
+
+
+	glViewport(0, 0, application->w(), application->h());
+	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
+
+	bloomShader->Use();
+	/*GLint err = glGetError();
+	if (err != GL_NO_ERROR)
+		std::cout << err << std::endl;*/
+
+
+	//BLOOM->Bind();
+	bloomShader->setInt("bloomBlur", 1);
+	RenderQuad(bloomShader);
+
+	//modelShader->Use();
+	//RenderQuad(bloomShader);
+	//glBindTexture(GL_TEXTURE_2D, 0);
+	
+
 	this->deltaThen = this->deltaNow;
 
 	return true;
@@ -311,7 +361,7 @@ void TestState::RenderObjects(Shader *shader)
 		BulletWorld::Instance()->debugDraw->SetMatrices(this->camera->getViewMatrix(), this->camera->getProjectionMatrix());
 		this->dynamicWorld->debugDrawWorld();
 
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
 	}
 	else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -330,6 +380,15 @@ void TestState::RenderObjects(Shader *shader)
 	this->room->Render(shader);
 }
 
+void TestState::RenderLights(Shader * shader)
+{
+	for (int i = 0; i < Lights.size(); i++)
+	{
+		Light *light = Lights[i];
+		light->Render(shader);
+	}
+}
+
 void TestState::ShootSphere(btVector3 direction, btVector3 origin)
 {
 
@@ -342,6 +401,41 @@ void TestState::ShootSphere(btVector3 direction, btVector3 origin)
 	this->dynamicWorld->addRigidBody(shoot->rigidBody);
 	shoot->rigidBody->setLinearVelocity(velocity);
 	dynamicObjects.push_back(shoot);
+}
+
+// renderQuad() renders a 1x1 XY quad in NDC
+// -----------------------------------------
+
+void TestState::RenderQuad(Shader *shader)
+{
+	if (quadVAO == 0)
+	{
+		float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+								 // positions   // texCoords
+			-1.0f,  1.0f,  0.0f, 1.0f,
+			-1.0f, -1.0f,  0.0f, 0.0f,
+			1.0f, -1.0f,  1.0f, 0.0f,
+
+			-1.0f,  1.0f,  0.0f, 1.0f,
+			1.0f, -1.0f,  1.0f, 0.0f,
+			1.0f,  1.0f,  1.0f, 1.0f
+		};
+		// setup plane VAO
+		glGenVertexArrays(1, &quadVAO);
+		glGenBuffers(1, &quadVBO);
+		glBindVertexArray(quadVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+	}
+	glBindVertexArray(quadVAO);
+	glBindTexture(GL_TEXTURE_2D, BLOOM->fbo_textures[1]);	// use the color attachment texture as the texture of the quad plane
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindVertexArray(0);
 }
 
 bool TestState::Destroy()

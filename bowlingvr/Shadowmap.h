@@ -29,13 +29,4 @@ private:
 	glm::mat4 shadowProj;
 
 	void Init();
-
-	void PrintError() {
-		GLenum err;
-		for (;;) {
-			err = glGetError();
-			if (err == GL_NO_ERROR) break;
-			printf("Error: %d - %s\n", err, glewGetErrorString(err));
-		}
-	}
 };

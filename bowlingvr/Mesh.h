@@ -33,6 +33,8 @@ public:
 	void loadMaterialTextures(aiMaterial *mat, aiTextureType type);
 	GLuint textureFromFile(const char * path, std::string dir);
 	void Render(Shader *shader);
+	void RenderWithNoTextures();
+	void RenderEmission(Shader *shader);
 
 	GLuint VAO, VBO, EBO;
 	std::vector<Vertex> vertices;

@@ -164,14 +164,14 @@ GLuint Mesh::textureFromFile(const char * path, std::string dir)
 	else {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image->w, image->h, 0, GL_RGB, GL_UNSIGNED_BYTE, image->pixels);
 	}
-	
+
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	// Parameters
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	SDL_FreeSurface(image);
@@ -212,6 +212,22 @@ void Mesh::Render(Shader *shader)
 	glUniform1i(shader->getUniLocation("diffuseTexCount"), diffuseCount);
 	glUniform1i(shader->getUniLocation("specularTexCount"), specularCount);
 
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, elementCount, GL_UNSIGNED_INT, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindVertexArray(0);
+}
+
+void Mesh::RenderWithNoTextures()
+{
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, elementCount, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+}
+
+void Mesh::RenderEmission(Shader *shader)
+{
+	glUniform4fv(shader->getUniLocation("Material.emission"), 1, glm::value_ptr(emissiveColor));
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, elementCount, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

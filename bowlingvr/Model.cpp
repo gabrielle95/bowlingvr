@@ -68,10 +68,8 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 	}
 }
 
-
-void Model::Render(Shader * shader)
+void Model::UpdateModelPosition()
 {
-	
 	if (this->motionstate != nullptr)
 	{
 		btTransform trans;
@@ -79,33 +77,35 @@ void Model::Render(Shader * shader)
 		glm::mat4 transmat = BulletUtils::glmMat4From(trans);
 		this->modelMatrix = transmat;
 	}
+}
+
+/* NASTY HACK, BUT WORKS */
+void Model::Render(Shader * shader)
+{
+	
+	UpdateModelPosition();
 	shader->Use();
 	shader->setUniMatrix(shader->getUniLocation("model"), modelMatrix);
 
-	/*this->uPMatrix = this->shader->getUniLocation("uPMatrix");
-	this->uMVMatrix = this->shader->getUniLocation("uMVMatrix");
-	this->mvMatrix = vm * this->modelMatrix;
-	
-	this->shader->setUniMatrix(this->uMVMatrix, this->mvMatrix);
-	this->shader->setUniMatrix(this->uPMatrix, pm);*/
-
-	//this->shader->setUniMatrix(mUniform, pm * vm * this->modelMatrix);
-	/*glm::vec4 lightAmbient = { 0.05f, 0.05f, 0.05f, 0.2f};
-	glm::vec4 lightDiffuse = { 1.0f, 1.0f, 1.0f, 1.f };
-	glm::vec4 lightSpecular = { 1.0f, 1.0f, 1.0f, 1.0f };
-	glm::vec4 lightPosition = { -0.3f, 0.5f, -0.3f, 1.0f };
-	glm::vec4 lightPositionV = vm * lightPosition; //dir?*/
-	//glm::vec4 eyeDirection = { -vm[2][0], -vm[2][1], -vm[2][2], 1.0 };
-
-	/*glUniform1i(shader->getUniLocation("Lights[0].isEnabled"), 1);
-	glUniform4fv(shader->getUniLocation("Lights[0].ambient"), 1, glm::value_ptr(lightAmbient));
-	glUniform4fv(shader->getUniLocation("Lights[0].diffuse"), 1, glm::value_ptr(lightDiffuse));
-	glUniform4fv(shader->getUniLocation("Lights[0].specular"), 1, glm::value_ptr(lightSpecular));
-	glUniform3fv(shader->getUniLocation("Lights[0].position"), 1, glm::value_ptr(lightPositionV));
-	*/
-	for (int i = 0; i < this->meshes.size(); ++i) {
-		this->meshes.at(i)->Render(shader);
+	if (shader->getName().compare("shader.vert") == 0)
+	{
+		for (int i = 0; i < this->meshes.size(); ++i) {
+			this->meshes.at(i)->Render(shader);
+		}
 	}
+	else if(shader->getName().compare("emissionShader.vert") == 0)
+	{
+		for (int i = 0; i < this->meshes.size(); ++i) {
+			this->meshes.at(i)->RenderEmission(shader);
+		}
+	}
+	else
+	{
+		for (int i = 0; i < this->meshes.size(); ++i) {
+			this->meshes.at(i)->RenderWithNoTextures();
+		}
+	}
+
 }
 
 

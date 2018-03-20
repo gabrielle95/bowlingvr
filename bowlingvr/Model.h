@@ -22,6 +22,7 @@ public:
 	Model(Shader *shader, std::vector<Mesh*> meshEntries);
 	~Model();
 	void Render(Shader * shader);
+
 	bool InitPhysicsBody(btBODIES SHAPE,
 		btScalar mass = btScalar(0),
 		btScalar radius = btScalar(0),
@@ -49,6 +50,7 @@ protected:
 
 	void LoadModel(const std::string& path);
 	void processNode(aiNode *node, const aiScene* scene);
+	void UpdateModelPosition();
 
 	btCollisionShape *collisionShape = nullptr;
 	btDefaultMotionState *motionstate = nullptr;

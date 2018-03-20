@@ -13,8 +13,6 @@ Shadowmap::Shadowmap(float w, float h)
 
 void Shadowmap::Init()
 {
-	PrintError();
-
 	glGenFramebuffers(1, &depthFBO);
 	
 	// create depth cubemap texture
@@ -93,8 +91,6 @@ void Shadowmap::UnbindFBO()
 //normal pass
 void Shadowmap::BindDepthTexture()
 {
-	//glActiveTexture(GL_TEXTURE10);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, depthMapTex);
-	//glActiveTexture(GL_TEXTURE0);
 	//render...
 }

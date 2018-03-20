@@ -185,7 +185,9 @@ void Shader::setVec3(string location, glm::vec3 value)
 	glUniform3fv(getUniLocation(location), 1, glm::value_ptr(value));
 }
 
-GLuint Shader::getShaderProgram()
+std::string Shader::getName()
 {
-	return this->shaderProgram;
+	return this->vxname;
 }
+
+

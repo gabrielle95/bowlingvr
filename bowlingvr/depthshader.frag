@@ -1,5 +1,5 @@
 // Fragment shader for shadow map generation
-#version 330 core
+#version 450 core
 in vec4 FragPos;
 
 uniform vec3 lightPos;

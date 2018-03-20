@@ -1,9 +1,9 @@
-#version 330 core
+#version 450 core
 
 //black magic continues here
  
-#define LINEAR_ATTENUATION 0.022
-#define QUADR_ATTENUATION 0.0019 
+#define LINEAR_ATTENUATION 0.044
+#define QUADR_ATTENUATION 0.0038 
 
 struct LightProperties {
 	bool isEnabled;
@@ -38,15 +38,12 @@ uniform vec3 viewPos;
 // for shadows
 in vec4 FragPosLightSpace;
 uniform mat4 lightSpaceMatrix;
-
-
-//uniform sampler2D diffuseTexture;
 uniform samplerCube depthMap;
-
 uniform float far_plane;
 
 //out
-out vec4 color;
+layout(location = 0) out vec4 FragColor;
+layout(location = 1) out vec4 BrightColor;
      
 uniform sampler2D texture_ambient1;
 uniform sampler2D texture_diffuse1;
@@ -76,7 +73,7 @@ float ShadowCalculation(vec3 fragPos, vec3 lightPos)
     // test for shadows
 
     float shadow = 0.0;
-    float bias = 0.70;
+    float bias = 0.40;
     int samples = 20;
     float viewDistance = length(viewPos - fragPos);
     float diskRadius = (1.0 + (viewDistance / far_plane)) / 100.0;
@@ -88,9 +85,6 @@ float ShadowCalculation(vec3 fragPos, vec3 lightPos)
             shadow += 1.0;
     }
     shadow /= float(samples);
-        
-    // display closestDepth as debug (to visualize depth cubemap)
-    // FragColor = vec4(vec3(closestDepth / far_plane), 1.0);    
         
     return shadow;
 }
@@ -130,17 +124,14 @@ void main()
 		//diffuse
 		float diffuse = max(clamp( dot( N,L ), 0,1 ),0.05);
 		
-		vec4 diffuseF;
 		if(diffuseTexCount == 0){
-			diffuseF = Material.diffuse;
+			colorFactor = Material.diffuse;
 		}
 		else
 		{
-			diffuseF = texture(texture_diffuse1, TexCoords);
+			colorFactor = texture(texture_diffuse1, TexCoords);
 		}
-
-		colorFactor = diffuseF;
-		//diffuseF *= Lights[i].diffuse;
+		
 		vec4 diff = attenuation * diffuse * Lights[i].diffuse;
 		
 		//reflect vec
@@ -165,12 +156,25 @@ void main()
 			spec = attenuation * specular * Lights[i].specular * Material.specular;		
 		}
 		 //ambient
-		 vec4 amb = Lights[i].ambient * (texture(texture_ambient1, TexCoords) + Material.ambient);
+		 vec4 amb = Lights[i].ambient * (texture(texture_diffuse1, TexCoords) + Material.ambient);
 		
-		finalColor += (amb + (1.0 - shadow) * (diff + spec)) * (colorFactor);
+		finalColor += (amb + (1.0 - shadow) * (diff + spec)) * (colorFactor) + Material.emission;
 
 	}
 	
-	color = (finalColor + Material.emission);
+	//FragColor = finalColor;
+	
+	//threshold for bloom pp
+
+	float brightness = dot(finalColor.rgb, vec3(0.2125, 0.7154, 0.0721));
+    if(brightness > 0.30)
+	{
+        BrightColor = vec4(finalColor.rgb, 1.0);
+    }
+	else
+	{
+        BrightColor = vec4(0.0, 0.0, 0.0, 1.0);
+	}	
+	FragColor = finalColor;
 }
 
