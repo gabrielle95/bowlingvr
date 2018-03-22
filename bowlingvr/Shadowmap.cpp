@@ -94,3 +94,9 @@ void Shadowmap::BindDepthTexture()
 	glBindTexture(GL_TEXTURE_CUBE_MAP, depthMapTex);
 	//render...
 }
+
+Shadowmap::~Shadowmap()
+{
+	glDeleteTextures(1, &depthMapTex);
+	glDeleteBuffers(1, &depthFBO);
+}

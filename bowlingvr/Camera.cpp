@@ -15,7 +15,7 @@ Camera::Camera(Shader *shader, float w, float h)
 	//this->vUniform = this->shader->getUniLocation("mvpMatrix");
 	this->vUniform = this->shader->getUniLocation("view");
 	this->pUniform = this->shader->getUniLocation("projection");
-	this->projMatrix = glm::perspective(glm::radians(45.0f), w/h, 0.05f, 200.0f);
+	this->projMatrix = glm::perspective(glm::radians(45.0f), w/h, 0.05f, 100.f);
 }
 
 void Camera::SetShader(Shader *shader)

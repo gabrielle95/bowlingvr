@@ -25,6 +25,7 @@ public:
 private:
 	Shader *modelShader = nullptr;
 	Shader *depthShader = nullptr;
+	Shader *hdrShader = nullptr;
 	Shader *emissionShader = nullptr;
 	Shader *blurShader = nullptr;
 	Shader *bloomShader = nullptr;
@@ -33,9 +34,12 @@ private:
 	btDynamicsWorld *dynamicWorld = nullptr; //bulletPhysics
 
 	std::vector<Light *> Lights;
-	Shadowmap *oneLight = nullptr;
-	Shadowmap *twoLight = nullptr;
-	PostProcessing *BLOOM = nullptr;
+	Shadowmap *CubeDepthMap = nullptr;
+	
+	PostProcessing *NoEffects = nullptr;
+	PostProcessing *BloomEffect = nullptr;
+	Hdr *HdrEffect = nullptr;
+	MSAA *msaaEffect = nullptr;
 
 	Model *sphere;
 	Alley *room;
@@ -78,7 +82,7 @@ private:
 	std::vector<float> quadvertices;
 	std::vector<unsigned int>quadindices;
 
-	float exposure = 1.0f;
+	float exposure = 2.5f;
 	bool bloom = true;
 
 	void RenderObjects(Shader *shader);

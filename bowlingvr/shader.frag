@@ -2,8 +2,8 @@
 
 //black magic continues here
  
-#define LINEAR_ATTENUATION 0.044
-#define QUADR_ATTENUATION 0.0038 
+#define LINEAR_ATTENUATION 0.022
+#define QUADR_ATTENUATION 0.0019 
 
 struct LightProperties {
 	bool isEnabled;
@@ -43,7 +43,6 @@ uniform float far_plane;
 
 //out
 layout(location = 0) out vec4 FragColor;
-layout(location = 1) out vec4 BrightColor;
      
 uniform sampler2D texture_ambient1;
 uniform sampler2D texture_diffuse1;
@@ -76,7 +75,7 @@ float ShadowCalculation(vec3 fragPos, vec3 lightPos)
     float bias = 0.40;
     int samples = 20;
     float viewDistance = length(viewPos - fragPos);
-    float diskRadius = (1.0 + (viewDistance / far_plane)) / 100.0;
+    float diskRadius = (1.0 + (viewDistance / far_plane)) / 200.f;
     for(int i = 0; i < samples; ++i)
     {
         float closestDepth = texture(depthMap, fragToLight + gridSamplingDisk[i] * diskRadius).r;
@@ -122,7 +121,7 @@ void main()
 		shadow = ShadowCalculation(FragPos, Lights[i].position);
 		
 		//diffuse
-		float diffuse = max(clamp( dot( N,L ), 0,1 ),0.05);
+		float diffuse = max(dot( N,L ),0.00);
 		
 		if(diffuseTexCount == 0){
 			colorFactor = Material.diffuse;
@@ -135,47 +134,34 @@ void main()
 		vec4 diff = attenuation * diffuse * Lights[i].diffuse;
 		
 		//reflect vec
-		vec3 R = reflect(-L, N);
+		//vec3 R = reflect(-L, N);
 
 		// Eye vector (towards the camera)
-		vec3 E = normalize(EyeDirection_cameraspace);
+		//vec3 E = normalize(EyeDirection_cameraspace);
 
 		
 		//specular
-		float specular;
+		/*float specular;
 		
 		if(diff == 0)
 			specular = 0;
 		else
-			specular = pow(clamp( dot( E,R ), 0,1 ), Material.shininess);
+			specular = pow(dot( E,R ), Material.shininess);
 		
-		vec4 spec = vec4(0.0,0.0,0.0,1.0);
+		vec4 spec = vec4(0.0,0.0,0.0,1.0);*/
 		
-		if(specular >= 0.0)
+		/*if(specular >= 0.0)
 		{
 			spec = attenuation * specular * Lights[i].specular * Material.specular;		
-		}
+		}*/
 		 //ambient
 		 vec4 amb = Lights[i].ambient * (texture(texture_diffuse1, TexCoords) + Material.ambient);
 		
-		finalColor += (amb + (1.0 - shadow) * (diff + spec)) * (colorFactor) + Material.emission;
+		finalColor += (amb + (1.0 - shadow) * diff * colorFactor) + Material.emission;
+		//finalColor += diff * colorFactor + Material.emission;
 
 	}
 	
-	//FragColor = finalColor;
-	
-	//threshold for bloom pp
-
-	/*float brightness = dot(finalColor.rgb, vec3(0.2125, 0.7154, 0.0721));
-    if(brightness > 0.30)
-	{
-        BrightColor = vec4(finalColor.rgb, 1.0);
-    }
-	else
-	{
-        BrightColor = vec4(0.0, 0.0, 0.0, 1.0);
-	}	*/
-	BrightColor = Material.emission;
 	FragColor = finalColor;
 }
 

@@ -40,6 +40,8 @@ bool TestState::Init()
 	this->depthShader = new Shader("depthshader.vert", "depthshader.frag", "depthshader.geom");
 	assert(this->depthShader != nullptr);
 
+	this->hdrShader = new Shader("hdr.vert", "hdr.frag");
+
 	this->emissionShader = new Shader("emissionShader.vert", "emissionShader.frag");
 	assert(this->emissionShader != nullptr);
 
@@ -132,7 +134,7 @@ bool TestState::Init()
 	/* LIGHT INITIALISATION */
 	/************************/
 
-	this->Lights.push_back(new Light(this->modelShader, 0, glm::vec4(-2.0f, 2.5f, -15.0f, 1.0)));
+	this->Lights.push_back(new Light(this->modelShader, 0, glm::vec4(-2.0f, 3.0f, -15.0f, 1.0)));
 	//this->Lights.push_back(new Light(this->modelShader, 1, glm::vec4(-2.0f, 2.5f, 25.0f, 1.0)));
 	modelShader->setInt("enabledLights", 1);
 
@@ -140,20 +142,40 @@ bool TestState::Init()
 	/********************/
 	/* SHADOW MAP INIT */
 	/*******************/
-	oneLight = new Shadowmap(2048, 2048);
-	assert(oneLight != nullptr);
+	CubeDepthMap = new Shadowmap(1024, 1024);
+	assert(CubeDepthMap != nullptr);
 
-	oneLight->CreateCubemapMatrices(glm::vec3(-2.0f, 2.5f, -15.0f));
-
-	//twoLight = new Shadowmap(1024,1024);
-	//assert(twoLight != nullptr);
-	//twoLight->CreateCubemapMatrices(glm::vec3(-2.0f, 2.5f, 25.0f));
+	CubeDepthMap->CreateCubemapMatrices(glm::vec3(-2.0f, 3.0f, -15.0f));
 
 	/*********************/
 	/* POST PROCESSING */
 	/********************/
-	this->BLOOM = new PostProcessing(application->w(), application->h());
-	this->BLOOM->ConfigureShaders(blurShader, bloomShader);
+	this->NoEffects = new PostProcessing(application->w(), application->h());
+	NoEffects->Init();
+
+	this->BloomEffect = new PostProcessing(application->w(), application->h());
+	BloomEffect->Init();
+
+	this->HdrEffect = new Hdr(application->w(), application->h());
+	HdrEffect->Init();
+
+	this->msaaEffect = new MSAA(application->w(), application->h());
+
+
+	hdrShader->Use();
+	hdrShader->setInt("hdrBuffer", 1);
+	hdrShader->setInt("hdr", 1);
+	hdrShader->setFloat("exposure", exposure);
+	blurShader->Use();
+	blurShader->setInt("image", 1);
+	blurShader->setInt("horizontal", 1);
+	bloomShader->Use();
+	bloomShader->setInt("scene", 0);
+	bloomShader->setInt("bloomBlur", 1);
+	bloomShader->setInt("bloom", bloom);
+	bloomShader->setFloat("exposure", 1.0f);
+
+	//conf shaders
 
 	/**************************/
 	/* CAMERA INITIALISATION */
@@ -293,52 +315,55 @@ bool TestState::Update()
 
 	/* RENDERING SHADOWMAP to FBO */
 
-	this->oneLight->RenderToDepthmap(depthShader);
+	this->CubeDepthMap->RenderToDepthmap(depthShader);
 	RenderObjects(depthShader);
-	this->oneLight->UnbindFBO();
+	this->CubeDepthMap->UnbindFBO();
 
-	/* RENDERING SCENE with textures to FBO for PP */
+	/* RENDERING SCENE with textures to MSAA... */
 	///
-
-	BLOOM->BindFPFramebuffer();
+	//NoEffects->BindFPFramebuffer();
+	msaaEffect->BindFBO();
 	glViewport(0, 0, application->w(), application->h());
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 
 	modelShader->Use();
 	modelShader->setFloat("far_plane", 200.f);
 	modelShader->setVec3("viewPos", this->camera->getPosition());
-
-	//Apply shadows
-	this->oneLight->BindDepthTexture();
+	
 	//Render the objects
 	RenderObjects(modelShader);
 
 	//Render the lights
 	RenderLights(modelShader);
 
-	
+	//Apply shadows -- weird stuff is happening
+	this->CubeDepthMap->BindDepthTexture();
+	msaaEffect->UnbindFBO();
 
-	BLOOM->UnbindFPFramebuffer();
+	msaaEffect->BlitToFBO(NoEffects->fbo);
 
+	//HDR
+	HdrEffect->BindFPFramebuffer();
 	glViewport(0, 0, application->w(), application->h());
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 
-	//bloomShader->Use();
+	hdrShader->Use();
+	NoEffects->Bind();
+	RenderQuad();
+	HdrEffect->UnbindFPFramebuffer();
 
-	//BLOOM->Bind();
-	//RenderQuad();
+	glViewport(0, 0, application->w(), application->h());
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// 2. blur bright fragments with two-pass Gaussian Blur 
-	// --------------------------------------------------
+	//BLUR
 	bool horizontal = true, first_iteration = true;
 	unsigned int amount = 10;
 	blurShader->Use();
 	for (unsigned int i = 0; i < amount; i++)
 	{
-		glBindFramebuffer(GL_FRAMEBUFFER, BLOOM->pingpongFBO[horizontal]);
+		glBindFramebuffer(GL_FRAMEBUFFER, HdrEffect->pingpongFBO[horizontal]);
 		blurShader->setInt("horizontal", horizontal);
-		glBindTexture(GL_TEXTURE_2D, first_iteration ? BLOOM->fbo_textures[1] : BLOOM->pingpongColorbuffers[!horizontal]);  // bind texture of other framebuffer (or scene if first iteration)
+		glBindTexture(GL_TEXTURE_2D, first_iteration ? HdrEffect->fbo_textures[1] : HdrEffect->pingpongColorbuffers[!horizontal]);  // bind texture of other framebuffer (or scene if first iteration)
 		RenderQuad();
 		horizontal = !horizontal;
 		if (first_iteration)
@@ -346,16 +371,14 @@ bool TestState::Update()
 	}
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	// 3. now render floating point color buffer to 2D quad and tonemap HDR colors to default framebuffer's (clamped) color range
-	// --------------------------------------------------------------------------------------------------------------------------
+	//BLOOM
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	bloomShader->Use();
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, BLOOM->fbo_textures[0]);
+	glBindTexture(GL_TEXTURE_2D, HdrEffect->fbo_textures[0]);
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, BLOOM->pingpongColorbuffers[!horizontal]);
-	bloomShader->setInt("bloom", bloom);
-	bloomShader->setFloat("exposure", exposure);
+	glBindTexture(GL_TEXTURE_2D, HdrEffect->pingpongColorbuffers[!horizontal]);
+	
 	RenderQuad();
 
 	this->deltaThen = this->deltaNow;
@@ -368,7 +391,7 @@ void TestState::RenderObjects(Shader *shader)
 	/* DEBUG DRAW */
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (this->debugMode) {
+	/*if (this->debugMode) {
 		BulletWorld::Instance()->debugDraw->SetMatrices(this->camera->getViewMatrix(), this->camera->getProjectionMatrix());
 		this->dynamicWorld->debugDrawWorld();
 
@@ -376,7 +399,7 @@ void TestState::RenderObjects(Shader *shader)
 	}
 	else {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
+	}*/
 
 	for (int i = 0; i < this->dynamicObjects.size(); i++) {
 		Model* shape = this->dynamicObjects[i];
@@ -422,7 +445,7 @@ void TestState::RenderQuad()
 	if (quadVAO == 0)
 	{
 		float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-								 // positions   // texCoords
+			// positions   // texCoords
 			-1.0f,  1.0f,  0.0f, 1.0f,
 			-1.0f, -1.0f,  0.0f, 0.0f,
 			1.0f, -1.0f,  1.0f, 0.0f,
@@ -466,10 +489,26 @@ TestState::~TestState()
 		Pin* shape = this->pins[j];
 		delete shape;
 	}
+
+	for (int j = 0; j < this->Lights.size(); j++)
+	{
+		Light* shape = this->Lights[j];
+		delete shape;
+	}
+
+	Lights.clear();
 	dynamicObjects.clear();
 	pins.clear();
 	delete this->camera;
 	delete this->room;
 	delete this->sphere;
 	delete this->modelShader;
+
+	delete CubeDepthMap;
+	delete NoEffects;
+	delete BloomEffect;
+	delete HdrEffect;
+
+	glDeleteVertexArrays(1, &quadVAO);
+	glDeleteBuffers(1, &quadVBO);
 }

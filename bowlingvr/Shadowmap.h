@@ -16,6 +16,9 @@ public:
 
 	void BindDepthTexture();
 
+
+	~Shadowmap();
+
 	std::vector<glm::mat4> shadowTransforms;
 
 private:

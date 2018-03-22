@@ -55,6 +55,7 @@ Application::Application()
 		{
 			this->width = 1920;
 			this->height = 1080;
+
 			this->window = new Window("VR Bowling", this->width, this->height);
 			if (glewInit() != GLEW_OK)
 			{
@@ -62,8 +63,7 @@ Application::Application()
 			}
 			else
 			{
-				//glEnable(GL_DEPTH_TEST);
-				//glEnable(GL_CULL_FACE);
+				glEnable(GL_MULTISAMPLE);
 			}
 		}
 	}

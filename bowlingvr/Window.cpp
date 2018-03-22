@@ -35,6 +35,8 @@ void Window::InitRenderer()
 	}
 	else
 	{
+		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 		//VSYNC 1 on 0 off
 		if (SDL_GL_SetSwapInterval(1) < 0)
 		{
