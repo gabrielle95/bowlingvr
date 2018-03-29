@@ -2,8 +2,8 @@
 
 //black magic continues here
  
-#define LINEAR_ATTENUATION 0.022
-#define QUADR_ATTENUATION 0.0019 
+#define LINEAR_ATTENUATION 0.011
+#define QUADR_ATTENUATION 0.0008 
 
 struct LightProperties {
 	bool isEnabled;
@@ -72,10 +72,10 @@ float ShadowCalculation(vec3 fragPos, vec3 lightPos)
     // test for shadows
 
     float shadow = 0.0;
-    float bias = 0.40;
+    float bias = 0.43;
     int samples = 20;
     float viewDistance = length(viewPos - fragPos);
-    float diskRadius = (1.0 + (viewDistance / far_plane)) / 200.f;
+    float diskRadius = (1.0 + (viewDistance / far_plane)) / 100.f;
     for(int i = 0; i < samples; ++i)
     {
         float closestDepth = texture(depthMap, fragToLight + gridSamplingDisk[i] * diskRadius).r;
@@ -134,30 +134,30 @@ void main()
 		vec4 diff = attenuation * diffuse * Lights[i].diffuse;
 		
 		//reflect vec
-		//vec3 R = reflect(-L, N);
+		vec3 R = reflect(-L, N);
 
 		// Eye vector (towards the camera)
-		//vec3 E = normalize(EyeDirection_cameraspace);
+		vec3 E = normalize(EyeDirection_cameraspace);
 
 		
 		//specular
-		/*float specular;
+		float specular;
 		
 		if(diff == 0)
 			specular = 0;
 		else
 			specular = pow(dot( E,R ), Material.shininess);
 		
-		vec4 spec = vec4(0.0,0.0,0.0,1.0);*/
+		vec4 spec = vec4(0.0,0.0,0.0,1.0);
 		
-		/*if(specular >= 0.0)
+		if(specular >= 0.0)
 		{
 			spec = attenuation * specular * Lights[i].specular * Material.specular;		
-		}*/
+		}
 		 //ambient
 		 vec4 amb = Lights[i].ambient * (texture(texture_diffuse1, TexCoords) + Material.ambient);
 		
-		finalColor += (amb + (1.0 - shadow) * diff * colorFactor) + Material.emission;
+		finalColor += (amb + (1.0 - shadow) * (diff + spec) * colorFactor) + Material.emission;
 		//finalColor += diff * colorFactor + Material.emission;
 
 	}

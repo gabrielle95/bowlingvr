@@ -158,7 +158,7 @@
     <ClCompile Include="PostProcessing.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Shadowmap.cpp" />
-    <ClCompile Include="TestState.cpp" />
+    <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="TestState2.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -176,7 +176,7 @@
     <ClInclude Include="PostProcessing.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Shadowmap.h" />
-    <ClInclude Include="TestState.h" />
+    <ClInclude Include="MainScene.h" />
     <ClInclude Include="TestState2.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

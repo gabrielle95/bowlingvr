@@ -2,14 +2,14 @@
 #include "GL/glew.h"
 #include <stdio.h>
 #include <direct.h> 
-#include "TestState.h"
+#include "MainScene.h"
 #include "TestState2.h"
 
-TestState::TestState(Application *application) : GameState(application)
+MainScene::MainScene(Application *application) : GameState(application)
 {
 }
 
-bool TestState::Init()
+bool MainScene::Init()
 {
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
@@ -96,9 +96,9 @@ bool TestState::Init()
 	wallPositions.clear();
 	wallDimensions.clear();
 	*/
-	this->sphere = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\ball\\sphere-m10-r025.obj");
+	this->sphere = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\ball\\sphere-m10-r025-space.obj");
 
-	this->pin = new Model(this->modelShader, "bowling_pin_000.obj");
+	this->pin = new Model(this->modelShader, "bowling_pin_001.obj");
 
 	/*this->alley = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\venue.obj");
 	this->alley->pInit(0, btVector3(0,0.5,0));
@@ -123,12 +123,17 @@ bool TestState::Init()
 	pinPositions.push_back(btVector3(-0.25f, 0.3f, -36.5f));
 	
 	for (int i = 0; i < pinPositions.size(); i++) {
-		Pin *tmp = new Pin(this->modelShader, this->pin->meshes, 1.5, 0.075, 0.5, pinPositions[i]);
+		Pin *tmp = new Pin(this->modelShader, this->pin->meshes, 1.5, 0.085, 0.8, pinPositions[i]);
 		pins.push_back(tmp);
 		this->dynamicWorld->addRigidBody(tmp->rigidBody);
 	}
 	pinPositions.clear();
-
+	
+	//tmppin = new Model(this->modelShader, "bowling_pin_001.obj");
+	//this->testpin = new Pin(this->modelShader, tmppin->meshes, 1.5, 0.080, 0.7, btVector3(0,1,0));
+	//pins.push_back(testpin);
+	//this->dynamicWorld->addRigidBody(testpin->rigidBody);
+	
 
 	/*************************/
 	/* LIGHT INITIALISATION */
@@ -144,7 +149,7 @@ bool TestState::Init()
 	/*******************/
 	CubeDepthMap = new Shadowmap(1024, 1024);
 	assert(CubeDepthMap != nullptr);
-
+	modelShader->setFloat("far_plane", 200.f);
 	CubeDepthMap->CreateCubemapMatrices(glm::vec3(-2.0f, 3.0f, -15.0f));
 
 	/*********************/
@@ -197,7 +202,8 @@ bool TestState::Init()
 	return true;
 }
 
-bool TestState::Update()
+//main game loop - per frame operations
+bool MainScene::Update()
 {
 
 	/* TIME */
@@ -207,108 +213,9 @@ bool TestState::Update()
 	
 	/* TRANSFORMATIONS */
 
-	btTransform ptrans;
-	this->Player->motionstate->getWorldTransform(ptrans);
-	this->camera->SetTranslation(ptrans.getOrigin().x(), ptrans.getOrigin().y() + 0.85, ptrans.getOrigin().z());
+	GetInputCallback();
 
-	const uint8_t *state = SDL_GetKeyboardState(NULL);
-
-	//cos(0) = 1, cos(90) = 0, cos(180) = -1, cos(270) = 0
-	//sin(0) = 0, sin(90) = 1, sin(180) = 0, sin(270) = -1
-
-	if (state[SDL_SCANCODE_D])
-	{
-		/*this->camera->Translate(this->camVelocity.x * this->deltaTime * cos(glm::radians(-this->camRotation.y)),
-			0,
-			this->camVelocity.z * this->deltaTime * sin(glm::radians(-this->camRotation.y)));*/
-		this->Player->rigidBody->setLinearVelocity(btVector3(250 * this->deltaTime, this->Player->rigidBody->getLinearVelocity().y(), this->Player->rigidBody->getLinearVelocity().z()));
-	}
-	if (state[SDL_SCANCODE_A])
-	{
-		/*this->camera->Translate(-this->camVelocity.x * this->deltaTime * cos(glm::radians(-this->camRotation.y)),
-			0,
-			-this->camVelocity.z * this->deltaTime * sin(glm::radians(-this->camRotation.y)));*/
-		this->Player->rigidBody->setLinearVelocity(btVector3(-250 * this->deltaTime, this->Player->rigidBody->getLinearVelocity().y(), this->Player->rigidBody->getLinearVelocity().z()));
-	}
-	if (state[SDL_SCANCODE_W])
-	{
-		/*this->camera->Translate(-this->camVelocity.x * this->deltaTime * sin(glm::radians(this->camRotation.y)),
-			0,
-			-this->camVelocity.z * this->deltaTime * cos(glm::radians(this->camRotation.y)));*/
-		this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), this->Player->rigidBody->getLinearVelocity().y(),-250 * this->deltaTime));
-	}
-	if (state[SDL_SCANCODE_S])
-	{
-		/*this->camera->Translate(this->camVelocity.x * this->deltaTime * sin(glm::radians(this->camRotation.y)),
-			0,
-			this->camVelocity.z * this->deltaTime * cos(glm::radians(this->camRotation.y)));*/
-
-		this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), this->Player->rigidBody->getLinearVelocity().y(), 250* this->deltaTime));
-	}
-
-	/* JUMPING */
-	if (!pressedSpace && state[SDL_SCANCODE_SPACE]) 
-	{
-		this->pressedSpace = true;
-		btScalar yVel = this->Player->rigidBody->getLinearVelocity().y();
-
-		/* you can only jump if you're on the ground */
-		if (yVel < 0.05 && yVel > -0.05)
-		{
-			this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), 3.5, this->Player->rigidBody->getLinearVelocity().z()));
-		}
-	}
-	else if (!state[SDL_SCANCODE_SPACE])
-	{
-		this->pressedSpace = false;
-	}
-
-	if (!this->pressedC && state[SDL_SCANCODE_C])
-	{
-		this->pressedC = true;
-		glm::mat4 vm = glm::inverse(this->camera->getViewMatrix());
-		this->ShootSphere(btVector3(-vm[2][0], -vm[2][1], -vm[2][2]), btVector3(vm[3][0], vm[3][1], vm[3][2] - 0.6));
-	}
-	else if (!state[SDL_SCANCODE_C])
-	{
-		this->pressedC = false;
-	}
-
-	if (!this->pressedP && state[SDL_SCANCODE_P])
-	{
-		this->pressedP = true;
-		this->debugMode = !this->debugMode;
-	}
-	else if(!state[SDL_SCANCODE_P])
-	{
-		this->pressedP = false;
-	}
-		
-	if (this->application->IsWindowActive() == true)
-	{
-		SDL_GetGlobalMouseState(&xPos, &yPos);
-		SDL_WarpMouseGlobal(500, 500);
-	}
-		
-	camRotation.y += deltaTime * mouse_speed * float(500 - xPos);
-	camRotation.x += deltaTime * mouse_speed * float(500 - yPos);
-
-
-	/* to restrict rotating the whole world upside down */
-	if (this->camRotation.x > 90)
-		this->camRotation.x = 90;
-	if (this->camRotation.x < -90)
-		this->camRotation.x = -90;
-
-
-	this->camera->SetRotation(0, 1, 1, 1);
-		
-	this->camera->Rotate(camRotation.x, 1, 0, 0);
-	this->camera->Rotate(camRotation.y, 0, 1, 0);
-
-	this->camera->Update();
-
-	this->dynamicWorld->stepSimulation(this->deltaTime);
+	this->dynamicWorld->stepSimulation(this->deltaTime, 5);
 	
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -320,14 +227,13 @@ bool TestState::Update()
 	this->CubeDepthMap->UnbindFBO();
 
 	/* RENDERING SCENE with textures to MSAA... */
-	///
-	//NoEffects->BindFPFramebuffer();
+
+
 	msaaEffect->BindFBO();
 	glViewport(0, 0, application->w(), application->h());
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	modelShader->Use();
-	modelShader->setFloat("far_plane", 200.f);
+	//modelShader->Use();	
 	modelShader->setVec3("viewPos", this->camera->getPosition());
 	
 	//Render the objects
@@ -338,6 +244,7 @@ bool TestState::Update()
 
 	//Apply shadows -- weird stuff is happening
 	this->CubeDepthMap->BindDepthTexture();
+
 	msaaEffect->UnbindFBO();
 
 	msaaEffect->BlitToFBO(NoEffects->fbo);
@@ -372,6 +279,7 @@ bool TestState::Update()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	//BLOOM
+	glViewport(0, 0, application->w(), application->h());
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	bloomShader->Use();
 	glActiveTexture(GL_TEXTURE0);
@@ -386,7 +294,110 @@ bool TestState::Update()
 	return true;
 }
 
-void TestState::RenderObjects(Shader *shader)
+void MainScene::GetInputCallback()
+{	
+	this->Player->motionstate->getWorldTransform(ptrans);
+	this->camera->SetTranslation(ptrans.getOrigin().x(), ptrans.getOrigin().y() + 0.85, ptrans.getOrigin().z());
+
+	const uint8_t *state = SDL_GetKeyboardState(NULL);
+
+	//cos(0) = 1, cos(90) = 0, cos(180) = -1, cos(270) = 0
+	//sin(0) = 0, sin(90) = 1, sin(180) = 0, sin(270) = -1
+
+	if (state[SDL_SCANCODE_D])
+	{
+		/*this->camera->Translate(this->camVelocity.x * this->deltaTime * cos(glm::radians(-this->camRotation.y)),
+		0,
+		this->camVelocity.z * this->deltaTime * sin(glm::radians(-this->camRotation.y)));*/
+		this->Player->rigidBody->setLinearVelocity(btVector3(250 * this->deltaTime, this->Player->rigidBody->getLinearVelocity().y(), this->Player->rigidBody->getLinearVelocity().z()));
+	}
+	if (state[SDL_SCANCODE_A])
+	{
+		/*this->camera->Translate(-this->camVelocity.x * this->deltaTime * cos(glm::radians(-this->camRotation.y)),
+		0,
+		-this->camVelocity.z * this->deltaTime * sin(glm::radians(-this->camRotation.y)));*/
+		this->Player->rigidBody->setLinearVelocity(btVector3(-250 * this->deltaTime, this->Player->rigidBody->getLinearVelocity().y(), this->Player->rigidBody->getLinearVelocity().z()));
+	}
+	if (state[SDL_SCANCODE_W])
+	{
+		/*this->camera->Translate(-this->camVelocity.x * this->deltaTime * sin(glm::radians(this->camRotation.y)),
+		0,
+		-this->camVelocity.z * this->deltaTime * cos(glm::radians(this->camRotation.y)));*/
+		this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), this->Player->rigidBody->getLinearVelocity().y(), -250 * this->deltaTime));
+	}
+	if (state[SDL_SCANCODE_S])
+	{
+		/*this->camera->Translate(this->camVelocity.x * this->deltaTime * sin(glm::radians(this->camRotation.y)),
+		0,
+		this->camVelocity.z * this->deltaTime * cos(glm::radians(this->camRotation.y)));*/
+
+		this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), this->Player->rigidBody->getLinearVelocity().y(), 250 * this->deltaTime));
+	}
+
+	/* JUMPING */
+	if (!pressedSpace && state[SDL_SCANCODE_SPACE])
+	{
+		this->pressedSpace = true;
+		btScalar yVel = this->Player->rigidBody->getLinearVelocity().y();
+
+		/* you can only jump if you're on the ground */
+		if (yVel < 0.05 && yVel > -0.05)
+		{
+			this->Player->rigidBody->setLinearVelocity(btVector3(this->Player->rigidBody->getLinearVelocity().x(), 3.5, this->Player->rigidBody->getLinearVelocity().z()));
+		}
+	}
+	else if (!state[SDL_SCANCODE_SPACE])
+	{
+		this->pressedSpace = false;
+	}
+
+	if (!this->pressedC && state[SDL_SCANCODE_C])
+	{
+		this->pressedC = true;
+		glm::mat4 vm = glm::inverse(this->camera->getViewMatrix());
+		this->ShootSphere(btVector3(-vm[2][0], -vm[2][1], -vm[2][2]), btVector3(vm[3][0], vm[3][1], vm[3][2] - 0.6));
+	}
+	else if (!state[SDL_SCANCODE_C])
+	{
+		this->pressedC = false;
+	}
+
+	if (!this->pressedP && state[SDL_SCANCODE_P])
+	{
+		this->pressedP = true;
+		this->debugMode = !this->debugMode;
+	}
+	else if (!state[SDL_SCANCODE_P])
+	{
+		this->pressedP = false;
+	}
+
+	if (this->application->IsWindowActive() == true)
+	{
+		SDL_GetGlobalMouseState(&xPos, &yPos);
+		SDL_WarpMouseGlobal(500, 500);
+	}
+
+	camRotation.y += deltaTime * mouse_speed * float(500 - xPos);
+	camRotation.x += deltaTime * mouse_speed * float(500 - yPos);
+
+
+	/* to restrict rotating the whole world upside down */
+	if (this->camRotation.x > 90)
+		this->camRotation.x = 90;
+	if (this->camRotation.x < -90)
+		this->camRotation.x = -90;
+
+
+	this->camera->SetRotation(0, 1, 1, 1);
+
+	this->camera->Rotate(camRotation.x, 1, 0, 0);
+	this->camera->Rotate(camRotation.y, 0, 1, 0);
+
+	this->camera->Update();
+}
+
+void MainScene::RenderObjects(Shader *shader)
 {
 	/* DEBUG DRAW */
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -414,7 +425,7 @@ void TestState::RenderObjects(Shader *shader)
 	this->room->Render(shader);
 }
 
-void TestState::RenderLights(Shader * shader)
+void MainScene::RenderLights(Shader * shader)
 {
 	for (int i = 0; i < Lights.size(); i++)
 	{
@@ -423,7 +434,7 @@ void TestState::RenderLights(Shader * shader)
 	}
 }
 
-void TestState::ShootSphere(btVector3 direction, btVector3 origin)
+void MainScene::ShootSphere(btVector3 direction, btVector3 origin)
 {
 
 	Ball *shoot = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.25f), origin);
@@ -440,7 +451,7 @@ void TestState::ShootSphere(btVector3 direction, btVector3 origin)
 // renderQuad() renders a 1x1 XY quad in NDC
 // -----------------------------------------
 
-void TestState::RenderQuad()
+void MainScene::RenderQuad()
 {
 	if (quadVAO == 0)
 	{
@@ -471,12 +482,12 @@ void TestState::RenderQuad()
 	glBindVertexArray(0);
 }
 
-bool TestState::Destroy()
+bool MainScene::Destroy()
 {
 	return true;
 }
 
-TestState::~TestState()
+MainScene::~MainScene()
 {
 	for (int j = 0; j < this->dynamicObjects.size(); j++)
 	{

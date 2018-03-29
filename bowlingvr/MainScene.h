@@ -12,17 +12,18 @@
 #include "CDebugDraw.h"
 #include "BulletWorld.h"
 
-class TestState : public GameState
+class MainScene : public GameState
 {
 public:
-	TestState(Application * application);
+	MainScene(Application * application);
 	bool Init();
 	bool Update();
 	bool Destroy();
 	void ShootSphere(btVector3 direction, btVector3 origin);
-	~TestState();
+	~MainScene();
 
 private:
+	//entities
 	Shader *modelShader = nullptr;
 	Shader *depthShader = nullptr;
 	Shader *hdrShader = nullptr;
@@ -34,6 +35,7 @@ private:
 	btDynamicsWorld *dynamicWorld = nullptr; //bulletPhysics
 
 	std::vector<Light *> Lights;
+
 	Shadowmap *CubeDepthMap = nullptr;
 	
 	PostProcessing *NoEffects = nullptr;
@@ -41,10 +43,13 @@ private:
 	Hdr *HdrEffect = nullptr;
 	MSAA *msaaEffect = nullptr;
 
+	//models
 	Model *sphere;
 	Alley *room;
 	Model *pin;
-	Alley *alley;
+	//Model *tmppin;
+	//Alley *alley;
+	//Pin *testpin;
 
 	PlayerBody *Player = nullptr;
 
@@ -54,19 +59,20 @@ private:
 	std::vector<Model*>dynamicObjects;
 	btAlignedObjectArray<btCollisionShape*> collisionShapes;
 
+	//player RB transform
+	btTransform ptrans;
+
+	//camera related variables
 	glm::vec3 camRotation;
 	glm::vec3 camVelocity;
+	
+	//some fps related variables
 	const float mouse_speed = 2.f;
 	float deltaTime = 0.f;
 	float deltaNow = 0.f;
 	float deltaThen = 0.f;
-	GLint hasTextureUniform;
 
-	uint32_t currentTime = 0;
-	uint32_t lastTime = 0;
-
-	btVector3 pt;
-
+	//some keys
 	bool debugMode = false;
 	bool pressedP = false;
 	bool pressedC = false;
@@ -76,15 +82,19 @@ private:
 	int xPos, yPos;
 	GLint err;
 
+	//post-processing quad
 	unsigned int quadVAO = 0;
 	unsigned int quadVBO;
 	unsigned int quadEBO;
 	std::vector<float> quadvertices;
 	std::vector<unsigned int>quadindices;
 
+	//post processing variables
 	float exposure = 2.5f;
 	bool bloom = true;
 
+	//functions
+	void GetInputCallback();
 	void RenderObjects(Shader *shader);
 	void RenderLights(Shader *shader);
 	void RenderQuad();

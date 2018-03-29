@@ -1,4 +1,4 @@
-#include "TestState.h"
+#include "MainScene.h"
 #include "TestState2.h"
 
 
@@ -19,7 +19,7 @@ bool TestState2::Update()
 	const uint8_t *state = SDL_GetKeyboardState(NULL);
 	if (state[SDL_SCANCODE_LEFT])
 	{
-		SetState<TestState>(this->application);
+		SetState<MainScene>(this->application);
 	}
 	return true;
 }
