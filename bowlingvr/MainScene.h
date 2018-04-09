@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "CDebugDraw.h"
 #include "BulletWorld.h"
+#include <openvr/openvr.h>
 
 class MainScene : public GameState
 {
