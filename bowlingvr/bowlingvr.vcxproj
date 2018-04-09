@@ -160,6 +160,7 @@
     <ClCompile Include="Shadowmap.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="TestState2.cpp" />
+    <ClCompile Include="bVRSystem.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +179,7 @@
     <ClInclude Include="Shadowmap.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="TestState2.h" />
+    <ClInclude Include="bVRSystem.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

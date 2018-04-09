@@ -11,7 +11,6 @@
 #include "Camera.h"
 #include "CDebugDraw.h"
 #include "BulletWorld.h"
-#include <openvr/openvr.h>
 
 class MainScene : public GameState
 {
@@ -24,6 +23,9 @@ public:
 	~MainScene();
 
 private:
+	//VR pointer
+	IVRSystem * vr_pointer = nullptr;
+
 	//entities
 	Shader *modelShader = nullptr;
 	Shader *depthShader = nullptr;

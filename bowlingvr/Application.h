@@ -4,6 +4,7 @@
 #define APPLICATION_H
 
 #include "Window.h"
+#include "bVRSystem.h"
 #include <Windows.h>
 #include <SDL2/SDL.h>
 #include <GL/GL.h>
@@ -36,12 +37,17 @@ public:
 	bool IsWindowActive();
 	unsigned int w();
 	unsigned int h();
+	IVRSystem * getVRpointer();
 
 private:
 	bool active; //application active
 
 	Window* window;
 	GameStateInterface *state = nullptr;
+
+	bVRSystem *vr_system = nullptr;
+	IVRSystem *vr_pointer = NULL;
+	void bPollVREvent();
 
 	bool windowFocused;
 

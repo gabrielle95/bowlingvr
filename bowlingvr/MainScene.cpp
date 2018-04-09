@@ -11,6 +11,8 @@ MainScene::MainScene(Application *application) : GameState(application)
 
 bool MainScene::Init()
 {
+	vr_pointer = application->getVRpointer(); //later check for NULL
+
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -18,15 +20,15 @@ bool MainScene::Init()
 	glClearColor(0.1,0.1,0.1,0.1);
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-
+	/* CWD */
 	char cCurrentPath[FILENAME_MAX];
 
 	if (!_getcwd(cCurrentPath, sizeof(cCurrentPath)))
 	{
-		printf("cwd error \n");
+		printf("BOWLINGVR:: Can't locate CWD \n");
 	}
 	cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
-	printf("The current working directory is %s\n", cCurrentPath);
+	printf("BOWLINGVR::The current working directory is %s\n", cCurrentPath);
 
 	/***********************/
 	/* SHADER COMPILATION */
@@ -59,7 +61,6 @@ bool MainScene::Init()
 	/*************************/
 	/* MODEL INITIALISATION */
 	/************************/
-
 
 	/* ALLEY COLLISION DIRTY FIX */
 	btRigidBody * alleyFix = BulletUtils::createInvisibleBoxCollider(0, btVector3(1.35, 0.09, 27), btVector3(-0.35, -0.19999999, -12), glm::mat4(1.0));
@@ -128,9 +129,10 @@ bool MainScene::Init()
 		this->dynamicWorld->addRigidBody(tmp->rigidBody);
 	}
 	pinPositions.clear();
-	Ball *b = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.25f), btVector3(-0.25f, 0.3f, -30.f));
+	
+	/*Ball *b = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.25f), btVector3(-0.25f, 0.3f, -30.f));
 	dynamicObjects.push_back(b);
-	this->dynamicWorld->addRigidBody(b->rigidBody);
+	this->dynamicWorld->addRigidBody(b->rigidBody);*/
 	//tmppin = new Model(this->modelShader, "bowling_pin_001.obj");
 	//this->testpin = new Pin(this->modelShader, tmppin->meshes, 1.5, 0.080, 0.7, btVector3(0,1,0));
 	//pins.push_back(testpin);
@@ -140,6 +142,7 @@ bool MainScene::Init()
 	/*************************/
 	/* LIGHT INITIALISATION */
 	/************************/
+	std::cout << "BOWLING:: Loading lights..." << std::endl;
 
 	this->Lights.push_back(new Light(this->modelShader, 0, glm::vec4(-2.0f, 3.0f, -15.0f, 1.0)));
 	//this->Lights.push_back(new Light(this->modelShader, 1, glm::vec4(-2.0f, 2.5f, 25.0f, 1.0)));
@@ -149,6 +152,8 @@ bool MainScene::Init()
 	/********************/
 	/* SHADOW MAP INIT */
 	/*******************/
+	std::cout << "BOWLING:: Loading shadow maps..." << std::endl;
+
 	CubeDepthMap = new Shadowmap(2048, 2048);
 	assert(CubeDepthMap != nullptr);
 	modelShader->setFloat("far_plane", 200.f);
@@ -157,6 +162,8 @@ bool MainScene::Init()
 	/*********************/
 	/* POST PROCESSING */
 	/********************/
+	std::cout << "BOWLING:: Loading post processing effects..." << std::endl;
+
 	this->NoEffects = new PostProcessing(application->w(), application->h());
 	NoEffects->Init();
 
@@ -182,8 +189,8 @@ bool MainScene::Init()
 	bloomShader->setInt("bloom", bloom);
 	bloomShader->setFloat("exposure", 1.2f); //bloom exposure
 
-	//conf shaders
-
+	
+	// non VR
 	/**************************/
 	/* CAMERA INITIALISATION */
 	/*************************/
@@ -195,6 +202,7 @@ bool MainScene::Init()
 	this->camera->SetTranslation(0,1.7,15);
 
 	this->camVelocity = glm::vec3(this->mouse_speed*5, this->mouse_speed*5, this->mouse_speed*5);
+	
 
 	SDL_GetGlobalMouseState(&xPos, &yPos);
 	SDL_WarpMouseGlobal(500, 500);
@@ -542,4 +550,6 @@ MainScene::~MainScene()
 
 	glDeleteVertexArrays(1, &quadVAO);
 	glDeleteBuffers(1, &quadVBO);
+
+	vr_pointer = NULL;
 }
