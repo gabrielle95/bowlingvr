@@ -1,11 +1,11 @@
-# Blender MTL File: 'ball.blend'
+# Blender MTL File: 'None'
 # Material Count: 1
 
-newmtl Material
-Ns 96.078431
+newmtl Material.001
+Ns 115.686275
 Ka 1.000000 1.000000 1.000000
 Kd 0.613033 0.640000 0.619711
-Ks 0.272386 0.329825 0.500000
+Ks 0.933513 0.970234 1.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000

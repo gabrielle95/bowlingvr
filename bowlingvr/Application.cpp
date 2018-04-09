@@ -136,8 +136,6 @@ bool Application::Run()
 				break;
 			}
 		}
-		/*glClearColor(0, 0.7, 1, 1);
-		glClear(GL_COLOR_BUFFER_BIT);*/
 		
 		if (this->state != nullptr)
 		{

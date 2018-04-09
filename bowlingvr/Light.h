@@ -13,7 +13,7 @@ public:
 		glm::vec4 position = { 0, 2.0f, 0, 1.0f },
 		bool isSpot = false,
 		glm::vec4 ambient = { 0.12f, 0.12f, 0.12f, 1.0f },
-		glm::vec4 diffuse = { 1.7f, 1.7f, 1.7f, 1.0f },
+		glm::vec4 diffuse = { 2.0f, 2.0f, 2.0f, 1.0f },
 		glm::vec4 specular = { 1.0f, 1.0f, 1.0f, 1.0f },
 		glm::vec4 cone_direction = {0.0, -1.0, 0.0, 1.0},
 		float spot_cos_cutoff = 0.1,

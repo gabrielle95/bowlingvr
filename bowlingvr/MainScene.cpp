@@ -128,7 +128,9 @@ bool MainScene::Init()
 		this->dynamicWorld->addRigidBody(tmp->rigidBody);
 	}
 	pinPositions.clear();
-	
+	Ball *b = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.25f), btVector3(-0.25f, 0.3f, -30.f));
+	dynamicObjects.push_back(b);
+	this->dynamicWorld->addRigidBody(b->rigidBody);
 	//tmppin = new Model(this->modelShader, "bowling_pin_001.obj");
 	//this->testpin = new Pin(this->modelShader, tmppin->meshes, 1.5, 0.080, 0.7, btVector3(0,1,0));
 	//pins.push_back(testpin);
@@ -147,7 +149,7 @@ bool MainScene::Init()
 	/********************/
 	/* SHADOW MAP INIT */
 	/*******************/
-	CubeDepthMap = new Shadowmap(1024, 1024);
+	CubeDepthMap = new Shadowmap(2048, 2048);
 	assert(CubeDepthMap != nullptr);
 	modelShader->setFloat("far_plane", 200.f);
 	CubeDepthMap->CreateCubemapMatrices(glm::vec3(-2.0f, 3.0f, -15.0f));
@@ -178,7 +180,7 @@ bool MainScene::Init()
 	bloomShader->setInt("scene", 0);
 	bloomShader->setInt("bloomBlur", 1);
 	bloomShader->setInt("bloom", bloom);
-	bloomShader->setFloat("exposure", 1.0f);
+	bloomShader->setFloat("exposure", 1.2f); //bloom exposure
 
 	//conf shaders
 
@@ -190,7 +192,7 @@ bool MainScene::Init()
 	this->camera = new Camera(this->modelShader, this->application->w(), this->application->h());
 	assert(this->camera != nullptr);
 
-	this->camera->SetTranslation(0,1.7,10);
+	this->camera->SetTranslation(0,1.7,15);
 
 	this->camVelocity = glm::vec3(this->mouse_speed*5, this->mouse_speed*5, this->mouse_speed*5);
 
@@ -217,77 +219,94 @@ bool MainScene::Update()
 
 	this->dynamicWorld->stepSimulation(this->deltaTime, 5);
 	
-	
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	/* RENDERING SHADOWMAP to FBO */
-
-	this->CubeDepthMap->RenderToDepthmap(depthShader);
-	RenderObjects(depthShader);
-	this->CubeDepthMap->UnbindFBO();
-
-	/* RENDERING SCENE with textures to MSAA... */
-
-
-	msaaEffect->BindFBO();
 	glViewport(0, 0, application->w(), application->h());
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//modelShader->Use();	
-	modelShader->setVec3("viewPos", this->camera->getPosition());
-	
-	//Render the objects
-	RenderObjects(modelShader);
+	//postprocessing off
+	if (!PP) {
+		//glViewport(0, 0, application->w(), application->h());
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		modelShader->Use();
+		modelShader->setVec3("viewPos", this->camera->getPosition());
 
-	//Render the lights
-	RenderLights(modelShader);
+		//Render the objects
+		RenderObjects(modelShader);
 
-	//Apply shadows -- weird stuff is happening
-	this->CubeDepthMap->BindDepthTexture();
-
-	msaaEffect->UnbindFBO();
-
-	msaaEffect->BlitToFBO(NoEffects->fbo);
-
-	//HDR
-	HdrEffect->BindFPFramebuffer();
-	glViewport(0, 0, application->w(), application->h());
-	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
-
-	hdrShader->Use();
-	NoEffects->Bind();
-	RenderQuad();
-	HdrEffect->UnbindFPFramebuffer();
-
-	glViewport(0, 0, application->w(), application->h());
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	//BLUR
-	bool horizontal = true, first_iteration = true;
-	unsigned int amount = 10;
-	blurShader->Use();
-	for (unsigned int i = 0; i < amount; i++)
-	{
-		glBindFramebuffer(GL_FRAMEBUFFER, HdrEffect->pingpongFBO[horizontal]);
-		blurShader->setInt("horizontal", horizontal);
-		glBindTexture(GL_TEXTURE_2D, first_iteration ? HdrEffect->fbo_textures[1] : HdrEffect->pingpongColorbuffers[!horizontal]);  // bind texture of other framebuffer (or scene if first iteration)
-		RenderQuad();
-		horizontal = !horizontal;
-		if (first_iteration)
-			first_iteration = false;
+		//Render the lights
+		RenderLights(modelShader);
 	}
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	else {
+		/* RENDERING SHADOWMAP to FBO */
 
-	//BLOOM
-	glViewport(0, 0, application->w(), application->h());
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	bloomShader->Use();
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, HdrEffect->fbo_textures[0]);
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, HdrEffect->pingpongColorbuffers[!horizontal]);
+		this->CubeDepthMap->RenderToDepthmap(depthShader);
+		RenderObjects(depthShader);
+		this->CubeDepthMap->UnbindFBO();
+
+		/* RENDERING SCENE with textures to MSAA... */
+
+
+		msaaEffect->BindFBO();
+		glViewport(0, 0, application->w(), application->h());
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		modelShader->Use();
+		modelShader->setVec3("viewPos", this->camera->getPosition());
+
+		//Render the objects
+		RenderObjects(modelShader);
+
+		//Render the lights
+		RenderLights(modelShader);
+
+		//Apply shadows -- weird stuff is happening
+		this->CubeDepthMap->BindDepthTexture();
+
+		msaaEffect->UnbindFBO();
+
+		msaaEffect->BlitToFBO(NoEffects->fbo);
+
+		//HDR
+		HdrEffect->BindFPFramebuffer();
+		glViewport(0, 0, application->w(), application->h());
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		hdrShader->Use();
+		NoEffects->Bind();
+		RenderQuad();
+		HdrEffect->UnbindFPFramebuffer();
+
+		glViewport(0, 0, application->w(), application->h());
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		//BLUR
+		bool horizontal = true, first_iteration = true;
+		unsigned int amount = 10;
+		blurShader->Use();
+		for (unsigned int i = 0; i < amount; i++)
+		{
+			glBindFramebuffer(GL_FRAMEBUFFER, HdrEffect->pingpongFBO[horizontal]);
+			blurShader->setInt("horizontal", horizontal);
+			glBindTexture(GL_TEXTURE_2D, first_iteration ? HdrEffect->fbo_textures[1] : HdrEffect->pingpongColorbuffers[!horizontal]);  // bind texture of other framebuffer (or scene if first iteration)
+			RenderQuad();
+			horizontal = !horizontal;
+			if (first_iteration)
+				first_iteration = false;
+		}
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		//BLOOM
+		glViewport(0, 0, application->w(), application->h());
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		bloomShader->Use();
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, HdrEffect->fbo_textures[0]);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, HdrEffect->pingpongColorbuffers[!horizontal]);
+
+		RenderQuad();
+	}
 	
-	RenderQuad();
 
 	this->deltaThen = this->deltaNow;
 
@@ -365,7 +384,8 @@ void MainScene::GetInputCallback()
 	if (!this->pressedP && state[SDL_SCANCODE_P])
 	{
 		this->pressedP = true;
-		this->debugMode = !this->debugMode;
+		//this->debugMode = !this->debugMode;
+		this->PP = !this->PP;
 	}
 	else if (!state[SDL_SCANCODE_P])
 	{

@@ -58,7 +58,7 @@ private:
 	GLuint msFBO;
 	GLuint msTex;
 	float w, h;
-	GLuint samples = 4;
+	GLuint samples = 8;
 	GLuint rboDepth;
 
 	void Init();

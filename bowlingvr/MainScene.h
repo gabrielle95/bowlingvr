@@ -92,6 +92,7 @@ private:
 	//post processing variables
 	float exposure = 2.5f;
 	bool bloom = true;
+	bool PP = true;
 
 	//functions
 	void GetInputCallback();

@@ -73,7 +73,7 @@ void Shadowmap::RenderToDepthmap(Shader * shader)
 {
 	glViewport(0, 0, w, h);
 	glBindFramebuffer(GL_FRAMEBUFFER, depthFBO);
-	glClear(GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shader->Use();
 	for (unsigned int i = 0; i < 6; ++i)
 		shader->setUniMatrix(shader->getUniLocation("shadowMatrices[" + std::to_string(i) + "]"), shadowTransforms[i]);

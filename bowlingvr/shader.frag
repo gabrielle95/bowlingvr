@@ -114,6 +114,8 @@ void main()
 		float attenuation, dist;
 		dist = length(Lights[i].position - FragPos); //worldspace
 		attenuation = 1.0 / (constantAtt + LINEAR_ATTENUATION * dist + QUADR_ATTENUATION * dist * dist);
+		//attenuation = 1.0 / (dist * dist);
+		//attenuation = pow(attenuation, 0.45);
 		
 		vec3 L = normalize(lightDir[i]); //light direction cameraspace
 		
@@ -157,7 +159,8 @@ void main()
 		 //ambient
 		 vec4 amb = Lights[i].ambient * (texture(texture_diffuse1, TexCoords) + Material.ambient);
 		
-		finalColor += (amb + (1.0 - shadow) * (diff + spec) * colorFactor) + Material.emission;
+		finalColor += (amb + (1.0 - shadow) * (diff ) * colorFactor + spec) + Material.emission;
+		//finalColor += (amb + (diff ) * colorFactor + spec) + Material.emission;
 		//finalColor += diff * colorFactor + Material.emission;
 
 	}
