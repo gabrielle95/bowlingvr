@@ -39,7 +39,11 @@ public:
 	unsigned int h();
 	IVRSystem * getVRpointer();
 
-private:
+private: //METHODS
+	void bPollVREvent();
+	void bPollVRControllerState();
+
+private://VARIABLES
 	bool active; //application active
 
 	Window* window;
@@ -47,7 +51,6 @@ private:
 
 	bVRSystem *vr_system = nullptr;
 	IVRSystem *vr_pointer = NULL;
-	void bPollVREvent();
 
 	bool windowFocused;
 

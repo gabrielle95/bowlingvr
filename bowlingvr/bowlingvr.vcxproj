@@ -72,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Gabriela\Documents\Visual Studio 2017\Projects\bowlingvr\bowlingvr\libs\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Gabriela\Documents\Visual Studio 2017\Projects\bowlingvr\bowlingvr\libs\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\xpacak01\source\repos\bowlingvr\bowlingvr\libs\include;C:\Users\Gabriela\Documents\Visual Studio 2017\Projects\bowlingvr\bowlingvr\libs\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\xpacak01\source\repos\bowlingvr\bowlingvr\libs\lib;C:\Users\Gabriela\Documents\Visual Studio 2017\Projects\bowlingvr\bowlingvr\libs\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -148,6 +148,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BulletUtils.cpp" />
     <ClCompile Include="BulletWorld.cpp" />
+    <ClCompile Include="bVRMainScene.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CDebugDraw.cpp" />
     <ClCompile Include="Light.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="BulletUtils.h" />
     <ClInclude Include="BulletWorld.h" />
+    <ClInclude Include="bVRMainScene.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CDebugDraw.h" />
     <ClInclude Include="Entities.h" />

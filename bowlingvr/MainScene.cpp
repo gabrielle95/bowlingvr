@@ -68,7 +68,7 @@ bool MainScene::Init()
 
 	std::cout << "BOWLING:: Loading models..." << std::endl;
 
-	this->room = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\room_alley.obj");
+	this->room = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\alley.obj");
 	this->room->pInit(0, btVector3(0, 0, 0));
 	this->dynamicWorld->addRigidBody(room->rigidBody);
 
@@ -97,9 +97,9 @@ bool MainScene::Init()
 	wallPositions.clear();
 	wallDimensions.clear();
 	*/
-	this->sphere = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\ball\\sphere-m10-r025-space.obj");
+	this->sphere = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\ball\\ball.obj");
 
-	this->pin = new Model(this->modelShader, "bowling_pin_001.obj");
+	this->pin = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\pin\\bowling_pin_001.obj");
 
 	/*this->alley = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\venue.obj");
 	this->alley->pInit(0, btVector3(0,0.5,0));

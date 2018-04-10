@@ -49,7 +49,9 @@ unsigned int Application::h()
 
 IVRSystem * Application::getVRpointer()
 {
-	return vr_system->getVRpointer();
+	if(vr_system != nullptr)
+		return vr_system->getVRpointer();
+	return NULL;
 }
 
 Application::Application()
@@ -67,10 +69,11 @@ Application::Application()
 
 			this->vr_system = new bVRSystem();
 			vr_pointer = vr_system->getVRpointer();
+			//vr_pointer = NULL;
 			if (vr_pointer != NULL)
 			{
 				//companion VR window
-				this->window = new Window("VR Bowling Companion Window", this->width, this->height);
+				this->window = new Window("VR Bowling Companion Window" + vr_system->RetrieveDriverDisplayVersion(), this->width, this->height);
 			}
 			else
 			{
@@ -88,10 +91,13 @@ Application::Application()
 				glEnable(GL_MULTISAMPLE);
 			}
 
+			// init compositor
 			if (vr_pointer != NULL)
 			{
 				if (!vr_system->bVRInitVRCompositor())
 				{
+					vr_system->bVR_Shutdown();
+					vr_pointer = NULL;
 					throw bVRSystem_exception(VR_GetVRInitErrorAsEnglishDescription(vr_system->getbVRError()));
 				}
 			}
@@ -178,9 +184,13 @@ bool Application::Run()
 			}
 		}
 
-		//check for vr poll
-		if(vr_pointer != NULL)
+		//check for vr poll events
+		if (vr_pointer != NULL)
+		{
 			bPollVREvent();
+			bPollVRControllerState();
+		}
+			
 
 		if (this->state != nullptr)
 		{
@@ -193,6 +203,7 @@ bool Application::Run()
 	return this->active;
 }
 
+// process SteamVR events
 void Application::bPollVREvent()
 {
 	VREvent_t event;
@@ -201,31 +212,49 @@ void Application::bPollVREvent()
 		switch (event.eventType)
 		{
 		case VREvent_TrackedDeviceActivated:
-			printf("EVENT (OpenVR) Device : %d attached\n",
-				event.trackedDeviceIndex);
+			//add rendering for model, should this be in the main scene?
+			std::cout << "OPENVR:: Device " << event.trackedDeviceIndex << "attached." << std::endl;
+			break;
+		case VREvent_TrackedDeviceDeactivated:
+			std::cout << "OPENVR:: Device " << event.trackedDeviceIndex << "detached." << std::endl;
+			break;
+		case VREvent_TrackedDeviceUpdated:
+			std::cout << "OPENVR:: Device " << event.trackedDeviceIndex << "updated." << std::endl;
 			break;
 
 			//and so on, can test for any amount of vr events
 
 		default:
-			printf("EVENT--(OpenVR) Event: %d\n", event.eventType);
+			printf("OPENVR::Event: %d\n", event.eventType);
 		}
 	}
 	//Output tracking data or do other things
 }
 
+void Application::bPollVRControllerState()
+{
+	for (vr::TrackedDeviceIndex_t unDevice = 0; unDevice < vr::k_unMaxTrackedDeviceCount; unDevice++)
+	{
+		vr::VRControllerState_t state;
+		if (vr_pointer->GetControllerState(unDevice, &state, sizeof(state)))
+		{
+			vr_system->m_rbShowTrackedDevice[unDevice] = state.ulButtonPressed == 0;
+		}
+	}
+}
+
 void Application::Stop()
 {
 	this->active = false;
-}
-
-Application::~Application()
-{
-	delete this->state;
 	if (vr_pointer != NULL)
 	{
 		vr_system->bVR_Shutdown();
 		vr_pointer = NULL;
 	}
+}
+
+Application::~Application()
+{
+	delete this->state;
 	SDL_Quit();
 }

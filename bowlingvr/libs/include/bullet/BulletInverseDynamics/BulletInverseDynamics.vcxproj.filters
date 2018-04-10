@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\IDMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\MultiBodyTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\details\MultiBodyTreeInitCache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\details\MultiBodyTreeImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\IDConfig.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\IDConfigEigen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\IDMath.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\IDConfigBuiltin.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\IDErrorMessages.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\MultiBodyTree.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\details\IDEigenInterface.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\details\IDMatVec.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\details\IDLinearMathInterface.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\details\MultiBodyTreeImpl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\details\MultiBodyTreeInitCache.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\xpacak01\Downloads\bullet3-master\src\BulletInverseDynamics\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{F40AB5E3-8C62-3F94-B79B-BD5B7A8A87B6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{C42E9081-20C1-3EEC-A1F1-E24E4215E0BE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
