@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "CDebugDraw.h"
 #include "BulletWorld.h"
+#include "bVRMainScene.h"
 
 class MainScene : public GameState
 {
@@ -23,16 +24,29 @@ public:
 	~MainScene();
 
 private:
-	//VR pointer
+
+	//VR hmd
 	IVRSystem * vr_pointer = nullptr;
+
+	//VR-side bookkeeping
+	bool isVRenabled = false;
+	bVRMainScene *vr_scene = nullptr;
+	
+
+	GLint m_vr_controllerlocation;
+	GLint m_vr_rendermodellocation;
+
+	Shader *VRcontrollerShader = nullptr;
+	Shader *VRrendermodelShader = nullptr;
+	Shader *VRcompanionwindowShader = nullptr;
 
 	//entities
 	Shader *modelShader = nullptr;
 	Shader *depthShader = nullptr;
 	Shader *hdrShader = nullptr;
-	Shader *emissionShader = nullptr;
 	Shader *blurShader = nullptr;
 	Shader *bloomShader = nullptr;
+	
 
 	Camera *camera = nullptr;
 	btDynamicsWorld *dynamicWorld = nullptr; //bulletPhysics

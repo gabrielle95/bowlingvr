@@ -66,6 +66,9 @@
     <ClCompile Include="bVRSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="bVRRenderModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="bVRMainScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -120,6 +123,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="bVRSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bVRRenderModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="bVRMainScene.h">

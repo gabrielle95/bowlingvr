@@ -149,6 +149,7 @@
     <ClCompile Include="BulletUtils.cpp" />
     <ClCompile Include="BulletWorld.cpp" />
     <ClCompile Include="bVRMainScene.cpp" />
+    <ClCompile Include="bVRRenderModel.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CDebugDraw.cpp" />
     <ClCompile Include="Light.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CDebugDraw.h" />
     <ClInclude Include="Entities.h" />
+    <ClInclude Include="bVRRenderModel.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />

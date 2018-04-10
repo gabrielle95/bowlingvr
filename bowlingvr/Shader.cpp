@@ -6,6 +6,7 @@
 
 using namespace std;
 
+//loading from external files
 Shader::Shader(string vxname, string fgname, string gsname)
 {
 	this->ready = false;
@@ -18,6 +19,36 @@ Shader::Shader(string vxname, string fgname, string gsname)
 		cout << "Error loading shaders!" << endl;
 		return;
 	}
+	if (this->Compile() < 1)
+	{
+		cout << "Error compiling shaders!" << endl;
+		return;
+	}
+	if (this->Link() < 1)
+	{
+		cout << "Error linking shaders!" << endl;
+		return;
+	}
+	this->ready = true;
+}
+
+// compiling when embedded in code
+Shader::Shader(const char *pchShaderName, const char * pchVertexShader, const char * pchFragmentShader, bool in_code, const char * pchGeometryShader)
+{
+	this->ready = false;
+	this->vxname = pchShaderName;
+	this->fgname = pchShaderName;
+	this->gsname = "null";
+
+	this->vxSource = pchVertexShader;
+	this->fgSource = pchFragmentShader;
+
+	if (pchGeometryShader != NULL)
+	{
+		this->gsname = pchShaderName;
+		this->gsSource = pchGeometryShader;
+	}
+	
 	if (this->Compile() < 1)
 	{
 		cout << "Error compiling shaders!" << endl;
@@ -153,7 +184,7 @@ int Shader::Link()
 		glGetProgramiv(this->shaderProgram, GL_INFO_LOG_LENGTH, (GLint *)&maxLen);
 		char *programLog = (char *)malloc(maxLen);
 		glGetProgramInfoLog(this->shaderProgram, maxLen, (GLsizei*)&maxLen, programLog);
-		cout << "Shader link error: " << endl << programLog << endl << endl;
+		cout << vxname << ": Shader link error: " << endl << programLog << endl << endl;
 		free(programLog);
 		return -1;
 	}

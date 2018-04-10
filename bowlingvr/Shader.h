@@ -11,14 +11,16 @@ class Shader
 {
 public:
 	Shader(std::string vxname, std::string fgname, std::string gsname = std::string("null"));
-	bool Use();
-	GLint getAttr(std::string attr);
+	Shader(const char *pchShaderName, const char *pchVertexShader, const char *pchFragmentShader, bool in_code, const char *pchGeometryShader = NULL);
 	GLint getUniLocation(std::string name);
 	void setUniMatrix(GLint location, glm::mat4 matrix);
 	void setInt(std::string location, int value);
 	void setFloat(std::string location, float value);
 	void setVec3(std::string location, glm::vec3 value);
 	std::string getName();
+	bool Use();
+	GLint getAttr(std::string attr);
+	
 
 private:
 	std::ifstream vxFile, fgFile, gsFile;

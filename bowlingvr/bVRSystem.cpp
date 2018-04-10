@@ -50,6 +50,8 @@ std::string bVRSystem::RetrieveDriverDisplayVersion()
 	return std::string(m_strDriver + " " + m_strDisplay);
 }
 
+
+
 IVRSystem * bVRSystem::getVRpointer()
 {
 	return this->vr_pointer;
@@ -67,15 +69,15 @@ void bVRSystem::bVR_Shutdown()
 }
 
 // VR utilities static class
-vr_convert::vr_convert()
+vr_utils::vr_utils()
 {
 }
 
-vr_convert::~vr_convert()
+vr_utils::~vr_utils()
 {
 }
 
-glm::mat4 vr_convert::FromSteamVRMatrix(const HmdMatrix34_t & matPose)
+glm::mat4 vr_utils::FromSteamVRMatrix(const HmdMatrix34_t & matPose)
 {
 	return glm::mat4(
 		matPose.m[0][0], matPose.m[1][0], matPose.m[2][0], 0.0,

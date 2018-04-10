@@ -246,6 +246,9 @@ void Application::bPollVRControllerState()
 void Application::Stop()
 {
 	this->active = false;
+	delete this->state;
+	this->state = nullptr;
+
 	if (vr_pointer != NULL)
 	{
 		vr_system->bVR_Shutdown();
@@ -255,6 +258,5 @@ void Application::Stop()
 
 Application::~Application()
 {
-	delete this->state;
 	SDL_Quit();
 }

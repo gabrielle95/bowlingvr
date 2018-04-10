@@ -27,8 +27,6 @@ public: //METHODS
 	void bVR_Shutdown();
 
 public: //VARIABLES
-	vr::TrackedDevicePose_t m_rTrackedDevicePose[vr::k_unMaxTrackedDeviceCount];
-	glm::mat4 m_rmat4DevicePose[vr::k_unMaxTrackedDeviceCount];
 	bool m_rbShowTrackedDevice[vr::k_unMaxTrackedDeviceCount];
 
 private: //VARIABLES
@@ -37,16 +35,16 @@ private: //VARIABLES
 	vr::IVRRenderModels *m_pRenderModels = NULL;
 	std::string m_strDriver = "Unknown Display";
 	std::string m_strDisplay = "Unknown Driver";
-
+	
 
 
 };
 
-static class vr_convert
+static class vr_utils
 {
 public:
-	vr_convert();
-	~vr_convert();
+	vr_utils();
+	~vr_utils();
 
 	glm::mat4 FromSteamVRMatrix(const HmdMatrix34_t &matPose);
 };

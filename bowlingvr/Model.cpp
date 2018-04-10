@@ -1,10 +1,6 @@
 #include <GL/glew.h>
 #include <assimp/Importer.hpp>
-
-
 #include <assimp/postprocess.h>
-//#include <SOIL2/SOIL2.h>
-//#include <il/il.h>
 #include <glm/gtc/type_ptr.hpp>
 #include "BulletUtils.h"
 #include "Model.h"
@@ -91,12 +87,6 @@ void Model::Render(Shader * shader)
 	{
 		for (int i = 0; i < this->meshes.size(); ++i) {
 			this->meshes.at(i)->Render(shader);
-		}
-	}
-	else if(shader->getName().compare("emissionShader.vert") == 0)
-	{
-		for (int i = 0; i < this->meshes.size(); ++i) {
-			this->meshes.at(i)->RenderEmission(shader);
 		}
 	}
 	else

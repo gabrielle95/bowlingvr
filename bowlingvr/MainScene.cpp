@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <direct.h> 
 #include "MainScene.h"
-#include "TestState2.h"
+//#include "TestState2.h"
 
 MainScene::MainScene(Application *application) : GameState(application)
 {
@@ -12,6 +12,11 @@ MainScene::MainScene(Application *application) : GameState(application)
 bool MainScene::Init()
 {
 	vr_pointer = application->getVRpointer(); //later check for NULL
+	if (vr_pointer != NULL)
+		isVRenabled = true;
+
+	if (isVRenabled)
+		vr_scene = new bVRMainScene(vr_pointer);
 
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
@@ -33,6 +38,8 @@ bool MainScene::Init()
 	/***********************/
 	/* SHADER COMPILATION */
 	/**********************/
+
+	/// TODO: make shaders internal
 	std::cout << "BOWLING:: Compiling shaders..." << std::endl;
 
 	this->modelShader = new Shader("shader.vert", "shader.frag");
@@ -44,12 +51,101 @@ bool MainScene::Init()
 
 	this->hdrShader = new Shader("hdr.vert", "hdr.frag");
 
-	this->emissionShader = new Shader("emissionShader.vert", "emissionShader.frag");
-	assert(this->emissionShader != nullptr);
+	//this->emissionShader = new Shader("emissionShader.vert", "emissionShader.frag");
+	//assert(this->emissionShader != nullptr);
 
 	this->blurShader = new Shader("blur.vert", "blur.frag");
 
 	this->bloomShader = new Shader("bloom.vert", "bloom.frag");
+
+	// VR Shaders
+	if (vr_pointer != NULL)
+	{
+		this->VRcontrollerShader = new Shader
+		(
+			"controller",
+
+			// vertex shader
+			"#version 450 core\n"
+			"uniform mat4 matrix;\n"
+			"layout(location = 0) in vec4 position;\n"
+			"layout(location = 1) in vec3 v3ColorIn;\n"
+			"out vec4 v4Color;\n"
+			"void main()\n"
+			"{\n"
+			"	v4Color.xyz = v3ColorIn; v4Color.a = 1.0;\n"
+			"	gl_Position = matrix * position;\n"
+			"}\n",
+
+			// fragment shader
+			"#version 450 core\n"
+			"in vec4 v4Color;\n"
+			"out vec4 outputColor;\n"
+			"void main()\n"
+			"{\n"
+			"   outputColor = v4Color;\n"
+			"}\n", true
+		);
+		assert(this->VRcontrollerShader != nullptr);
+		m_vr_controllerlocation = VRcontrollerShader->getUniLocation("matrix");
+
+		this->VRrendermodelShader = new Shader
+		(
+			"rendermodel",
+
+			// vertex shader
+			"#version 450\n"
+			"uniform mat4 matrix;\n"
+			"layout(location = 0) in vec4 position;\n"
+			"layout(location = 1) in vec3 v3NormalIn;\n"
+			"layout(location = 2) in vec2 v2TexCoordsIn;\n"
+			"out vec2 v2TexCoord;\n"
+			"void main()\n"
+			"{\n"
+			"	v2TexCoord = v2TexCoordsIn;\n"
+			"	gl_Position = matrix * vec4(position.xyz, 1);\n"
+			"}\n",
+
+			//fragment shader
+			"#version 450 core\n"
+			"uniform sampler2D diffuse;\n"
+			"in vec2 v2TexCoord;\n"
+			"out vec4 outputColor;\n"
+			"void main()\n"
+			"{\n"
+			"   outputColor = texture( diffuse, v2TexCoord);\n"
+			"}\n", true
+		);
+		assert(this->VRrendermodelShader != nullptr);
+		m_vr_rendermodellocation = VRrendermodelShader->getUniLocation("matrix");
+
+		this->VRcompanionwindowShader = new Shader
+		(
+			"companionwindow",
+
+			// vertex shader
+			"#version 450 core\n"
+			"layout(location = 0) in vec4 position;\n"
+			"layout(location = 1) in vec2 v2UVIn;\n"
+			"noperspective out vec2 v2UV;\n"
+			"void main()\n"
+			"{\n"
+			"	v2UV = v2UVIn;\n"
+			"	gl_Position = position;\n"
+			"}\n",
+
+			// fragment shader
+			"#version 450 core\n"
+			"uniform sampler2D mytexture;\n"
+			"noperspective in vec2 v2UV;\n"
+			"out vec4 outputColor;\n"
+			"void main()\n"
+			"{\n"
+			"		outputColor = texture(mytexture, v2UV);\n"
+			"}\n", true
+		);
+
+	}
 
 	/***************************/
 	/* PHYSICS INITIALISATION */
@@ -451,6 +547,9 @@ void MainScene::RenderObjects(Shader *shader)
 	}
 
 	this->room->Render(shader);
+
+	if (isVRenabled)
+		vr_scene->RenderControllerAxes();
 }
 
 void MainScene::RenderLights(Shader * shader)

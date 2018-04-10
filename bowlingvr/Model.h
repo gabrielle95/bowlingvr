@@ -11,25 +11,15 @@
 #include <bullet/btBulletDynamicsCommon.h>
 #include "Mesh.h"
 
-static enum btBODIES {
-	BALL, PLANE, PIN, COMPOSED, STATIC
-};
+//ASSIMP MODEL
 
 class Model
 {
 public:
 	Model(Shader *shader, const std::string& path);
 	Model(Shader *shader, std::vector<Mesh*> meshEntries);
-	~Model();
 	void Render(Shader * shader);
-
-	bool InitPhysicsBody(btBODIES SHAPE,
-		btScalar mass = btScalar(0),
-		btScalar radius = btScalar(0),
-		btVector3 planeDimension = btVector3(0, 0, 0),
-		btVector3 origin = btVector3(0, 0, 0)
-		/* add friction and stuff later*/
-	);
+	~Model();
 
 	btRigidBody *rigidBody;
 	std::vector<Mesh*> meshes;
