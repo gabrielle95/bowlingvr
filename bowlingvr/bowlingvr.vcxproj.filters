@@ -131,6 +131,9 @@
     <ClInclude Include="bVRMainScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ShaderStrings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="test.vert">

@@ -8,15 +8,16 @@ bVRSystem::bVRSystem()
 		vr_pointer = NULL;
 	}
 
-	m_pRenderModels = (vr::IVRRenderModels *)vr::VR_GetGenericInterface(vr::IVRRenderModels_Version, &eError);
-	if (!m_pRenderModels)
+	if (vr_pointer != NULL)
 	{
-		std::cout << "OPENVR::Failed to initialize Render Models!" << std::endl;
-		if (vr_pointer != NULL)
+		m_pRenderModels = (vr::IVRRenderModels *)vr::VR_GetGenericInterface(vr::IVRRenderModels_Version, &eError);
+		if (!m_pRenderModels)
+		{
+			std::cout << "OPENVR::Failed to initialize Render Models!" << std::endl;
 			vr::VR_Shutdown();
-		vr_pointer = NULL;
+			vr_pointer = NULL;
+		}
 	}
-
 }
 
 bool bVRSystem::bVRInitVRCompositor()

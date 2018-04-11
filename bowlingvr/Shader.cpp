@@ -7,7 +7,7 @@
 using namespace std;
 
 //loading from external files
-Shader::Shader(string vxname, string fgname, string gsname)
+/*Shader::Shader(string vxname, string fgname, string gsname)
 {
 	this->ready = false;
 	this->vxname = vxname;
@@ -30,10 +30,10 @@ Shader::Shader(string vxname, string fgname, string gsname)
 		return;
 	}
 	this->ready = true;
-}
+}*/
 
 // compiling when embedded in code
-Shader::Shader(const char *pchShaderName, const char * pchVertexShader, const char * pchFragmentShader, bool in_code, const char * pchGeometryShader)
+Shader::Shader(const char *pchShaderName, const char * pchVertexShader, const char * pchFragmentShader, const char * pchGeometryShader)
 {
 	this->ready = false;
 	this->vxname = pchShaderName;

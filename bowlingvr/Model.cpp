@@ -83,7 +83,7 @@ void Model::Render(Shader * shader)
 	shader->Use();
 	shader->setUniMatrix(shader->getUniLocation("model"), modelMatrix);
 
-	if (shader->getName().compare("shader.vert") == 0)
+	if (shader->getName().compare("Model") == 0)
 	{
 		for (int i = 0; i < this->meshes.size(); ++i) {
 			this->meshes.at(i)->Render(shader);

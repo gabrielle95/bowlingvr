@@ -4,6 +4,7 @@
 #include <vector>
 #include <openvr/openvr.h>
 #include "bVRRenderModel.h"
+#include "PostProcessing.h"
 
 class bVRMainScene
 {
@@ -11,9 +12,17 @@ public: //methods
 	bVRMainScene(vr::IVRSystem *vr_pointer);
 	~bVRMainScene();
 
+	glm::mat4 GetHMDMatrixProjectionEye(vr::Hmd_Eye nEye);
+	glm::mat4 GetHMDMatrixPoseEye(vr::Hmd_Eye nEye);
+
+	std::string GetTrackedDeviceString(vr::IVRSystem * pHmd, vr::TrackedDeviceIndex_t unDevice, vr::TrackedDeviceProperty prop, vr::TrackedPropertyError * peError);
+
 	void RenderControllerAxes();
 	void SetupCameras();
 	bool SetupStereoRenderTargets();
+	void SetupCompanionWindow();
+	void SetupRenderModels();
+	void SetupRenderModelForTrackedDevice(vr::TrackedDeviceIndex_t unTrackedDeviceIndex);
 	void RenderStereoTargets();
 	void RenderControllerModels();
 
@@ -21,7 +30,6 @@ public: //VARIABLES
 	vr::TrackedDevicePose_t m_rTrackedDevicePose[vr::k_unMaxTrackedDeviceCount];
 	glm::mat4 m_rmat4DevicePose[vr::k_unMaxTrackedDeviceCount];
 	
-
 	int m_iTrackedControllerCount;
 	int m_iTrackedControllerCount_Last;
 	int m_iValidPoseCount;
@@ -39,8 +47,8 @@ public: //VARIABLES
 
 	int m_iSceneVolumeInit;                                  // if you want something other than the default 20x20x20
 
-	float m_fNearClip;
-	float m_fFarClip;
+	float m_fNearClip = 0.05f;
+	float m_fFarClip = 100.f;
 
 	GLuint m_iTexture;
 
@@ -78,6 +86,13 @@ public: //VARIABLES
 
 		VertexDataWindow(const glm::vec2 & pos, const glm::vec2 tex) : position(pos), texCoord(tex) {	}
 	};
+
+	uint32_t m_nRenderWidth;
+	uint32_t m_nRenderHeight;
+
+	// FBO for left and right eye
+	PostProcessing *fbo_leftEye;
+	PostProcessing *fbo_rightEye;
 
 	std::vector < bVRRenderModel *> m_vecRenderModels;
 	bVRRenderModel *m_rTrackedDeviceToRenderModel[vr::k_unMaxTrackedDeviceCount];

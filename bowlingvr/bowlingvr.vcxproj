@@ -180,6 +180,7 @@
     <ClInclude Include="PlayerBody.h" />
     <ClInclude Include="PostProcessing.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderStrings.h" />
     <ClInclude Include="Shadowmap.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="TestState2.h" />

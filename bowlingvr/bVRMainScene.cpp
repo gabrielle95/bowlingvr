@@ -7,6 +7,162 @@ bVRMainScene::bVRMainScene(vr::IVRSystem *vr_pointer)
 	this->m_pHMD = vr_pointer;
 }
 
+glm::mat4 bVRMainScene::GetHMDMatrixProjectionEye(vr::Hmd_Eye nEye)
+{
+	if (!m_pHMD)
+		return glm::mat4(0.0);
+
+	vr::HmdMatrix44_t mat = m_pHMD->GetProjectionMatrix(nEye, m_fNearClip, m_fFarClip);
+
+	return glm::mat4(
+		mat.m[0][0], mat.m[1][0], mat.m[2][0], mat.m[3][0],
+		mat.m[0][1], mat.m[1][1], mat.m[2][1], mat.m[3][1],
+		mat.m[0][2], mat.m[1][2], mat.m[2][2], mat.m[3][2],
+		mat.m[0][3], mat.m[1][3], mat.m[2][3], mat.m[3][3]
+	);
+}
+
+glm::mat4 bVRMainScene::GetHMDMatrixPoseEye(vr::Hmd_Eye nEye)
+{
+	if (!m_pHMD)
+		return glm::mat4(0.0);
+
+	vr::HmdMatrix34_t matEyeRight = m_pHMD->GetEyeToHeadTransform(nEye);
+	glm::mat4 matrixObj(
+		matEyeRight.m[0][0], matEyeRight.m[1][0], matEyeRight.m[2][0], 0.0,
+		matEyeRight.m[0][1], matEyeRight.m[1][1], matEyeRight.m[2][1], 0.0,
+		matEyeRight.m[0][2], matEyeRight.m[1][2], matEyeRight.m[2][2], 0.0,
+		matEyeRight.m[0][3], matEyeRight.m[1][3], matEyeRight.m[2][3], 1.0f
+	);
+
+	return glm::inverse(matrixObj);
+}
+
+std::string bVRMainScene::GetTrackedDeviceString(vr::IVRSystem *pHmd, vr::TrackedDeviceIndex_t unDevice, vr::TrackedDeviceProperty prop, vr::TrackedPropertyError *peError = NULL)
+{
+	uint32_t unRequiredBufferLen = pHmd->GetStringTrackedDeviceProperty(unDevice, prop, NULL, 0, peError);
+	if (unRequiredBufferLen == 0)
+		return "";
+
+	char *pchBuffer = new char[unRequiredBufferLen];
+	unRequiredBufferLen = pHmd->GetStringTrackedDeviceProperty(unDevice, prop, pchBuffer, unRequiredBufferLen, peError);
+	std::string sResult = pchBuffer;
+	delete[] pchBuffer;
+	return sResult;
+}
+
+/**************************** INIT **************************/
+
+void bVRMainScene::SetupCameras()
+{
+	m_mat4ProjectionLeft = GetHMDMatrixProjectionEye(vr::Eye_Left);
+	m_mat4ProjectionRight = GetHMDMatrixProjectionEye(vr::Eye_Right);
+	m_mat4eyePosLeft = GetHMDMatrixPoseEye(vr::Eye_Left);
+	m_mat4eyePosRight = GetHMDMatrixPoseEye(vr::Eye_Right);
+}
+
+bool bVRMainScene::SetupStereoRenderTargets()
+{
+	if (!m_pHMD)
+		return false;
+
+	m_pHMD->GetRecommendedRenderTargetSize(&m_nRenderWidth, &m_nRenderHeight);
+
+	fbo_leftEye = new PostProcessing(m_nRenderWidth, m_nRenderHeight);
+	fbo_rightEye = new PostProcessing(m_nRenderWidth, m_nRenderHeight);
+	//CreateFrameBuffer(m_nRenderWidth, m_nRenderHeight, leftEyeDesc);
+	//CreateFrameBuffer(m_nRenderWidth, m_nRenderHeight, rightEyeDesc);
+
+	return true;
+}
+
+void bVRMainScene::SetupCompanionWindow()
+{
+	if (!m_pHMD)
+		return;
+
+	std::vector<VertexDataWindow> vVerts;
+
+	// left eye verts
+	vVerts.push_back(VertexDataWindow(glm::vec2(-1, -1), glm::vec2(0, 1)));
+	vVerts.push_back(VertexDataWindow(glm::vec2(0, -1), glm::vec2(1, 1)));
+	vVerts.push_back(VertexDataWindow(glm::vec2(-1, 1), glm::vec2(0, 0)));
+	vVerts.push_back(VertexDataWindow(glm::vec2(0, 1), glm::vec2(1, 0)));
+
+	// right eye verts
+	vVerts.push_back(VertexDataWindow(glm::vec2(0, -1), glm::vec2(0, 1)));
+	vVerts.push_back(VertexDataWindow(glm::vec2(1, -1), glm::vec2(1, 1)));
+	vVerts.push_back(VertexDataWindow(glm::vec2(0, 1), glm::vec2(0, 0)));
+	vVerts.push_back(VertexDataWindow(glm::vec2(1, 1), glm::vec2(1, 0)));
+
+	GLushort vIndices[] = { 0, 1, 3,   0, 3, 2,   4, 5, 7,   4, 7, 6 };
+	m_uiCompanionWindowIndexSize = _countof(vIndices);
+
+	glGenVertexArrays(1, &m_unCompanionWindowVAO);
+	glBindVertexArray(m_unCompanionWindowVAO);
+
+	glGenBuffers(1, &m_glCompanionWindowIDVertBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, m_glCompanionWindowIDVertBuffer);
+	glBufferData(GL_ARRAY_BUFFER, vVerts.size() * sizeof(VertexDataWindow), &vVerts[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &m_glCompanionWindowIDIndexBuffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_glCompanionWindowIDIndexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_uiCompanionWindowIndexSize * sizeof(GLushort), &vIndices[0], GL_STATIC_DRAW);
+
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(VertexDataWindow), (void *)offsetof(VertexDataWindow, position));
+
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(VertexDataWindow), (void *)offsetof(VertexDataWindow, texCoord));
+
+	glBindVertexArray(0);
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void bVRMainScene::SetupRenderModels()
+{
+	memset(m_rTrackedDeviceToRenderModel, 0, sizeof(m_rTrackedDeviceToRenderModel));
+
+	if (!m_pHMD)
+		return;
+
+	for (uint32_t unTrackedDevice = vr::k_unTrackedDeviceIndex_Hmd + 1; unTrackedDevice < vr::k_unMaxTrackedDeviceCount; unTrackedDevice++)
+	{
+		if (!m_pHMD->IsTrackedDeviceConnected(unTrackedDevice))
+			continue;
+
+		SetupRenderModelForTrackedDevice(unTrackedDevice);
+	}
+
+}
+
+void bVRMainScene::SetupRenderModelForTrackedDevice(vr::TrackedDeviceIndex_t unTrackedDeviceIndex)
+{
+	if (unTrackedDeviceIndex >= vr::k_unMaxTrackedDeviceCount)
+		return;
+
+	// try to find a model we've already set up
+	std::string sRenderModelName = GetTrackedDeviceString(m_pHMD, unTrackedDeviceIndex, vr::Prop_RenderModelName_String);
+	//bVRRenderModel *pRenderModel = FindOrLoadRenderModel(sRenderModelName.c_str());
+	///todo
+	/*if (!pRenderModel)
+	{
+		//std::string sTrackingSystemName = GetTrackedDeviceString(m_pHMD, unTrackedDeviceIndex, vr::Prop_TrackingSystemName_String);
+		std::cout << "OPENVR::Unable to load render model for tracked device with index " << unTrackedDeviceIndex << std::endl;
+	}
+	else
+	{
+		m_rTrackedDeviceToRenderModel[unTrackedDeviceIndex] = pRenderModel;
+		//m_rbShowTrackedDevice[unTrackedDeviceIndex] = true;
+	}*/
+}
+/********************** RENDERING ********************/
+
 void bVRMainScene::RenderControllerAxes()
 {
 	// Don't attempt to update controllers if input is not available
@@ -103,27 +259,6 @@ void bVRMainScene::RenderControllerAxes()
 		//$ TODO: Use glBufferSubData for this...
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertdataarray.size(), &vertdataarray[0], GL_STREAM_DRAW);
 	}
-}
-
-void bVRMainScene::SetupCameras()
-{
-	//m_mat4ProjectionLeft = GetHMDMatrixProjectionEye(vr::Eye_Left);
-	//m_mat4ProjectionRight = GetHMDMatrixProjectionEye(vr::Eye_Right);
-	//m_mat4eyePosLeft = GetHMDMatrixPoseEye(vr::Eye_Left);
-	//m_mat4eyePosRight = GetHMDMatrixPoseEye(vr::Eye_Right);
-}
-
-bool bVRMainScene::SetupStereoRenderTargets()
-{
-	if (!m_pHMD)
-		return false;
-
-	//m_pHMD->GetRecommendedRenderTargetSize(&m_nRenderWidth, &m_nRenderHeight);
-
-	//CreateFrameBuffer(m_nRenderWidth, m_nRenderHeight, leftEyeDesc);
-	//CreateFrameBuffer(m_nRenderWidth, m_nRenderHeight, rightEyeDesc);
-
-	return true;
 }
 
 /* renders left eye and right eye to framebuffers */

@@ -2,11 +2,13 @@
 #include "GL/glew.h"
 #include <stdio.h>
 #include <direct.h> 
+#include "ShaderStrings.h"
 #include "MainScene.h"
 //#include "TestState2.h"
 
 MainScene::MainScene(Application *application) : GameState(application)
 {
+	//glFramebufferTextureMultisampleMultiviewOVR
 }
 
 bool MainScene::Init()
@@ -18,6 +20,7 @@ bool MainScene::Init()
 	if (isVRenabled)
 		vr_scene = new bVRMainScene(vr_pointer);
 
+	
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -39,112 +42,34 @@ bool MainScene::Init()
 	/* SHADER COMPILATION */
 	/**********************/
 
-	/// TODO: make shaders internal
 	std::cout << "BOWLING:: Compiling shaders..." << std::endl;
 
-	this->modelShader = new Shader("shader.vert", "shader.frag");
+	this->modelShader = new Shader("Model", c_modelShaderVert, c_modelShaderFrag);
 	assert(this->modelShader != nullptr);
 	modelShader->Use();
 
-	this->depthShader = new Shader("depthshader.vert", "depthshader.frag", "depthshader.geom");
+	this->depthShader = new Shader("depthshader", c_depthShaderVert, c_depthShaderFrag, c_depthShaderGeom);
 	assert(this->depthShader != nullptr);
 
-	this->hdrShader = new Shader("hdr.vert", "hdr.frag");
+	this->hdrShader = new Shader("hdr", c_hdrShaderVert, c_hdrShaderFrag);
 
-	//this->emissionShader = new Shader("emissionShader.vert", "emissionShader.frag");
-	//assert(this->emissionShader != nullptr);
+	this->blurShader = new Shader("blur", c_blurShaderVert, c_blurShaderFrag);
 
-	this->blurShader = new Shader("blur.vert", "blur.frag");
-
-	this->bloomShader = new Shader("bloom.vert", "bloom.frag");
+	this->bloomShader = new Shader("bloom", c_bloomShaderVert, c_bloomShaderFrag);
 
 	// VR Shaders
-	if (vr_pointer != NULL)
+	if (isVRenabled)
 	{
-		this->VRcontrollerShader = new Shader
-		(
-			"controller",
-
-			// vertex shader
-			"#version 450 core\n"
-			"uniform mat4 matrix;\n"
-			"layout(location = 0) in vec4 position;\n"
-			"layout(location = 1) in vec3 v3ColorIn;\n"
-			"out vec4 v4Color;\n"
-			"void main()\n"
-			"{\n"
-			"	v4Color.xyz = v3ColorIn; v4Color.a = 1.0;\n"
-			"	gl_Position = matrix * position;\n"
-			"}\n",
-
-			// fragment shader
-			"#version 450 core\n"
-			"in vec4 v4Color;\n"
-			"out vec4 outputColor;\n"
-			"void main()\n"
-			"{\n"
-			"   outputColor = v4Color;\n"
-			"}\n", true
-		);
+		this->VRcontrollerShader = new Shader ("controller", c_VRcontrollerShaderVert, c_VRcontrollerShaderFrag);
 		assert(this->VRcontrollerShader != nullptr);
 		m_vr_controllerlocation = VRcontrollerShader->getUniLocation("matrix");
 
-		this->VRrendermodelShader = new Shader
-		(
-			"rendermodel",
-
-			// vertex shader
-			"#version 450\n"
-			"uniform mat4 matrix;\n"
-			"layout(location = 0) in vec4 position;\n"
-			"layout(location = 1) in vec3 v3NormalIn;\n"
-			"layout(location = 2) in vec2 v2TexCoordsIn;\n"
-			"out vec2 v2TexCoord;\n"
-			"void main()\n"
-			"{\n"
-			"	v2TexCoord = v2TexCoordsIn;\n"
-			"	gl_Position = matrix * vec4(position.xyz, 1);\n"
-			"}\n",
-
-			//fragment shader
-			"#version 450 core\n"
-			"uniform sampler2D diffuse;\n"
-			"in vec2 v2TexCoord;\n"
-			"out vec4 outputColor;\n"
-			"void main()\n"
-			"{\n"
-			"   outputColor = texture( diffuse, v2TexCoord);\n"
-			"}\n", true
-		);
+		this->VRrendermodelShader = new Shader ("rendermodel", c_VRrendermodelShaderVert, c_VRrendermodelShaderFrag);
 		assert(this->VRrendermodelShader != nullptr);
 		m_vr_rendermodellocation = VRrendermodelShader->getUniLocation("matrix");
 
-		this->VRcompanionwindowShader = new Shader
-		(
-			"companionwindow",
-
-			// vertex shader
-			"#version 450 core\n"
-			"layout(location = 0) in vec4 position;\n"
-			"layout(location = 1) in vec2 v2UVIn;\n"
-			"noperspective out vec2 v2UV;\n"
-			"void main()\n"
-			"{\n"
-			"	v2UV = v2UVIn;\n"
-			"	gl_Position = position;\n"
-			"}\n",
-
-			// fragment shader
-			"#version 450 core\n"
-			"uniform sampler2D mytexture;\n"
-			"noperspective in vec2 v2UV;\n"
-			"out vec4 outputColor;\n"
-			"void main()\n"
-			"{\n"
-			"		outputColor = texture(mytexture, v2UV);\n"
-			"}\n", true
-		);
-
+		this->VRcompanionwindowShader = new Shader ("companionwindow", c_VRcompanionwindowShaderVert, c_VRcompanionwindowShaderFrag);
+		assert(this->VRcompanionwindowShader != nullptr);
 	}
 
 	/***************************/
@@ -318,8 +243,7 @@ bool MainScene::Update()
 
 	
 	/* TRANSFORMATIONS */
-
-	GetInputCallback();
+	GetInputCallback(); //fron Keyboard
 
 	this->dynamicWorld->stepSimulation(this->deltaTime, 5);
 	
@@ -548,8 +472,6 @@ void MainScene::RenderObjects(Shader *shader)
 
 	this->room->Render(shader);
 
-	if (isVRenabled)
-		vr_scene->RenderControllerAxes();
 }
 
 void MainScene::RenderLights(Shader * shader)

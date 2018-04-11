@@ -10,8 +10,8 @@
 class Shader
 {
 public:
-	Shader(std::string vxname, std::string fgname, std::string gsname = std::string("null"));
-	Shader(const char *pchShaderName, const char *pchVertexShader, const char *pchFragmentShader, bool in_code, const char *pchGeometryShader = NULL);
+	//Shader(std::string vxname, std::string fgname, std::string gsname = std::string("null"));
+	Shader(const char *pchShaderName, const char *pchVertexShader, const char *pchFragmentShader, const char *pchGeometryShader = NULL);
 	GLint getUniLocation(std::string name);
 	void setUniMatrix(GLint location, glm::mat4 matrix);
 	void setInt(std::string location, int value);

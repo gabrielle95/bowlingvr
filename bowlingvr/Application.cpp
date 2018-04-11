@@ -73,7 +73,7 @@ Application::Application()
 			if (vr_pointer != NULL)
 			{
 				//companion VR window
-				this->window = new Window("VR Bowling Companion Window" + vr_system->RetrieveDriverDisplayVersion(), this->width, this->height);
+				this->window = new Window("VR Bowling Companion Window " + vr_system->RetrieveDriverDisplayVersion(), this->width, this->height);
 			}
 			else
 			{
@@ -212,14 +212,15 @@ void Application::bPollVREvent()
 		switch (event.eventType)
 		{
 		case VREvent_TrackedDeviceActivated:
-			//add rendering for model, should this be in the main scene?
-			std::cout << "OPENVR:: Device " << event.trackedDeviceIndex << "attached." << std::endl;
+			//add rendering for device model, throught the game state //HACKHACK
+			//SetupRenderModelForTrackedDevice(unTrackedDevice, );
+			std::cout << "OPENVR:: Device " << event.trackedDeviceIndex << " attached." << std::endl;
 			break;
 		case VREvent_TrackedDeviceDeactivated:
-			std::cout << "OPENVR:: Device " << event.trackedDeviceIndex << "detached." << std::endl;
+			std::cout << "OPENVR:: Device " << event.trackedDeviceIndex << " detached." << std::endl;
 			break;
 		case VREvent_TrackedDeviceUpdated:
-			std::cout << "OPENVR:: Device " << event.trackedDeviceIndex << "updated." << std::endl;
+			std::cout << "OPENVR:: Device " << event.trackedDeviceIndex << " updated." << std::endl;
 			break;
 
 			//and so on, can test for any amount of vr events
