@@ -89,7 +89,7 @@ bool MainScene::Init()
 
 	std::cout << "BOWLING:: Loading models..." << std::endl;
 
-	this->room = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\alley.3ds");
+	this->room = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\alley.obj");
 	this->room->pInit(0, btVector3(0, 0, 0));
 	this->dynamicWorld->addRigidBody(room->rigidBody);
 
