@@ -135,24 +135,4 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="test.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="test.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="modelShader.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="modelShader.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="shader.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="shader.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
 </Project>

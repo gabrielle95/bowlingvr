@@ -1,6 +1,8 @@
 #include <GL/glew.h>
 #include "PostProcessing.h"
 
+/// TODO - get rid of code redundancy
+
 PostProcessing::PostProcessing(float w, float h)
 {
 	this->w = w;
@@ -91,11 +93,12 @@ void Hdr::ConfigureShaders(Shader * blur, Shader * bloom)
 	bloom->setInt("bloomBlur", 1);
 }
 
+//has 2 render targets
 void Hdr::Init()
 {
 	glGenFramebuffers(1, &fbo);
 
-	//MRT
+	
 	glGenTextures(2, fbo_textures);
 
 	glBindTexture(GL_TEXTURE_2D, fbo_textures[0]);
@@ -126,6 +129,7 @@ void Hdr::Init()
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, w, h);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
 
+	//multiple render targets
 	GLenum attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
 	glDrawBuffers(2, attachments);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -182,6 +186,7 @@ MSAA::MSAA(float w, float h)
 	Init();
 }
 
+//has multisampled texture attachment
 void MSAA::Init()
 {
 	glGenFramebuffers(1, &msFBO);
