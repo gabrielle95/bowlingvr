@@ -18,6 +18,13 @@ Camera::Camera(Shader *shader, float w, float h)
 	this->projMatrix = glm::perspective(glm::radians(45.0f), w/h, 0.05f, 100.f);
 }
 
+// for VR
+Camera::Camera(glm::mat4 p, glm::mat4 v)
+{
+	this->projectionEye = p;
+	this->poseEye = v;
+}
+
 void Camera::SetShader(Shader *shader)
 {
 	this->shader = shader;
@@ -94,11 +101,6 @@ glm::mat4 Camera::getViewMatrix()
 glm::mat4 Camera::getProjectionMatrix()
 {
 	return this->projMatrix;
-}
-
-void Camera::setModelMatrix(glm::mat4 m)
-{
-	this->modelMat = m;
 }
 
 void Camera::setViewMatrix(glm::mat4 m)

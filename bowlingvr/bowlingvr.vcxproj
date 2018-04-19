@@ -148,12 +148,13 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BulletUtils.cpp" />
     <ClCompile Include="BulletWorld.cpp" />
-    <ClCompile Include="bVRMainScene.cpp" />
     <ClCompile Include="bVRRenderModel.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CDebugDraw.cpp" />
+    <ClCompile Include="libs\shared\Matrices.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainSceneVR.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="PlayerBody.cpp" />
@@ -162,19 +163,20 @@
     <ClCompile Include="Shadowmap.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="TestState2.cpp" />
-    <ClCompile Include="bVRSystem.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="BulletUtils.h" />
     <ClInclude Include="BulletWorld.h" />
-    <ClInclude Include="bVRMainScene.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CDebugDraw.h" />
     <ClInclude Include="Entities.h" />
     <ClInclude Include="bVRRenderModel.h" />
+    <ClInclude Include="libs\shared\Matrices.h" />
+    <ClInclude Include="libs\shared\Vectors.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="MainSceneVR.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="PlayerBody.h" />
@@ -184,7 +186,6 @@
     <ClInclude Include="Shadowmap.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="TestState2.h" />
-    <ClInclude Include="bVRSystem.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

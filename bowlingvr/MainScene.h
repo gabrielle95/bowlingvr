@@ -11,7 +11,8 @@
 #include "Camera.h"
 #include "CDebugDraw.h"
 #include "BulletWorld.h"
-#include "bVRMainScene.h"
+#include "libs/shared/Matrices.h"
+
 
 class MainScene : public GameState
 {
@@ -21,25 +22,11 @@ public:
 	bool Update();
 	bool Destroy();
 	void ShootSphere(btVector3 direction, btVector3 origin);
+	void RenderScene();
+
 	~MainScene();
 
-private:
-
-	//VR hmd
-	IVRSystem * vr_pointer = nullptr;
-
-	//VR-side bookkeeping
-	bool isVRenabled = false;
-	bVRMainScene *vr_scene = nullptr;
-	
-
-	GLint m_vr_controllerlocation;
-	GLint m_vr_rendermodellocation;
-
-	Shader *VRcontrollerShader = nullptr;
-	Shader *VRrendermodelShader = nullptr;
-	Shader *VRcompanionwindowShader = nullptr;
-
+	protected:
 	//entities
 	Shader *modelShader = nullptr;
 	Shader *depthShader = nullptr;
@@ -64,9 +51,6 @@ private:
 	Model *sphere;
 	Alley *room;
 	Model *pin;
-	//Model *tmppin;
-	//Alley *alley;
-	//Pin *testpin;
 
 	PlayerBody *Player = nullptr;
 

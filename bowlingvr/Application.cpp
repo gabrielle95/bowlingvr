@@ -47,17 +47,17 @@ unsigned int Application::h()
 	return this->height;
 }
 
-IVRSystem * Application::getVRpointer()
+vr::IVRSystem * Application::getVRpointer()
 {
-	if(vr_system != nullptr)
-		return vr_system->getVRpointer();
-	return NULL;
+	return this->vr_pointer;
 }
 
-Application::Application()
+Application::Application(vr::IVRSystem *vr_pointer)
 {
 	try
 	{
+		this->vr_pointer = vr_pointer;
+
 		if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		{
 			throw application_exception(SDL_GetError());
@@ -67,18 +67,14 @@ Application::Application()
 			this->width = 1920;
 			this->height = 1080;
 
-			this->vr_system = new bVRSystem();
-			vr_pointer = vr_system->getVRpointer();
-			//vr_pointer = NULL;
 			if (vr_pointer != NULL)
 			{
 				//companion VR window
-				this->window = new Window("VR Bowling Companion Window " + vr_system->RetrieveDriverDisplayVersion(), this->width, this->height);
+				this->window = new Window("VR Bowling Companion Window ", this->width, this->height);
 			}
 			else
 			{
 				//normal window
-				std::cout << "OPENVR::Unable to init VR runtime: " << VR_GetVRInitErrorAsEnglishDescription(vr_system->getbVRError()) << std::endl;
 				this->window = new Window("VR Bowling", this->width, this->height);
 			}
 
@@ -90,18 +86,6 @@ Application::Application()
 			{
 				glEnable(GL_MULTISAMPLE);
 			}
-
-			// init compositor
-			if (vr_pointer != NULL)
-			{
-				if (!vr_system->bVRInitVRCompositor())
-				{
-					vr_system->bVR_Shutdown();
-					vr_pointer = NULL;
-					throw bVRSystem_exception(VR_GetVRInitErrorAsEnglishDescription(vr_system->getbVRError()));
-				}
-			}
-
 
 		}
 	}
@@ -127,15 +111,6 @@ Application::Application()
 	{
 #ifdef _DEBUG
 		std::cout << "GL Context exception in: Window.cpp ";
-#else
-		std::cout << "Application exception: ";
-#endif
-		std::cout << exception.what() << std::endl;
-	}
-	catch (bVRSystem_exception& exception)
-	{
-#ifdef _DEBUG
-		std::cout << "VRCompositor exception in: bVRSystem.cpp ";
 #else
 		std::cout << "Application exception: ";
 #endif
@@ -182,15 +157,7 @@ bool Application::Run()
 				}
 				break;
 			}
-		}
-
-		//check for vr poll events
-		if (vr_pointer != NULL)
-		{
-			bPollVREvent();
-			bPollVRControllerState();
-		}
-			
+		}			
 
 		if (this->state != nullptr)
 		{
@@ -203,58 +170,11 @@ bool Application::Run()
 	return this->active;
 }
 
-// process SteamVR events
-void Application::bPollVREvent()
-{
-	VREvent_t event;
-	if (vr_pointer->PollNextEvent(&event, sizeof(event)))
-	{
-		switch (event.eventType)
-		{
-		case VREvent_TrackedDeviceActivated:
-			//add rendering for device model, throught the game state //HACKHACK
-			//SetupRenderModelForTrackedDevice(unTrackedDevice, );
-			std::cout << "OPENVR:: Device " << event.trackedDeviceIndex << " attached." << std::endl;
-			break;
-		case VREvent_TrackedDeviceDeactivated:
-			std::cout << "OPENVR:: Device " << event.trackedDeviceIndex << " detached." << std::endl;
-			break;
-		case VREvent_TrackedDeviceUpdated:
-			std::cout << "OPENVR:: Device " << event.trackedDeviceIndex << " updated." << std::endl;
-			break;
-
-			//and so on, can test for any amount of vr events
-
-		default:
-			printf("OPENVR::Event: %d\n", event.eventType);
-		}
-	}
-	//Output tracking data or do other things
-}
-
-void Application::bPollVRControllerState()
-{
-	for (vr::TrackedDeviceIndex_t unDevice = 0; unDevice < vr::k_unMaxTrackedDeviceCount; unDevice++)
-	{
-		vr::VRControllerState_t state;
-		if (vr_pointer->GetControllerState(unDevice, &state, sizeof(state)))
-		{
-			vr_system->m_rbShowTrackedDevice[unDevice] = state.ulButtonPressed == 0;
-		}
-	}
-}
-
 void Application::Stop()
 {
 	this->active = false;
 	delete this->state;
 	this->state = nullptr;
-
-	if (vr_pointer != NULL)
-	{
-		vr_system->bVR_Shutdown();
-		vr_pointer = NULL;
-	}
 }
 
 Application::~Application()

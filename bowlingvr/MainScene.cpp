@@ -13,14 +13,6 @@ MainScene::MainScene(Application *application) : GameState(application)
 
 bool MainScene::Init()
 {
-	vr_pointer = application->getVRpointer(); //later check for NULL
-	if (vr_pointer != NULL)
-		isVRenabled = true;
-
-	if (isVRenabled)
-		vr_scene = new bVRMainScene(vr_pointer);
-
-	
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -56,21 +48,6 @@ bool MainScene::Init()
 	this->blurShader = new Shader("blur", c_blurShaderVert, c_blurShaderFrag);
 
 	this->bloomShader = new Shader("bloom", c_bloomShaderVert, c_bloomShaderFrag);
-
-	// VR Shaders
-	if (isVRenabled)
-	{
-		this->VRcontrollerShader = new Shader ("controller", c_VRcontrollerShaderVert, c_VRcontrollerShaderFrag);
-		assert(this->VRcontrollerShader != nullptr);
-		m_vr_controllerlocation = VRcontrollerShader->getUniLocation("matrix");
-
-		this->VRrendermodelShader = new Shader ("rendermodel", c_VRrendermodelShaderVert, c_VRrendermodelShaderFrag);
-		assert(this->VRrendermodelShader != nullptr);
-		m_vr_rendermodellocation = VRrendermodelShader->getUniLocation("matrix");
-
-		this->VRcompanionwindowShader = new Shader ("companionwindow", c_VRcompanionwindowShaderVert, c_VRcompanionwindowShaderFrag);
-		assert(this->VRcompanionwindowShader != nullptr);
-	}
 
 	/***************************/
 	/* PHYSICS INITIALISATION */
@@ -125,9 +102,6 @@ bool MainScene::Init()
 	/*this->alley = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\venue.obj");
 	this->alley->pInit(0, btVector3(0,0.5,0));
 	this->dynamicWorld->addRigidBody(alley->rigidBody);*/
-
-	this->Player = new PlayerBody(btVector3(0, 1.7, 10));
-	this->dynamicWorld->addRigidBody(Player->rigidBody);
 
 	std::vector<btVector3> pinPositions;
 	pinPositions.push_back(btVector3(-1.f, 0.3f, -38.f));
@@ -220,7 +194,11 @@ bool MainScene::Init()
 	this->camera = new Camera(this->modelShader, this->application->w(), this->application->h());
 	assert(this->camera != nullptr);
 
-	this->camera->SetTranslation(0,1.7,15);
+	this->camera->SetTranslation(0,1.7,5);
+
+	//player body
+	this->Player = new PlayerBody(btVector3(0, 1.7, 20));
+	this->dynamicWorld->addRigidBody(Player->rigidBody);
 
 	this->camVelocity = glm::vec3(this->mouse_speed*5, this->mouse_speed*5, this->mouse_speed*5);
 	
@@ -247,6 +225,15 @@ bool MainScene::Update()
 
 	this->dynamicWorld->stepSimulation(this->deltaTime, 5);
 	
+	RenderScene();
+		
+	this->deltaThen = this->deltaNow;
+
+	return true;
+}
+
+void MainScene::RenderScene()
+{
 	glViewport(0, 0, application->w(), application->h());
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -272,7 +259,6 @@ bool MainScene::Update()
 		this->CubeDepthMap->UnbindFBO();
 
 		/* RENDERING SCENE with textures to MSAA... */
-
 
 		msaaEffect->BindFBO();
 		glViewport(0, 0, application->w(), application->h());
@@ -334,11 +320,6 @@ bool MainScene::Update()
 
 		RenderQuad();
 	}
-	
-
-	this->deltaThen = this->deltaNow;
-
-	return true;
 }
 
 void MainScene::GetInputCallback()
@@ -572,5 +553,4 @@ MainScene::~MainScene()
 	glDeleteVertexArrays(1, &quadVAO);
 	glDeleteBuffers(1, &quadVBO);
 
-	vr_pointer = NULL;
 }

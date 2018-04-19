@@ -4,10 +4,10 @@
 #define APPLICATION_H
 
 #include "Window.h"
-#include "bVRSystem.h"
 #include <Windows.h>
 #include <SDL2/SDL.h>
 #include <GL/GL.h>
+#include <openvr/openvr.h>
 
 class application_exception : public std::runtime_error
 {
@@ -27,7 +27,7 @@ class Application
 {
 	static Application* applicationInstance;
 public:
-	Application();
+	Application(vr::IVRSystem *vr_pointer);
 	~Application();
 	//static Application* Instance();
 	bool Run();
@@ -37,7 +37,7 @@ public:
 	bool IsWindowActive();
 	unsigned int w();
 	unsigned int h();
-	IVRSystem * getVRpointer();
+	vr::IVRSystem * getVRpointer();
 
 private: //METHODS
 	void bPollVREvent();
@@ -49,13 +49,14 @@ private://VARIABLES
 	Window* window;
 	GameStateInterface *state = nullptr;
 
-	bVRSystem *vr_system = nullptr;
-	IVRSystem *vr_pointer = NULL;
-
 	bool windowFocused;
 
 	unsigned int width;
 	unsigned int height;
+
+	// VR
+	vr::IVRSystem *vr_pointer = NULL;
+
 };
 
 class GameState : public GameStateInterface

@@ -9,6 +9,7 @@ class Camera
 {
 public:
 	Camera(Shader * shader, float w, float h);
+	Camera(glm::mat4 p, glm::mat4 v);
 	void SetShader(Shader *shader);
 	void SetTranslation(float x, float y, float z);
 	void SetRotation(float rotation, float x, float y, float z);
@@ -25,15 +26,19 @@ public:
 	glm::mat4 getModelMatrix();
 	glm::mat4 getViewMatrix();
 	glm::mat4 getProjectionMatrix();
-	void setModelMatrix(glm::mat4 m);
 	void setViewMatrix(glm::mat4 m);
 	glm::vec3 direction;
+
+	glm::mat4 projectionEye;
+	glm::mat4 poseEye;
 
 private:
 	// p * v * m
 	glm::mat4 projMatrix;
 	glm::mat4 viewMat;
 	glm::mat4 modelMat = glm::mat4(1.0); //identity
+
+
 
 
 	glm::mat4 translation;

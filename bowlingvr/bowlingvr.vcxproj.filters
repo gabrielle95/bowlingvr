@@ -63,14 +63,14 @@
     <ClCompile Include="MainScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bVRSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="bVRRenderModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bVRMainScene.cpp">
+    <ClCompile Include="MainSceneVR.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="libs\shared\Matrices.cpp">
+      <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -122,17 +122,20 @@
     <ClInclude Include="MainScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bVRSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="bVRRenderModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bVRMainScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ShaderStrings.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainSceneVR.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\shared\Matrices.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\shared\Vectors.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
