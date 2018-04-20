@@ -193,8 +193,10 @@ void MainSceneVR::SetupCompanionWindow()
 		return;
 
 	std::vector<VertexDataWindow> vVerts;
-
+	
+	///todo:flip V's so that the textures are not upside down
 	// left eye verts
+										//position		//texCoord
 	vVerts.push_back(VertexDataWindow(Vector2(-1, -1), Vector2(0, 1)));
 	vVerts.push_back(VertexDataWindow(Vector2(0, -1), Vector2(1, 1)));
 	vVerts.push_back(VertexDataWindow(Vector2(-1, 1), Vector2(0, 0)));
@@ -600,6 +602,7 @@ void MainSceneVR::RenderControllerAxes()
 	{
 		//$ TODO: Use glBufferSubData for this...
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertdataarray.size(), &vertdataarray[0], GL_STREAM_DRAW);
+		//glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * vertdataarray.size(), &vertdataarray[0]);
 	}
 }
 
@@ -654,7 +657,9 @@ void MainSceneVR::RenderStereoTargets()
 	// Left Eye
 	glBindFramebuffer(GL_FRAMEBUFFER, leftEyeDesc.m_nRenderFramebufferId);
 	glViewport(0, 0, m_nRenderWidth, m_nRenderHeight);
+
 	RenderScene(vr::Eye_Left);
+
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glDisable(GL_MULTISAMPLE);
@@ -674,7 +679,9 @@ void MainSceneVR::RenderStereoTargets()
 	// Right Eye
 	glBindFramebuffer(GL_FRAMEBUFFER, rightEyeDesc.m_nRenderFramebufferId);
 	glViewport(0, 0, m_nRenderWidth, m_nRenderHeight);
+
 	RenderScene(vr::Eye_Right);
+
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	glDisable(GL_MULTISAMPLE);
