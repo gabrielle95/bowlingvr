@@ -10,7 +10,8 @@ ObjectPickingVR::ObjectPickingVR(vr::IVRSystem * pHmd)
 
 void ObjectPickingVR::ProcessButtonEvent(vr::VREvent_t event)
 {
-	switch (event.data.controller.button) {
+	switch (event.data.controller.button)
+	{
 	case k_EButton_Grip:
 		switch (event.eventType)
 		{
