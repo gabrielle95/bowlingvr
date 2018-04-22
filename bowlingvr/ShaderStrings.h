@@ -5,7 +5,7 @@
 
 const char c_modelShaderVert[] = R"glsl(
 
-#version 330 core
+#version 450 core
 
 //black magic happens here
 

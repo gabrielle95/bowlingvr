@@ -61,13 +61,13 @@ bool MainScene::Init()
 	/************************/
 
 	/* ALLEY COLLISION DIRTY FIX */
-	btRigidBody * alleyFix = BulletUtils::createInvisibleBoxCollider(0, btVector3(1.35, 0.09, 27), btVector3(-0.35, -0.19999999, -12), glm::mat4(1.0));
+	btRigidBody * alleyFix = BulletUtils::createInvisibleBoxCollider(0, btVector3(1.35, 0.09, 27), btVector3(-0.35, -0.19999999, -29), glm::mat4(1.0));
 	this->dynamicWorld->addRigidBody(alleyFix);
 
 	std::cout << "BOWLING:: Loading models..." << std::endl;
 
 	this->room = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\alley.obj");
-	this->room->pInit(0, btVector3(0, 0, 0));
+	this->room->pInit(0, btVector3(0, 0, -17));
 	this->dynamicWorld->addRigidBody(room->rigidBody);
 
 	/*std::vector<btVector3> wallPositions;
@@ -104,19 +104,19 @@ bool MainScene::Init()
 	this->dynamicWorld->addRigidBody(alley->rigidBody);*/
 
 	std::vector<btVector3> pinPositions;
-	pinPositions.push_back(btVector3(-1.f, 0.3f, -38.f));
-	pinPositions.push_back(btVector3(-0.5f, 0.3f, -38.f));
-	pinPositions.push_back(btVector3(0.0f, 0.3f, -38.f));
-	pinPositions.push_back(btVector3(0.5f, 0.3f, -38.f));
+	pinPositions.push_back(btVector3(-1.f, 0.3f, -54.f));
+	pinPositions.push_back(btVector3(-0.5f, 0.3f, -54.f));
+	pinPositions.push_back(btVector3(0.0f, 0.3f, -54.f));
+	pinPositions.push_back(btVector3(0.5f, 0.3f, -54.f));
 
-	pinPositions.push_back(btVector3(-0.75f, 0.3f, -37.5f));
-	pinPositions.push_back(btVector3(-0.25f, 0.3f, -37.5f));
-	pinPositions.push_back(btVector3(0.25f, 0.3f, -37.5f));
+	pinPositions.push_back(btVector3(-0.75f, 0.3f, -53.5f));
+	pinPositions.push_back(btVector3(-0.25f, 0.3f, -53.5f));
+	pinPositions.push_back(btVector3(0.25f, 0.3f, -53.5f));
 
-	pinPositions.push_back(btVector3(-0.5f, 0.3f, -37.f));
-	pinPositions.push_back(btVector3(0.0f, 0.3f, -37.f));
+	pinPositions.push_back(btVector3(-0.5f, 0.3f, -52.f));
+	pinPositions.push_back(btVector3(0.0f, 0.3f, -52.f));
 
-	pinPositions.push_back(btVector3(-0.25f, 0.3f, -36.5f));
+	pinPositions.push_back(btVector3(-0.25f, 0.3f, -51.5f));
 	
 	for (int i = 0; i < pinPositions.size(); i++) {
 		Pin *tmp = new Pin(this->modelShader, this->pin->meshes, 1.5, 0.085, 0.8, pinPositions[i]);
@@ -125,9 +125,9 @@ bool MainScene::Init()
 	}
 	pinPositions.clear();
 	
-	/*Ball *b = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.25f), btVector3(-0.25f, 0.3f, -30.f));
+	Ball *b = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.25f), btVector3(-0.25f, 0.3f, -4.f));
 	dynamicObjects.push_back(b);
-	this->dynamicWorld->addRigidBody(b->rigidBody);*/
+	this->dynamicWorld->addRigidBody(b->rigidBody);
 	//tmppin = new Model(this->modelShader, "bowling_pin_001.obj");
 	//this->testpin = new Pin(this->modelShader, tmppin->meshes, 1.5, 0.080, 0.7, btVector3(0,1,0));
 	//pins.push_back(testpin);
@@ -139,7 +139,7 @@ bool MainScene::Init()
 	/************************/
 	std::cout << "BOWLING:: Loading lights..." << std::endl;
 
-	this->Lights.push_back(new Light(this->modelShader, 0, glm::vec4(-2.0f, 3.0f, -15.0f, 1.0)));
+	this->Lights.push_back(new Light(this->modelShader, 0, glm::vec4(-2.0f, 3.0f, -32.0f, 1.0)));
 	//this->Lights.push_back(new Light(this->modelShader, 1, glm::vec4(-2.0f, 2.5f, 25.0f, 1.0)));
 	modelShader->setInt("enabledLights", 1);
 
@@ -152,7 +152,7 @@ bool MainScene::Init()
 	CubeDepthMap = new Shadowmap(2048, 2048);
 	assert(CubeDepthMap != nullptr);
 	modelShader->setFloat("far_plane", 200.f);
-	CubeDepthMap->CreateCubemapMatrices(glm::vec3(-2.0f, 3.0f, -15.0f));
+	CubeDepthMap->CreateCubemapMatrices(glm::vec3(-2.0f, 3.0f, -32.0f));
 
 	/*********************/
 	/* POST PROCESSING */
@@ -194,10 +194,10 @@ bool MainScene::Init()
 	this->camera = new Camera(this->modelShader, this->application->w(), this->application->h());
 	assert(this->camera != nullptr);
 
-	this->camera->SetTranslation(0,1.7,5);
+	this->camera->SetTranslation(0,1.7,0);
 
 	//player body
-	this->Player = new PlayerBody(btVector3(0, 1.7, 20));
+	this->Player = new PlayerBody(btVector3(0, 1.7, 0));
 	this->dynamicWorld->addRigidBody(Player->rigidBody);
 
 	this->camVelocity = glm::vec3(this->mouse_speed*5, this->mouse_speed*5, this->mouse_speed*5);
@@ -536,6 +536,7 @@ MainScene::~MainScene()
 		Light* shape = this->Lights[j];
 		delete shape;
 	}
+
 
 	Lights.clear();
 	dynamicObjects.clear();

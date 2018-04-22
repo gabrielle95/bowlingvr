@@ -1,6 +1,7 @@
 #pragma once
 
 #include "bVRRenderModel.h"
+#include "ObjectPickingVR.h"
 
 class MainSceneVR : public MainScene
 {
@@ -24,9 +25,13 @@ public:
 	//void RenderScene(vr::Hmd_Eye nEye, Shader *controllerShader, Shader *renderModelShader);
 	void RenderCompanionWindow();
 
+	void RenderEyeQuad(vr::Hmd_Eye nEye);
+
 	void RenderScene(vr::Hmd_Eye nEye);
 
 	Matrix4 GetCurrentViewProjectionMatrix(vr::Hmd_Eye nEye);
+	Matrix4 GetCurrentViewMatrix(vr::Hmd_Eye nEye);
+	Matrix4 GetCurrentProjectionMatrix(vr::Hmd_Eye nEye);
 	bVRRenderModel * FindOrLoadRenderModel(const char * renderModelString);
 
 	~MainSceneVR();
@@ -60,11 +65,13 @@ private: //VARIABLES
 
 	// VR System
 	Application * application = nullptr;
-	//MainScene * mainScenePtr = nullptr;
 	vr::IVRSystem * pHmd = NULL; // pointer to HMD
 	vr::EVRInitError eError = vr::VRInitError_None;
 	vr::IVRRenderModels *m_pRenderModels = NULL;
 	bool m_rbShowTrackedDevice[vr::k_unMaxTrackedDeviceCount];
+
+	// PICKING
+	ObjectPickingVR *Picker = nullptr;
 
 	// VR Shaders
 	Shader *VRcontrollerShader = nullptr;
@@ -129,4 +136,7 @@ private: //VARIABLES
 	GLuint m_glCompanionWindowIDVertBuffer;
 	GLuint m_glCompanionWindowIDIndexBuffer;
 	unsigned int m_uiCompanionWindowIndexSize;
+
+	Matrix4 view;
+
 };

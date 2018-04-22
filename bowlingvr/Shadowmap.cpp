@@ -91,6 +91,7 @@ void Shadowmap::UnbindFBO()
 //normal pass
 void Shadowmap::BindDepthTexture()
 {
+	
 	glBindTexture(GL_TEXTURE_CUBE_MAP, depthMapTex);
 	//render...
 }

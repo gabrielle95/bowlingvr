@@ -157,6 +157,7 @@
     <ClCompile Include="MainSceneVR.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ObjectPickingVR.cpp" />
     <ClCompile Include="PlayerBody.cpp" />
     <ClCompile Include="PostProcessing.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="MainSceneVR.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="ObjectPickingVR.h" />
     <ClInclude Include="PlayerBody.h" />
     <ClInclude Include="PostProcessing.h" />
     <ClInclude Include="Shader.h" />
