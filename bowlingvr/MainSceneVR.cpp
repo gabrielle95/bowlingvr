@@ -56,7 +56,7 @@ bool MainSceneVR::Init()
 	delete BloomEffect; BloomEffect = new PostProcessing(m_nRenderWidth, m_nRenderHeight);
 	delete NoEffects; NoEffects = new PostProcessing(m_nRenderWidth, m_nRenderHeight);
 
-	Picker = new ObjectPickingVR(pHmd);
+	Picker = new ObjectPickingVR(pHmd, dynamicWorld);
 
 	return true;
 }
@@ -74,23 +74,28 @@ bool MainSceneVR::Update() //RENDER FRAME
 
 	this->dynamicWorld->stepSimulation(this->deltaTime, 5);
 
-	glViewport(0, 0, m_nRenderWidth, m_nRenderHeight);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	if (pHmd)
+	{
+		glViewport(0, 0, m_nRenderWidth, m_nRenderHeight);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glEnable(GL_DEPTH_TEST);
-	this->CubeDepthMap->RenderToDepthmap(depthShader);
-	RenderObjects(depthShader);
-	this->CubeDepthMap->UnbindFBO();
+		glEnable(GL_DEPTH_TEST);
+		this->CubeDepthMap->RenderToDepthmap(depthShader);
+		RenderObjects(depthShader);
+		this->CubeDepthMap->UnbindFBO();
 
-	//RenderControllerAxes();
-	RenderStereoTargets();
-	RenderCompanionWindow();
+		//RenderControllerAxes();
+		RenderStereoTargets();
+		RenderCompanionWindow();
 
-	vr::Texture_t leftEyeTexture = { (void*)(uintptr_t)leftEyeDesc.m_nResolveTextureId, vr::TextureType_OpenGL, vr::ColorSpace_Gamma };
-	vr::VRCompositor()->Submit(vr::Eye_Left, &leftEyeTexture);
-	vr::Texture_t rightEyeTexture = { (void*)(uintptr_t)rightEyeDesc.m_nResolveTextureId, vr::TextureType_OpenGL, vr::ColorSpace_Gamma };
-	vr::VRCompositor()->Submit(vr::Eye_Right, &rightEyeTexture);
+		vr::Texture_t leftEyeTexture = { (void*)(uintptr_t)leftEyeDesc.m_nResolveTextureId, vr::TextureType_OpenGL, vr::ColorSpace_Gamma };
+		vr::VRCompositor()->Submit(vr::Eye_Left, &leftEyeTexture);
+		vr::Texture_t rightEyeTexture = { (void*)(uintptr_t)rightEyeDesc.m_nResolveTextureId, vr::TextureType_OpenGL, vr::ColorSpace_Gamma };
+		vr::VRCompositor()->Submit(vr::Eye_Right, &rightEyeTexture);
+	}
 
+	glFinish();
+	
 	UpdateHMDMatrixPose();
 
 	this->deltaThen = this->deltaNow;
@@ -475,8 +480,9 @@ void MainSceneVR::PollVREvent()
 			//and so on, can test for any amount of vr events
 		default:
 			break;
-			/*default:
-			printf("OPENVR::Event: %d\n", event.eventType);*/
+		/*default:
+			printf("OPENVR::Event: %d\n", event.eventType);
+			break;*/
 		}
 	}
 
@@ -489,9 +495,90 @@ void MainSceneVR::PollVREvent()
 		}
 	}
 
-
+	ProcessButtonEvent(event);
 
 	//Output tracking data or do other things
+}
+
+void MainSceneVR::ProcessButtonEvent(vr::VREvent_t event)
+{
+	vr::VRControllerState_t state;
+	
+	switch (event.data.controller.button)
+	{
+
+	case vr::k_EButton_SteamVR_Trigger:
+		switch (event.eventType)
+		{
+		case vr::VREvent_ButtonPress:
+			/*if (Picker->pickBody(getControllerPosition(event.trackedDeviceIndex), getControllerRaycastDirection(event.trackedDeviceIndex)))
+			{
+				Picker->movePickedBody(getControllerPosition(event.trackedDeviceIndex), getControllerRaycastDirection(event.trackedDeviceIndex));
+			}*/
+			/*if (Picker->pickBody(getControllerPosition(event.trackedDeviceIndex), getControllerRaycastDirection(event.trackedDeviceIndex)))
+			{
+				pickCtrlIndex = event.trackedDeviceIndex;
+			}*/
+			bHit = Picker->pickBody(getControllerPosition(event.trackedDeviceIndex), getControllerRaycastDirection(event.trackedDeviceIndex));
+			pickCtrlIndex = event.trackedDeviceIndex;
+			//Picker->pickBody(getControllerPosition(event.trackedDeviceIndex), getControllerRaycastDirection(event.trackedDeviceIndex));
+			if (pHmd->GetControllerState(event.trackedDeviceIndex, &state, sizeof(state)))
+			{
+				bTriggerDown = !(state.ulButtonPressed == 0);
+			}
+			break;
+
+		case vr::VREvent_ButtonUnpress:
+			bTriggerDown = false;
+			bHit = false;
+			Picker->removePickingConstraint();
+			break;
+		
+		case vr::VREvent_ButtonTouch:
+			break;
+		}
+
+		break;
+
+	case vr::k_EButton_SteamVR_Touchpad:
+		switch (event.eventType)
+		{
+		case vr::VREvent_ButtonPress:
+			break;
+
+		case vr::VREvent_ButtonUnpress:
+			break;
+
+		case vr::VREvent_ButtonTouch:
+			break;
+
+		case vr::VREvent_ButtonUntouch:
+			break;
+		}
+		break;
+	
+	default:
+		// MOVE PICKED BODY
+		if (bTriggerDown && bHit)
+		{
+			//std::cout << "TriggerPressed --  ";
+			Picker->movePickedBody(getControllerPosition(pickCtrlIndex), getControllerRaycastDirection(pickCtrlIndex));
+		}
+		break;
+	}
+
+}
+
+btVector3 MainSceneVR::getControllerPosition(vr::TrackedDeviceIndex_t trackedDeviceIndex)
+{
+	const Matrix4 & mat = m_rmat4DevicePose[trackedDeviceIndex];
+	return btVector3(mat[12], mat[13], mat[14]);
+}
+
+btVector3 MainSceneVR::getControllerRaycastDirection(vr::TrackedDeviceIndex_t trackedDeviceIndex)
+{
+	const Matrix4 & mat = m_rmat4DevicePose[trackedDeviceIndex];
+	return btVector3(-mat[8], -mat[9], -mat[10]);
 }
 
 void MainSceneVR::UpdateHMDMatrixPose()
@@ -646,6 +733,7 @@ void MainSceneVR::RenderControllerAxes()
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertdataarray.size(), &vertdataarray[0], GL_STREAM_DRAW);
 		//glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * vertdataarray.size(), &vertdataarray[0]);
 	}
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void MainSceneVR::RenderScene(vr::Hmd_Eye nEye)
@@ -688,6 +776,7 @@ void MainSceneVR::RenderScene(vr::Hmd_Eye nEye)
 			continue;
 
 		const Matrix4 & matDeviceToTracking = m_rmat4DevicePose[unTrackedDevice];
+		//std::cout << "Controller position: " << matDeviceToTracking[12] << " - " << matDeviceToTracking[13] << " - " << matDeviceToTracking[14] << std::endl;
 		Matrix4 matMVP = GetCurrentViewProjectionMatrix(nEye) * matDeviceToTracking;
 		glUniformMatrix4fv(VRrendermodelShader->getUniLocation("matrix"), 1, GL_FALSE, matMVP.get());
 

@@ -125,9 +125,14 @@ bool MainScene::Init()
 	}
 	pinPositions.clear();
 	
-	Ball *b = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.25f), btVector3(-0.25f, 0.3f, -4.f));
+	Ball *b = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.25f), btVector3(-0.25f, 0.3f, 0.f));
 	dynamicObjects.push_back(b);
+	b->rigidBody->setUserPointer(b);
 	this->dynamicWorld->addRigidBody(b->rigidBody);
+
+	Ball *c = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.25f), btVector3(-0.25f, 0.3f, 1.f));
+	dynamicObjects.push_back(c);
+	this->dynamicWorld->addRigidBody(c->rigidBody);
 	//tmppin = new Model(this->modelShader, "bowling_pin_001.obj");
 	//this->testpin = new Pin(this->modelShader, tmppin->meshes, 1.5, 0.080, 0.7, btVector3(0,1,0));
 	//pins.push_back(testpin);

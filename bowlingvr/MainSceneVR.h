@@ -58,6 +58,12 @@ private: //METHODS
 	// per-loop
 	void PollVREvent();
 
+	void ProcessButtonEvent(vr::VREvent_t event);
+
+	btVector3 getControllerPosition(vr::TrackedDeviceIndex_t trackedDeviceIndex);
+
+	btVector3 getControllerRaycastDirection(vr::TrackedDeviceIndex_t trackedDeviceIndex);
+
 private: //VARIABLES
 
 	FramebufferDesc leftEyeDesc;
@@ -138,5 +144,11 @@ private: //VARIABLES
 	unsigned int m_uiCompanionWindowIndexSize;
 
 	Matrix4 view;
+
+	// OBJECT PICKING
+	vr::TrackedDeviceIndex_t pickCtrlIndex;
+	bool bTriggerDown = false;
+	bool bHit = false;
+
 
 };
