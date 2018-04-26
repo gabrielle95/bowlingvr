@@ -95,7 +95,7 @@ bool MainScene::Init()
 	wallPositions.clear();
 	wallDimensions.clear();
 	*/
-	this->sphere = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\ball\\ball.obj");
+	this->sphere = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\ball\\ball_0175.obj");
 
 	this->pin = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\pin\\bowling_pin_001.obj");
 
@@ -125,18 +125,18 @@ bool MainScene::Init()
 	}
 	pinPositions.clear();
 	
-	Ball *b = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.25f), btVector3(-0.25f, 0.3f, 0.f));
+
+
+	//testball
+	Ball *b = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.175), btVector3(2.f, 1.5f, 0.5f));
 	dynamicObjects.push_back(b);
 	b->rigidBody->setUserPointer(b);
 	this->dynamicWorld->addRigidBody(b->rigidBody);
-
-	Ball *c = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.25f), btVector3(-0.25f, 0.3f, 1.f));
+	//testball
+	Ball *c = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.175), btVector3(-0.25f, 0.3f, 0.5f));
 	dynamicObjects.push_back(c);
 	this->dynamicWorld->addRigidBody(c->rigidBody);
-	//tmppin = new Model(this->modelShader, "bowling_pin_001.obj");
-	//this->testpin = new Pin(this->modelShader, tmppin->meshes, 1.5, 0.080, 0.7, btVector3(0,1,0));
-	//pins.push_back(testpin);
-	//this->dynamicWorld->addRigidBody(testpin->rigidBody);
+
 	
 
 	/*************************/
@@ -472,7 +472,7 @@ void MainScene::RenderLights(Shader * shader)
 void MainScene::ShootSphere(btVector3 direction, btVector3 origin)
 {
 
-	Ball *shoot = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.25f), origin);
+	Ball *shoot = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.175), origin);
 	btVector3 velocity = direction;
 	velocity.normalize();
 	velocity *= 10.0f;

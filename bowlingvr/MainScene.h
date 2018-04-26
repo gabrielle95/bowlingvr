@@ -54,6 +54,9 @@ public:
 
 	PlayerBody *Player = nullptr;
 
+	std::vector<Ball*> balls;
+	std::vector<btVector3> ballPositions;
+
 	std::vector<Pin*> pins;
 	std::vector<Box*> walls;
 

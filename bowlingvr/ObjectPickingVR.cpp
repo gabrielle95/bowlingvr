@@ -13,7 +13,7 @@ ObjectPickingVR::ObjectPickingVR(vr::IVRSystem * pHmd, btDynamicsWorld *dynamicW
 
 bool ObjectPickingVR::pickBody(btVector3 origin, btVector3 direction)
 {
-	btVector3 end = origin + direction * 2.f/*0.25f*/;
+	btVector3 end = origin + direction * 1.5f/*0.25f*/;
 
 	btCollisionWorld::ClosestRayResultCallback RayCallback(origin, end);
 
@@ -29,24 +29,24 @@ bool ObjectPickingVR::pickBody(btVector3 origin, btVector3 direction)
 			if (body)
 			{
 				int savedState = body->getActivationState();
+
 				body->setActivationState(DISABLE_DEACTIVATION);
 				btVector3 localPivot = body->getCenterOfMassTransform().inverse() * pickPos;
 				btPoint2PointConstraint* p2p = new btPoint2PointConstraint(*body, localPivot);
 				dynamicWorld->addConstraint(p2p, true);
-				p2p->m_setting.m_impulseClamp = 30.f;
-				p2p->m_setting.m_tau = 0.001f;
+				//p2p->m_setting.m_impulseClamp = 30.f;
+				//p2p->m_setting.m_tau = 0.001f;
+				//p2p->m_setting.m_damping = 5;
 				std::cout << "BULLET: Added constraint " << (int)p2p << std::endl;
 				pickData.body = body;
+				pickData.oldFriction = pickData.body->getFriction();
+				pickData.body->setFriction(200.f);
+
 				pickData.pickPos = pickPos;
 				pickData.savedActivationState = savedState;
 				pickData.constraint = p2p;
 				pickData.oldPickingDist = (pickPos - origin).length();
-				
-				/*body->setActivationState(DISABLE_DEACTIVATION);
-				btVector3 velocity = direction;
-				velocity.normalize();
-				velocity *= 0.25;
-				body->setLinearVelocity(velocity);*/
+
 			}
 
 			return true;
@@ -60,6 +60,7 @@ bool ObjectPickingVR::movePickedBody(btVector3 origin, btVector3 direction)
 {
 	if (pickData.body && pickData.constraint)
 	{
+		//pickData.body->setGravity(btVector3(0,0,0));
 		btPoint2PointConstraint *pickCon = static_cast<btPoint2PointConstraint*>(pickData.constraint);
 
 		if (pickCon)
@@ -79,14 +80,19 @@ void ObjectPickingVR::removePickingConstraint()
 {
 	if (pickData.constraint != nullptr)
 	{
+		pickData.body->setFriction(pickData.oldFriction);
+		//pickData.body->setGravity(pickData.oldGravity);
 		dynamicWorld->removeConstraint(pickData.constraint);
+
+		
+
 		std::cout << "BULLET: Removed constraint " << (int)pickData.constraint << std::endl;
 		delete pickData.constraint;
 		pickData.constraint = nullptr;
 		//pickData.body->forceActivationState(pickData.savedActivationState);
 		//pickData.body->forceActivationState(WANTS_DEACTIVATION);
 		btVector3 vel = pickData.body->getLinearVelocity();
-		vel *= 2;
+		vel *= 3;
 		pickData.body->setLinearVelocity(vel);
 		pickData.body = nullptr;
 	}

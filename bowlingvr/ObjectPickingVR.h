@@ -13,6 +13,7 @@ struct PickedBodyData
 	int savedActivationState;
 	btPoint2PointConstraint *constraint;
 	btScalar oldPickingDist;
+	btScalar oldFriction;
 };
 
 class ObjectPickingVR
