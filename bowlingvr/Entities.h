@@ -56,7 +56,10 @@ public:
 		this->rigidBody = new btRigidBody(rbInfo);
 	}
 
-	~Ball();
+	~Ball()
+	{
+
+	}
 };
 
 class Box : public Model

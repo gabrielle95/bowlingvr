@@ -125,17 +125,27 @@ bool MainScene::Init()
 	}
 	pinPositions.clear();
 	
+	ballPositions.push_back(btVector3(2.f, 1.5f, 0.8f));
+	ballPositions.push_back(btVector3(2.f, 1.5f, 0.5f));
+	ballPositions.push_back(btVector3(2.f, 1.5f, 0.2f));
+	ballPositions.push_back(btVector3(2.f, 1.5f, -0.1f));
 
+	for (int i = 0; i < ballPositions.size(); i++)
+	{
+		Ball *tmp = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.175), ballPositions[i] );
+		balls.push_back(tmp);
+		this->dynamicWorld->addRigidBody(tmp->rigidBody);
+	}
 
 	//testball
-	Ball *b = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.175), btVector3(2.f, 1.5f, 0.5f));
+	/*Ball *b = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.175), btVector3(2.f, 1.5f, 0.5f));
 	dynamicObjects.push_back(b);
 	b->rigidBody->setUserPointer(b);
 	this->dynamicWorld->addRigidBody(b->rigidBody);
 	//testball
 	Ball *c = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.175), btVector3(-0.25f, 0.3f, 0.5f));
 	dynamicObjects.push_back(c);
-	this->dynamicWorld->addRigidBody(c->rigidBody);
+	this->dynamicWorld->addRigidBody(c->rigidBody);*/
 
 	
 
@@ -207,6 +217,10 @@ bool MainScene::Init()
 
 	this->camVelocity = glm::vec3(this->mouse_speed*5, this->mouse_speed*5, this->mouse_speed*5);
 	
+	//tv camera
+	this->tvCamera = new Camera(this->modelShader, 200, 100);
+	this->tvCamera->SetTranslation(0, 1, 30);
+	this->tvEffect = new GeneralFramebuffer(200, 100);
 
 	SDL_GetGlobalMouseState(&xPos, &yPos);
 	SDL_WarpMouseGlobal(500, 500);
@@ -244,9 +258,17 @@ void MainScene::RenderScene()
 
 	//postprocessing off
 	if (!PP) {
-		//glViewport(0, 0, application->w(), application->h());
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		/*tvEffect->BindFBO();
+		glViewport(0, 0, 200, 100);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		modelShader->Use();
+		tvCamera->Update();
+		RenderScene();
+		RenderLights(modelShader);
+		tvEffect->UnbindFBO();*/
+		
 		modelShader->Use();
 		modelShader->setVec3("viewPos", this->camera->getPosition());
 
@@ -255,6 +277,9 @@ void MainScene::RenderScene()
 
 		//Render the lights
 		RenderLights(modelShader);
+
+		tvEffect->Bind();
+		RenderTVSceneQuad();
 	}
 	else {
 		/* RENDERING SHADOWMAP to FBO */
@@ -456,6 +481,11 @@ void MainScene::RenderObjects(Shader *shader)
 		shape->Render(shader);
 	}
 
+	for (int i = 0; i < this->balls.size(); i++) {
+		Ball* shape = this->balls[i];
+		shape->Render(shader);
+	}
+
 	this->room->Render(shader);
 
 }
@@ -517,6 +547,39 @@ void MainScene::RenderQuad()
 	glBindVertexArray(0);
 }
 
+void MainScene::RenderTVSceneQuad()
+{
+	if (tvVAO == 0)
+	{
+		float tvVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+			// positions   // texCoords
+			-0.5f,  12.5f, 3.0f, 0.0f, 1.0f,
+			-0.5f, 10.5f, 2.0f, 0.0f, 0.0f,
+			4.5f, 10.5f, 2.0f, 1.0f, 0.0f,
+
+			-0.5f,  12.5f, 3.0f, 0.0f, 1.0f,
+			4.5f, 10.5f, 2.0f, 1.0f, 0.0f,
+			4.5f,  12.5f, 3.0f, 1.0f, 1.0f
+		};
+		// setup plane VAO
+		glGenVertexArrays(1, &tvVAO);
+		glGenBuffers(1, &tvVBO);
+		glBindVertexArray(tvVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, tvVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(tvVertices), &tvVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	}
+	glBindVertexArray(tvVAO);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindVertexArray(0);
+}
+
+
+
 bool MainScene::Destroy()
 {
 	return true;
@@ -536,16 +599,22 @@ MainScene::~MainScene()
 		delete shape;
 	}
 
+	for (int j = 0; j < this->balls.size(); j++)
+	{
+		Ball* shape = this->balls[j];
+		delete shape;
+	}
+
 	for (int j = 0; j < this->Lights.size(); j++)
 	{
 		Light* shape = this->Lights[j];
 		delete shape;
 	}
 
-
 	Lights.clear();
 	dynamicObjects.clear();
 	pins.clear();
+	balls.clear();
 	delete this->camera;
 	delete this->room;
 	delete this->sphere;

@@ -63,3 +63,16 @@ private:
 
 	void Init();
 };
+
+class GeneralFramebuffer
+{
+public:
+	GeneralFramebuffer(float w, float h);
+	void BindFBO();
+	void UnbindFBO();
+	void Bind();
+private:
+	GLuint fbo;
+	GLuint fbo_texture;
+	GLuint rboDepth;
+};

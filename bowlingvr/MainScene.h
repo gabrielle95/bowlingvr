@@ -34,7 +34,7 @@ public:
 	Shader *blurShader = nullptr;
 	Shader *bloomShader = nullptr;
 	
-
+	Camera *tvCamera = nullptr;
 	Camera *camera = nullptr;
 	btDynamicsWorld *dynamicWorld = nullptr; //bulletPhysics
 
@@ -42,6 +42,8 @@ public:
 
 	Shadowmap *CubeDepthMap = nullptr;
 	
+	GeneralFramebuffer *tvEffect = nullptr;
+
 	PostProcessing *NoEffects = nullptr;
 	PostProcessing *BloomEffect = nullptr;
 	Hdr *HdrEffect = nullptr;
@@ -98,9 +100,17 @@ public:
 	bool bloom = true;
 	bool PP = true;
 
+	//tv scene quad
+	unsigned int tvVAO = 0;
+	unsigned int tvVBO;
+	unsigned int tvEBO;
+	std::vector<float> tvvertices;
+	std::vector<unsigned int> tvindices;
+
 	//functions
 	void GetInputCallback();
 	void RenderObjects(Shader *shader);
 	void RenderLights(Shader *shader);
 	void RenderQuad();
+	void RenderTVSceneQuad();
 };
