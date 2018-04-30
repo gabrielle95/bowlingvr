@@ -102,6 +102,8 @@ in vec3 EyeDirection_cameraspace;
 
 uniform vec3 viewPos;
 
+uniform bool isTVQuad;
+
 // for shadows
 in vec4 FragPosLightSpace;
 uniform mat4 lightSpaceMatrix;
@@ -158,6 +160,12 @@ float ShadowCalculation(vec3 fragPos, vec3 lightPos)
 //main
 void main()
 {
+
+	if(isTVQuad)
+	{
+		FragColor = texture(texture_diffuse1, TexCoords);
+		return;
+	}
 	//vec3 lightDir[i];
 	float radius = 1.0;
 	
@@ -227,8 +235,6 @@ void main()
 		 vec4 amb = Lights[i].ambient * (texture(texture_diffuse1, TexCoords) + Material.ambient);
 		
 		finalColor += (amb + (1.0 - shadow) * (diff ) * colorFactor + spec) + Material.emission;
-		//finalColor += (amb + (diff ) * colorFactor + spec) + Material.emission;
-		//finalColor += diff * colorFactor + Material.emission;
 
 	}
 	
@@ -536,3 +542,40 @@ const char c_VRcompanionwindowShaderFrag[] =
 "		outputColor = texture(mytexture, v2UV);\n"
 "}\n"
 ;
+
+const char c_TVShaderVert[] = R"glsl(
+
+#version 450 core
+layout (location = 0) in vec3 position;
+layout(location = 1) in vec2 texCoords;
+
+out vec2 TexCoords;
+
+uniform mat4 projection;
+uniform mat4 view;
+uniform mat4 model;
+
+void main()
+{
+    TexCoords = texCoords;
+    gl_Position =  projection * view * model * vec4(position, 1.0);
+}
+
+)glsl";
+
+const char c_TVShaderFrag[] = R"glsl(
+
+#version 450 core
+
+in vec2 TexCoords;
+layout(location = 0)out vec4 FragColor;
+
+uniform sampler2D tex;
+
+void main()
+{
+	//FragColor = texture(tex, TexCoords);
+	FragColor = vec4(0.5,0.5,0.5,1);
+}
+
+)glsl";

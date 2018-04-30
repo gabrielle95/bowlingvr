@@ -59,8 +59,8 @@ public:
 	std::vector<Ball*> balls;
 	std::vector<btVector3> ballPositions;
 
+	std::vector<btVector3> pinPositions;
 	std::vector<Pin*> pins;
-	std::vector<Box*> walls;
 
 	std::vector<Model*>dynamicObjects;
 	btAlignedObjectArray<btCollisionShape*> collisionShapes;

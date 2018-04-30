@@ -21,11 +21,14 @@ public:
 	void SetupRenderModelForTrackedDevice(vr::TrackedDeviceIndex_t unTrackedDeviceIndex);
 	
 	void RenderControllerAxes();
+	void RenderToTV();
 	void RenderStereoTargets();
 	//void RenderScene(vr::Hmd_Eye nEye, Shader *controllerShader, Shader *renderModelShader);
 	void RenderCompanionWindow();
 
 	void RenderEyeQuad(vr::Hmd_Eye nEye);
+
+	void ResetPositions();
 
 	void RenderScene(vr::Hmd_Eye nEye);
 
@@ -83,6 +86,8 @@ private: //VARIABLES
 	Shader *VRcontrollerShader = nullptr;
 	Shader *VRrendermodelShader = nullptr;
 	Shader *VRcompanionwindowShader = nullptr;
+
+	Shader *tvShader = nullptr;
 
 	// VR Cameras
 	Camera *leftEyeCamera = nullptr;

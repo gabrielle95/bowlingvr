@@ -103,7 +103,7 @@ bool MainScene::Init()
 	this->alley->pInit(0, btVector3(0,0.5,0));
 	this->dynamicWorld->addRigidBody(alley->rigidBody);*/
 
-	std::vector<btVector3> pinPositions;
+	
 	pinPositions.push_back(btVector3(-1.f, 0.3f, -54.f));
 	pinPositions.push_back(btVector3(-0.5f, 0.3f, -54.f));
 	pinPositions.push_back(btVector3(0.0f, 0.3f, -54.f));
@@ -123,7 +123,7 @@ bool MainScene::Init()
 		pins.push_back(tmp);
 		this->dynamicWorld->addRigidBody(tmp->rigidBody);
 	}
-	pinPositions.clear();
+
 	
 	ballPositions.push_back(btVector3(2.f, 1.5f, 0.8f));
 	ballPositions.push_back(btVector3(2.f, 1.5f, 0.5f));
@@ -218,9 +218,9 @@ bool MainScene::Init()
 	this->camVelocity = glm::vec3(this->mouse_speed*5, this->mouse_speed*5, this->mouse_speed*5);
 	
 	//tv camera
-	this->tvCamera = new Camera(this->modelShader, 200, 100);
-	this->tvCamera->SetTranslation(0, 1, 30);
-	this->tvEffect = new GeneralFramebuffer(200, 100);
+	this->tvCamera = new Camera(this->modelShader, 500, 400);
+	this->tvCamera->SetTranslation(0, 1, -45);
+	this->tvEffect = new GeneralFramebuffer(500, 400);
 
 	SDL_GetGlobalMouseState(&xPos, &yPos);
 	SDL_WarpMouseGlobal(500, 500);
@@ -552,14 +552,14 @@ void MainScene::RenderTVSceneQuad()
 	if (tvVAO == 0)
 	{
 		float tvVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-			// positions   // texCoords
-			-0.5f,  12.5f, 3.0f, 0.0f, 1.0f,
+							   // positions   // texCoords
+			-0.5f,  12.3f, 3.0f, 0.0f, 1.0f,
 			-0.5f, 10.5f, 2.0f, 0.0f, 0.0f,
 			4.5f, 10.5f, 2.0f, 1.0f, 0.0f,
 
-			-0.5f,  12.5f, 3.0f, 0.0f, 1.0f,
+			-0.5f,  12.3f, 3.0f, 0.0f, 1.0f,
 			4.5f, 10.5f, 2.0f, 1.0f, 0.0f,
-			4.5f,  12.5f, 3.0f, 1.0f, 1.0f
+			4.5f,  12.3f, 3.0f, 1.0f, 1.0f
 		};
 		// setup plane VAO
 		glGenVertexArrays(1, &tvVAO);
@@ -569,8 +569,8 @@ void MainScene::RenderTVSceneQuad()
 		glBufferData(GL_ARRAY_BUFFER, sizeof(tvVertices), &tvVertices, GL_STATIC_DRAW);
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	}
 	glBindVertexArray(tvVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -627,5 +627,7 @@ MainScene::~MainScene()
 
 	glDeleteVertexArrays(1, &quadVAO);
 	glDeleteBuffers(1, &quadVBO);
+	glDeleteVertexArrays(1, &tvVAO);
+	glDeleteBuffers(1, &tvVBO);
 
 }

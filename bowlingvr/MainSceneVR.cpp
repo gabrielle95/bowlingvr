@@ -3,6 +3,8 @@
 #include "MainSceneVR.h"
 #include "ShaderStrings.h"
 
+#define MSAA_SAMPLES 8
+
 MainSceneVR::MainSceneVR(Application * application) : MainScene(application)
 {
 	this->application = application;
@@ -42,6 +44,9 @@ bool MainSceneVR::Init()
 	this->VRcompanionwindowShader = new Shader("companionwindow", c_VRcompanionwindowShaderVert, c_VRcompanionwindowShaderFrag);
 	assert(this->VRcompanionwindowShader != nullptr);
 
+	this->tvShader = new Shader("tvshader", c_TVShaderVert, c_TVShaderFrag);
+	assert(this->tvShader != nullptr);
+
 	//init main scene
 	MainScene::Init();
 	SetupCameras();
@@ -49,7 +54,7 @@ bool MainSceneVR::Init()
 	SetupCompanionWindow();
 	SetupRenderModels();
 
-	Player->rigidBody->forceActivationState(DISABLE_SIMULATION);
+	dynamicWorld->removeRigidBody(Player->rigidBody);
 
 	delete msaaEffect; msaaEffect = nullptr;
 	delete HdrEffect; HdrEffect = new Hdr(m_nRenderWidth, m_nRenderHeight);
@@ -84,7 +89,6 @@ bool MainSceneVR::Update() //RENDER FRAME
 		RenderObjects(depthShader);
 		this->CubeDepthMap->UnbindFBO();
 
-		//RenderControllerAxes();
 		RenderStereoTargets();
 		RenderCompanionWindow();
 
@@ -150,12 +154,12 @@ bool MainSceneVR::InitEyeBuffer(int nWidth, int nHeight, FramebufferDesc &frameb
 
 	glGenRenderbuffers(1, &framebufferDesc.m_nDepthBufferId);
 	glBindRenderbuffer(GL_RENDERBUFFER, framebufferDesc.m_nDepthBufferId);
-	glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_DEPTH_COMPONENT, nWidth, nHeight);
+	glRenderbufferStorageMultisample(GL_RENDERBUFFER, MSAA_SAMPLES, GL_DEPTH_COMPONENT, nWidth, nHeight);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, framebufferDesc.m_nDepthBufferId);
 
 	glGenTextures(1, &framebufferDesc.m_nRenderTextureId);
 	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, framebufferDesc.m_nRenderTextureId);
-	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, 4, GL_RGBA32F, nWidth, nHeight, true);
+	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, MSAA_SAMPLES, GL_RGBA32F, nWidth, nHeight, true);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, framebufferDesc.m_nRenderTextureId, 0);
 
 	glGenFramebuffers(1, &framebufferDesc.m_nResolveFramebufferId);
@@ -544,6 +548,7 @@ void MainSceneVR::ProcessButtonEvent(vr::VREvent_t event)
 		switch (event.eventType)
 		{
 		case vr::VREvent_ButtonPress:
+			ResetPositions();
 			break;
 
 		case vr::VREvent_ButtonUnpress:
@@ -736,23 +741,25 @@ void MainSceneVR::RenderControllerAxes()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+void MainSceneVR::RenderToTV()
+{
+	tvEffect->BindFBO();
+	glViewport(0,0, 500, 400);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	modelShader->Use();
+	tvCamera->Update();
+	RenderObjects(modelShader);
+	RenderLights(modelShader);
+	tvEffect->UnbindFBO();
+}
+
 void MainSceneVR::RenderScene(vr::Hmd_Eye nEye)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
 	bool bIsInputAvailable = pHmd->IsInputAvailable();
-	/*if (bIsInputAvailable)
-	{
-		// draw the controller axis lines
-		VRcontrollerShader->Use();
-		glUniformMatrix4fv(VRcontrollerShader->getUniLocation("matrix"), 1, GL_FALSE, GetCurrentViewProjectionMatrix(nEye).get());
-		//VRcontrollerShader->setUniMatrix(VRcontrollerShader->getUniLocation("matrix"), GetCurrentViewProjectionMatrix(nEye));
-		glBindVertexArray(m_unControllerVAO);
-		glDrawArrays(GL_LINES, 0, m_uiControllerVertcount);
-		glBindVertexArray(0);
-	}*/
-	//GetInputCallback();
+	
 	modelShader->Use();
 	view = GetCurrentViewMatrix(nEye);
 	glUniformMatrix4fv(modelShader->getUniLocation("projection"), 1, GL_FALSE, GetCurrentProjectionMatrix(nEye).get());
@@ -761,6 +768,12 @@ void MainSceneVR::RenderScene(vr::Hmd_Eye nEye)
 	
 	RenderObjects(modelShader);
 	RenderLights(modelShader);
+
+	modelShader->setInt("isTVQuad", 1);
+	tvEffect->Bind();
+	RenderTVSceneQuad();
+	modelShader->setInt("isTVQuad", 0);
+
 	VRrendermodelShader->Use();
 
 	for (uint32_t unTrackedDevice = 0; unTrackedDevice < vr::k_unMaxTrackedDeviceCount; unTrackedDevice++)
@@ -790,6 +803,7 @@ void MainSceneVR::RenderScene(vr::Hmd_Eye nEye)
 /* renders left eye and right eye to framebuffers */
 void MainSceneVR::RenderStereoTargets()
 {
+	RenderToTV();
 	//glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 	glEnable(GL_MULTISAMPLE);
 
@@ -814,45 +828,6 @@ void MainSceneVR::RenderStereoTargets()
 
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, 0);
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-
-
-	//PP left
-	//HDR
-	/*HdrEffect->BindFPFramebuffer();
-	glViewport(0, 0, m_nRenderWidth, m_nRenderHeight);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	hdrShader->Use();
-	NoEffects->Bind();
-	RenderEyeQuad(vr::Eye_Left);
-	HdrEffect->UnbindFPFramebuffer();
-
-	//BLUR
-	bool horizontal = true, first_iteration = true;
-	unsigned int amount = 10;
-	blurShader->Use();
-	for (unsigned int i = 0; i < amount; i++)
-	{
-		glBindFramebuffer(GL_FRAMEBUFFER, HdrEffect->pingpongFBO[horizontal]);
-		blurShader->setInt("horizontal", horizontal);
-		glBindTexture(GL_TEXTURE_2D, first_iteration ? HdrEffect->fbo_textures[1] : HdrEffect->pingpongColorbuffers[!horizontal]);  // bind texture of other framebuffer (or scene if first iteration)
-		RenderEyeQuad(vr::Eye_Left);
-		horizontal = !horizontal;
-		if (first_iteration)
-			first_iteration = false;
-	}
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	//BLOOM
-	glBindFramebuffer(GL_FRAMEBUFFER, leftEyeDesc.m_nResolveFramebufferId);
-	bloomShader->Use();
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, HdrEffect->fbo_textures[0]);
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, HdrEffect->pingpongColorbuffers[!horizontal]);
-	RenderEyeQuad(vr::Eye_Left);
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glUseProgram(0);*/
 
 	glEnable(GL_MULTISAMPLE);
 
@@ -925,4 +900,9 @@ void MainSceneVR::RenderEyeQuad(vr::Hmd_Eye nEye)
 		glDrawElements(GL_TRIANGLES, m_uiCompanionWindowIndexSize / 2, GL_UNSIGNED_SHORT, (const void *)(uintptr_t)(m_uiCompanionWindowIndexSize));
 		glBindVertexArray(0);
 	}
+}
+
+void MainSceneVR::ResetPositions()
+{
+	/// TODO ??
 }
