@@ -26,7 +26,7 @@ public:
 
 	~MainScene();
 
-	protected:
+protected:
 	//entities
 	Shader *modelShader = nullptr;
 	Shader *depthShader = nullptr;

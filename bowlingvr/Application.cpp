@@ -1,17 +1,6 @@
 #include <GL/glew.h>
 #include "Application.h"
 
-/*Application *Application::applicationInstance = nullptr;
-
-Application* Application::Instance()
-{
-	if (Application::applicationInstance == nullptr)
-	{
-		Application::applicationInstance = new Application();
-	}
-	return Application::applicationInstance;
-}*/
-
 void Application::SetState(GameStateInterface *state)
 {
 	if (this->state != nullptr)
@@ -25,11 +14,6 @@ void Application::SetState(GameStateInterface *state)
 #ifndef _DEBUG
 	FreeConsole();
 #endif
-}
-
-Window * Application::GetMainWindowPtr()
-{
-	return this->window;
 }
 
 bool Application::IsWindowActive()

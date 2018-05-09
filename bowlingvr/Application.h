@@ -1,14 +1,15 @@
 #pragma once
 
-#ifndef APPLICATION_H
-#define APPLICATION_H
-
 #include "Window.h"
 #include <Windows.h>
 #include <SDL2/SDL.h>
 #include <GL/GL.h>
 #include <openvr/openvr.h>
 
+//!  application_exception class. 
+/*!
+Handles application exceptions.
+*/
 class application_exception : public std::runtime_error
 {
 public:
@@ -23,25 +24,23 @@ public:
 	virtual bool Destroy() = 0;
 };
 
+//!  The core class of the program. 
+/*!
+Handles SDL events, OpenGL context creation and game states.
+*/
 class Application
 {
 	static Application* applicationInstance;
 public:
 	Application(vr::IVRSystem *vr_pointer);
 	~Application();
-	//static Application* Instance();
 	bool Run();
 	void Stop();
 	void SetState(GameStateInterface *state);
-	Window *GetMainWindowPtr();
 	bool IsWindowActive();
 	unsigned int w();
 	unsigned int h();
 	vr::IVRSystem * getVRpointer();
-
-private: //METHODS
-	void bPollVREvent();
-	void bPollVRControllerState();
 
 private://VARIABLES
 	bool active; //application active
@@ -54,7 +53,10 @@ private://VARIABLES
 	unsigned int width;
 	unsigned int height;
 
-	// VR
+	//! The VR system pointer.
+	/*!
+	Allows access to HTC Vive system, tracking data, etc.
+	*/
 	vr::IVRSystem *vr_pointer = NULL;
 
 };
@@ -70,9 +72,8 @@ protected:
 	Application *application;
 };
 
+//!  This template function handles dependency injection. 
 template <class StateClass> void SetState(Application *application)
 {
 	application->SetState(new StateClass(application));
 }
-
-#endif

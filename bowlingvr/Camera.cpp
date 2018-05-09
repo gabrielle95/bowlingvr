@@ -12,23 +12,14 @@
 Camera::Camera(Shader *shader, float w, float h)
 {
 	this->shader = shader;
-	//this->vUniform = this->shader->getUniLocation("mvpMatrix");
 	this->vUniform = this->shader->getUniLocation("view");
 	this->pUniform = this->shader->getUniLocation("projection");
-	this->projMatrix = glm::perspective(glm::radians(45.0f), w/h, 0.05f, 100.f);
-}
-
-// for VR
-Camera::Camera(glm::mat4 p, glm::mat4 v)
-{
-	this->projectionEye = p;
-	this->poseEye = v;
+	this->projMat = glm::perspective(glm::radians(45.0f), w/h, 0.05f, 100.f);
 }
 
 void Camera::SetShader(Shader *shader)
 {
 	this->shader = shader;
-	//this->vUniform = this->shader->getUniLocation("mvpMatrix");
 	this->vUniform = this->shader->getUniLocation("view");
 	this->pUniform = this->shader->getUniLocation("projection");
 }
@@ -61,11 +52,9 @@ void Camera::Rotate(float rotation, float x, float y, float z)
 
 void Camera::Update()
 {
-	//this->shader->setUniMatrix(this->vUniform, (this->projMatrix * this->viewMat/* * this->modelMat*/));
 	this->shader->Use();
 	this->shader->setUniMatrix(this->vUniform, this->viewMat);
-	this->shader->setUniMatrix(this->pUniform, this->projMatrix);
-	//glUniform3fv(this->shader->getUniLocation("viewPos"), 1, glm::value_ptr(getPosition()));
+	this->shader->setUniMatrix(this->pUniform, this->projMat);
 }
 
 glm::vec3 Camera::getPosition()
@@ -78,21 +67,6 @@ glm::vec3 Camera::getEyeDir()
 	return glm::vec3(-this->viewMat[2][0], -this->viewMat[2][1], -this->viewMat[2][2]);
 }
 
-glm::mat4 Camera::getTranslation()
-{
-	return this->translation;
-}
-
-glm::mat4 Camera::getRotation()
-{
-	return this->rotation;
-}
-
-glm::mat4 Camera::getModelMatrix()
-{
-	return this->modelMat;
-}
-
 glm::mat4 Camera::getViewMatrix()
 {
 	return this->viewMat;
@@ -100,7 +74,7 @@ glm::mat4 Camera::getViewMatrix()
 
 glm::mat4 Camera::getProjectionMatrix()
 {
-	return this->projMatrix;
+	return this->projMat;
 }
 
 void Camera::setViewMatrix(glm::mat4 m)
@@ -110,8 +84,5 @@ void Camera::setViewMatrix(glm::mat4 m)
 
 void Camera::UpdateViewMatrix()
 {
-	//glm::vec3 up = glm::cross(this->direction, this->direction);
-	//glm::vec3 lightPos(-2.0f, 2.5f, -25.0f);
-	//this->viewMat = glm::lookAt(lightPos, lightPos + glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f));
-	this->viewMat = this->rotation * this->translation; //scale not included for now
+	this->viewMat = this->rotation * this->translation; //scale not included
 }

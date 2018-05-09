@@ -5,9 +5,18 @@
 #include <vector>
 #include "Shader.h"
 
+//! Handles game light. 
+/*!
+Uploads light info to light properties structure in the shader.
+See ShaderStrings.h
+*/
 class Light
 {
 public:
+
+	/**
+	* Constructs a light with desired properties. Many set to default values.
+	*/
 	Light(Shader *shader,
 		unsigned int lightIndex,
 		glm::vec4 position = { 0, 2.0f, 0, 1.0f },
@@ -20,8 +29,14 @@ public:
 		float spot_exponent = 10
 	);
 
+	/**
+	* Called during rendering loop to render the light.
+	*/
 	void Render(Shader *shader);
 
+	/**
+	* Light position in world space. Needed to be uploaded to several shaders during rendering.
+	*/
 	glm::vec4 position;
 
 private:
@@ -34,10 +49,10 @@ private:
 
 	float shininess;
 	float strength;
-	//
+
 	glm::vec4 eye_direction; //view * pos
 	float constant_attenuation;
-	//
+
 	glm::vec4 cone_direction;
 	float spot_cos_cutoff; //how wide the spot is as a cosine
 	float spot_exponent; //light falloff in the spot

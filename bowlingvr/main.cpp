@@ -1,8 +1,10 @@
 #include "MainScene.h"
 #include "MainSceneVR.h"
 
-
-
+//! Main function. 
+/*!
+Application initialises to non-VR if HTC Vive is not detected.
+*/
 int main(int argc, char* argv[])
 {
 	vr::EVRInitError eError;

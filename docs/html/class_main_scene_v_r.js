@@ -1,0 +1,27 @@
+var class_main_scene_v_r =
+[
+    [ "FramebufferDesc", "struct_main_scene_v_r_1_1_framebuffer_desc.html", "struct_main_scene_v_r_1_1_framebuffer_desc" ],
+    [ "MainSceneVR", "class_main_scene_v_r.html#a1cab4abdd1cc71f4ea2e5d0ca455128a", null ],
+    [ "~MainSceneVR", "class_main_scene_v_r.html#a7b3377400e820be80268bc7eeb101160", null ],
+    [ "Destroy", "class_main_scene_v_r.html#a05787194de640aafa64092aedad2830a", null ],
+    [ "FindOrLoadRenderModel", "class_main_scene_v_r.html#aa4f1b97e00823acc7477f8172bfce78a", null ],
+    [ "GetCurrentProjectionMatrix", "class_main_scene_v_r.html#a4d3556616a3babf96fc3dab2fefd3b1b", null ],
+    [ "GetCurrentViewMatrix", "class_main_scene_v_r.html#a26d73798e35286b3955598d188fd89a2", null ],
+    [ "GetCurrentViewProjectionMatrix", "class_main_scene_v_r.html#ae348852aa9a396b7a103c652fd0da541", null ],
+    [ "GetHMDMatrixPoseEye", "class_main_scene_v_r.html#aab121fca73012de1cd77526aeca7b7cd", null ],
+    [ "GetHMDMatrixProjectionEye", "class_main_scene_v_r.html#a61750d925febc2f83ba4d2de50cd153d", null ],
+    [ "Init", "class_main_scene_v_r.html#a608cdc6b6204b1b2b36275c853578b6f", null ],
+    [ "RenderCompanionWindow", "class_main_scene_v_r.html#ab6e50d5ef898f8dd0bfb46ce81ef3868", null ],
+    [ "RenderControllerAxes", "class_main_scene_v_r.html#a464a7ac91a2a4095053af359f83c5d9f", null ],
+    [ "RenderEyeQuad", "class_main_scene_v_r.html#a8749fb49508cdcae212583d81605624c", null ],
+    [ "RenderScene", "class_main_scene_v_r.html#abb2906bda717f2a9fd380c7fca4f5478", null ],
+    [ "RenderStereoTargets", "class_main_scene_v_r.html#afecf2d92e8ea2ef1f5ee51854e3af5d4", null ],
+    [ "RenderToTV", "class_main_scene_v_r.html#ad44aeecd4ad1a3617b279f9b0dd0f46d", null ],
+    [ "ResetPositions", "class_main_scene_v_r.html#ac528d50a95d234530f98e6efb82bb7ee", null ],
+    [ "SetupCameras", "class_main_scene_v_r.html#a73e642d9d76358a73326710ec9a83746", null ],
+    [ "SetupCompanionWindow", "class_main_scene_v_r.html#a654f2f855fb47be64a1486c7e710750a", null ],
+    [ "SetupRenderModelForTrackedDevice", "class_main_scene_v_r.html#afb6336138a723e5c5bde664f1eba00b2", null ],
+    [ "SetupRenderModels", "class_main_scene_v_r.html#a6c87947a473215e2338040db3e8a7c22", null ],
+    [ "SetupStereoRenderTargets", "class_main_scene_v_r.html#a4ffdfd64dcfca3efcae660cf4beb8514", null ],
+    [ "Update", "class_main_scene_v_r.html#a7f5a2d493793d244e9a4cd7b35e54a1d", null ]
+];

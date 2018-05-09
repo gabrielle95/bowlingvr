@@ -1,12 +1,14 @@
 #pragma once
-#ifndef CDEBUGDRAW_H
-#define CDEBUDGRAW_H
+
 #include <iostream>
 #include <vector>
 #include <glm/gtc/type_ptr.hpp>
-
 #include <bullet/btBulletDynamicsCommon.h>
 
+//! Debug drawing of the BulletPhysics world (only used during early development stages). 
+/*!
+DEPRECATED: Uses the fixed function pipeline to visualize wireframes of rigid bodies.
+*/
 class CDebugDraw :
 	public btIDebugDraw
 {
@@ -39,5 +41,3 @@ private:
     std::vector<LINE> lines;  
     int m_debugMode;
 };
-
-#endif

@@ -1,16 +1,23 @@
 #pragma once
-#ifndef BULLETWORLD_H
-#define BULLETWORLD_H
-/* using bullet3-2.87*/
+
 #include <vector>
 #include <bullet/btBulletDynamicsCommon.h>
 #include "CDebugDraw.h"
 
+//! Initialises the physics. 
+/*!
+Creates the btDynamicsWorld, the Bullet physics world.
+*/
 class BulletWorld
 {
 	
 public:	
 	BulletWorld();
+
+	/**
+	* Singleton: Returns the BulletWorld instance with btDynamics world pointer.
+	* @return BulletWorld
+	*/
 	static BulletWorld *Instance();
 	~BulletWorld();
 
@@ -25,4 +32,3 @@ private:
 	btCollisionConfiguration *bwColConfig;
 
 };
-#endif

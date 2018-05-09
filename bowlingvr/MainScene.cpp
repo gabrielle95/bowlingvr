@@ -4,11 +4,9 @@
 #include <direct.h> 
 #include "ShaderStrings.h"
 #include "MainScene.h"
-//#include "TestState2.h"
 
 MainScene::MainScene(Application *application) : GameState(application)
 {
-	//notepad: glFramebufferTextureMultisampleMultiviewOVR
 }
 
 bool MainScene::Init()
@@ -70,39 +68,9 @@ bool MainScene::Init()
 	this->room->pInit(0, btVector3(0, 0, -17));
 	this->dynamicWorld->addRigidBody(room->rigidBody);
 
-	/*std::vector<btVector3> wallPositions;
-	wallPositions.push_back(btVector3(0, -0.1, 0)); //floor
-	wallPositions.push_back(btVector3(0, 30, 0)); //ceiling
-
-	wallPositions.push_back(btVector3(0, -0.1, 30)); //back
-	wallPositions.push_back(btVector3(0, -0.1, -30)); //front
-	wallPositions.push_back(btVector3(30, -0.1, 0)); //right
-	wallPositions.push_back(btVector3(-30, -0.1, 0)); //left
-
-	std::vector<btVector3>wallDimensions;
-	wallDimensions.push_back(btVector3(30, 0.1, 30));//up and down
-	wallDimensions.push_back(btVector3(30, 30, 0.1));//acc to x
-	wallDimensions.push_back(btVector3(0.1, 30, 30));//acc to z
-	
-	int j = 0;
-	for (int i = 0; i < wallDimensions.size(); i++) {
-		this->dynamicWorld->addRigidBody
-		(BulletUtils::createInvisibleBoxCollider(0.0, wallDimensions[i], wallPositions[j], room->modelMatrix));
-		this->dynamicWorld->addRigidBody
-		(BulletUtils::createInvisibleBoxCollider(0.0, wallDimensions[i], wallPositions[j+1], room->modelMatrix));
-		j += 2;
-	}
-	wallPositions.clear();
-	wallDimensions.clear();
-	*/
 	this->sphere = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\ball\\ball_0175.obj");
 
 	this->pin = new Model(this->modelShader, std::string(cCurrentPath) + "\\models\\pin\\bowling_pin_001.obj");
-
-	/*this->alley = new Alley(this->modelShader, std::string(cCurrentPath) + "\\models\\venue.obj");
-	this->alley->pInit(0, btVector3(0,0.5,0));
-	this->dynamicWorld->addRigidBody(alley->rigidBody);*/
-
 	
 	pinPositions.push_back(btVector3(-1.f, 0.3f, -54.f));
 	pinPositions.push_back(btVector3(-0.5f, 0.3f, -54.f));
@@ -136,18 +104,6 @@ bool MainScene::Init()
 		balls.push_back(tmp);
 		this->dynamicWorld->addRigidBody(tmp->rigidBody);
 	}
-
-	//testball
-	/*Ball *b = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.175), btVector3(2.f, 1.5f, 0.5f));
-	dynamicObjects.push_back(b);
-	b->rigidBody->setUserPointer(b);
-	this->dynamicWorld->addRigidBody(b->rigidBody);
-	//testball
-	Ball *c = new Ball(this->modelShader, this->sphere->meshes, btScalar(10.f), btScalar(0.175), btVector3(-0.25f, 0.3f, 0.5f));
-	dynamicObjects.push_back(c);
-	this->dynamicWorld->addRigidBody(c->rigidBody);*/
-
-	
 
 	/*************************/
 	/* LIGHT INITIALISATION */
@@ -258,16 +214,6 @@ void MainScene::RenderScene()
 
 	//postprocessing off
 	if (!PP) {
-
-		/*tvEffect->BindFBO();
-		glViewport(0, 0, 200, 100);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		modelShader->Use();
-		tvCamera->Update();
-		RenderScene();
-		RenderLights(modelShader);
-		tvEffect->UnbindFBO();*/
 		
 		modelShader->Use();
 		modelShader->setVec3("viewPos", this->camera->getPosition());
@@ -507,14 +453,12 @@ void MainScene::ShootSphere(btVector3 direction, btVector3 origin)
 	velocity.normalize();
 	velocity *= 10.0f;
 
-	//shoot->InitPhysicsBody(btBODIES::BALL, btScalar(10.f), btScalar(0.1f), origin, origin);
 	this->dynamicWorld->addRigidBody(shoot->rigidBody);
 	shoot->rigidBody->setLinearVelocity(velocity);
 	dynamicObjects.push_back(shoot);
 }
 
 // renderQuad() renders a 1x1 XY quad in NDC
-// -----------------------------------------
 
 void MainScene::RenderQuad()
 {
@@ -552,7 +496,7 @@ void MainScene::RenderTVSceneQuad()
 	if (tvVAO == 0)
 	{
 		float tvVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-							   // positions   // texCoords
+			// positions		// texCoords
 			-0.5f,  12.3f, 3.0f, 0.0f, 1.0f,
 			-0.5f, 10.5f, 2.0f, 0.0f, 0.0f,
 			4.5f, 10.5f, 2.0f, 1.0f, 0.0f,
@@ -577,8 +521,6 @@ void MainScene::RenderTVSceneQuad()
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindVertexArray(0);
 }
-
-
 
 bool MainScene::Destroy()
 {
@@ -629,5 +571,4 @@ MainScene::~MainScene()
 	glDeleteBuffers(1, &quadVBO);
 	glDeleteVertexArrays(1, &tvVAO);
 	glDeleteBuffers(1, &tvVBO);
-
 }
