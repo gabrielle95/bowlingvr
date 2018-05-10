@@ -13,7 +13,10 @@
 #include "BulletWorld.h"
 #include "libs/shared/Matrices.h"
 
-
+//! Class of the main game level. 
+/*!
+Handles shader and model loading, component initialisation and keyboard .
+*/
 class MainScene : public GameState
 {
 public:
