@@ -96,6 +96,9 @@ $(document).ready(function(){initNavTree('class_main_scene.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Class of the main game level.  
+ <a href="class_main_scene.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_main_scene_8h_source.html">MainScene.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for MainScene:</div>
@@ -105,7 +108,7 @@ Inheritance diagram for MainScene:</div>
   <map id="MainScene_map" name="MainScene_map">
 <area href="class_game_state.html" alt="GameState" shape="rect" coords="0,56,122,80"/>
 <area href="class_game_state_interface.html" alt="GameStateInterface" shape="rect" coords="0,0,122,24"/>
-<area href="class_main_scene_v_r.html" alt="MainSceneVR" shape="rect" coords="0,168,122,192"/>
+<area href="class_main_scene_v_r.html" title="Class of the main game VR level. " alt="MainSceneVR" shape="rect" coords="0,168,122,192"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -252,7 +255,10 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:aec5272b46c6aa0bc5d1a4fbde3ca4951 inherit pro_attribs_class_game_state"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_application.html">Application</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_state.html#aec5272b46c6aa0bc5d1a4fbde3ca4951">application</a></td></tr>
 <tr class="separator:aec5272b46c6aa0bc5d1a4fbde3ca4951 inherit pro_attribs_class_game_state"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class of the main game level. </p>
+<p>Handles shader and model loading, component initialisation and keyboard input in non-vr mode. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a276848ef3d48e1cb54c95ea27ee235b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a276848ef3d48e1cb54c95ea27ee235b3">&#9670;&nbsp;</a></span>MainScene()</h2>
 
@@ -365,6 +371,7 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Initialises the scene. </p>
 
 <p>Implements <a class="el" href="class_game_state_interface.html#a6790de637179aa906ed9bdc531b48f2f">GameStateInterface</a>.</p>
 
@@ -463,6 +470,7 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Renders the OpenGL visualisation. </p>
 
 </div>
 </div>
@@ -516,6 +524,7 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Throws a sphere by pressing C im non-VR mode. </p>
 
 </div>
 </div>
@@ -541,6 +550,7 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Renders a frame and updates the scene, steps simulation. </p>
 
 <p>Implements <a class="el" href="class_game_state_interface.html#a9e8f0b0b4d66a85bedc935ca8eddffbd">GameStateInterface</a>.</p>
 

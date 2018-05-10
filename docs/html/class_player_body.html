@@ -89,11 +89,15 @@ $(document).ready(function(){initNavTree('class_player_body.html','');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_player_body-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">PlayerBody Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Creates a player rigid body in the non-VR version.  
+ <a href="class_player_body.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_player_body_8h_source.html">PlayerBody.h</a>&gt;</code></p>
 <table class="memberdecls">
@@ -110,8 +114,16 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a8ca340843f962a8de7488274d10ec248"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63ecbde3bb778144ab2894cc9c8c2622"><td class="memItemLeft" align="right" valign="top">btMotionState *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_player_body.html#a63ecbde3bb778144ab2894cc9c8c2622">motionstate</a> = nullptr</td></tr>
 <tr class="separator:a63ecbde3bb778144ab2894cc9c8c2622"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a3c0c026d518fa4e5e7940d2f1f09a2df"><td class="memItemLeft" align="right" valign="top">btCollisionShape *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_player_body.html#a3c0c026d518fa4e5e7940d2f1f09a2df">collisionShape</a></td></tr>
+<tr class="separator:a3c0c026d518fa4e5e7940d2f1f09a2df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Creates a player rigid body in the non-VR version. </p>
+<p>The player body can collide with objects and jump using space. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a91a03829ba4da1c560c17d027d66e4e1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a91a03829ba4da1c560c17d027d66e4e1">&#9670;&nbsp;</a></span>PlayerBody()</h2>
 
@@ -131,6 +143,28 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3c0c026d518fa4e5e7940d2f1f09a2df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c0c026d518fa4e5e7940d2f1f09a2df">&#9670;&nbsp;</a></span>collisionShape</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">btCollisionShape* PlayerBody::collisionShape</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a8ca340843f962a8de7488274d10ec248"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8ca340843f962a8de7488274d10ec248">&#9670;&nbsp;</a></span>modelMatrix</h2>
 

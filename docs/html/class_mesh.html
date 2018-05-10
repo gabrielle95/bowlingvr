@@ -95,6 +95,9 @@ $(document).ready(function(){initNavTree('class_mesh.html','');});
 </div><!--header-->
 <div class="contents">
 
+<p>Processes Assimp meshes.  
+ <a href="class_mesh.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_mesh_8h_source.html">Mesh.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -111,8 +114,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a30f987a6ba37dc07266532e0b68a71e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac899af822bfe8db90b240e17bcc57fd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#ac899af822bfe8db90b240e17bcc57fd7">RenderWithNoTextures</a> ()</td></tr>
 <tr class="separator:ac899af822bfe8db90b240e17bcc57fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadd3feac585cdfc69b2108c12eb38316"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#aadd3feac585cdfc69b2108c12eb38316">RenderEmission</a> (<a class="el" href="class_shader.html">Shader</a> *shader)</td></tr>
-<tr class="separator:aadd3feac585cdfc69b2108c12eb38316"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -157,7 +158,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a18cade388735a9dc63a6f926b5ef79dc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mesh.html#a18cade388735a9dc63a6f926b5ef79dc">directory</a></td></tr>
 <tr class="separator:a18cade388735a9dc63a6f926b5ef79dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Processes Assimp meshes. </p>
+<p>Extracts vertices, textures and material from Assimp structures. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a62b0c4f949f1a945e4d8ce6ee4832a36"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a62b0c4f949f1a945e4d8ce6ee4832a36">&#9670;&nbsp;</a></span>Mesh()</h2>
 
@@ -229,24 +233,6 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void Mesh::Render </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_shader.html">Shader</a> *&#160;</td>
-          <td class="paramname"><em>shader</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aadd3feac585cdfc69b2108c12eb38316"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadd3feac585cdfc69b2108c12eb38316">&#9670;&nbsp;</a></span>RenderEmission()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Mesh::RenderEmission </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_shader.html">Shader</a> *&#160;</td>
           <td class="paramname"><em>shader</em></td><td>)</td>

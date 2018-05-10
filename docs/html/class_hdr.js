@@ -7,7 +7,11 @@ var class_hdr =
     [ "ConfigureShaders", "class_hdr.html#aad486b4f1b4cecac23999f3923182ff6", null ],
     [ "Init", "class_hdr.html#a3eb14c688aaeb732f1f18b9cc97ba072", null ],
     [ "UnbindFPFramebuffer", "class_hdr.html#a3c89f1c06683e5c4c791addc674b75d4", null ],
+    [ "fbo", "class_hdr.html#aa3b70c554884184bad94ceafeec5c36e", null ],
     [ "fbo_textures", "class_hdr.html#a33d2dcff049b2e509d314fa0d99120e3", null ],
+    [ "h", "class_hdr.html#af5bc0601abd4892f498d7ff9a0fd837e", null ],
     [ "pingpongColorbuffers", "class_hdr.html#a988c40e21b154576e4bf8973d561ce01", null ],
-    [ "pingpongFBO", "class_hdr.html#a44b580681f40333faf4fb7821411bb2c", null ]
+    [ "pingpongFBO", "class_hdr.html#a44b580681f40333faf4fb7821411bb2c", null ],
+    [ "rboDepth", "class_hdr.html#a673b524e66be1e861f5ca6595376b834", null ],
+    [ "w", "class_hdr.html#a87845621ccdf7d09228ce3446a202d12", null ]
 ];

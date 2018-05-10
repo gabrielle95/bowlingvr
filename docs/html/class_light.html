@@ -89,27 +89,65 @@ $(document).ready(function(){initNavTree('class_light.html','');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_light-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Light Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>Handles game light.  
+ <a href="class_light.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_light_8h_source.html">Light.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa73403d421e453c2a86a40f0c3d6fbb0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#aa73403d421e453c2a86a40f0c3d6fbb0">Light</a> (<a class="el" href="class_shader.html">Shader</a> *shader, unsigned int lightIndex, glm::vec4 <a class="el" href="class_light.html#a240653e7032ae5e2e1fbbab819422077">position</a>={ 0, 2.0f, 0, 1.0f }, bool isSpot=false, glm::vec4 ambient={ 0.12f, 0.12f, 0.12f, 1.0f }, glm::vec4 diffuse={ 2.0f, 2.0f, 2.0f, 1.0f }, glm::vec4 specular={ 1.0f, 1.0f, 1.0f, 1.0f }, glm::vec4 cone_direction={0.0, -1.0, 0.0, 1.0}, float spot_cos_cutoff=0.1, float spot_exponent=10)</td></tr>
+<tr class="memitem:aa73403d421e453c2a86a40f0c3d6fbb0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#aa73403d421e453c2a86a40f0c3d6fbb0">Light</a> (<a class="el" href="class_shader.html">Shader</a> *<a class="el" href="class_light.html#a340b8c1b38e4e99ccf5d5be71825505f">shader</a>, unsigned int <a class="el" href="class_light.html#a9f60d9fcafb836802f45e99dafd0241d">lightIndex</a>, glm::vec4 <a class="el" href="class_light.html#a240653e7032ae5e2e1fbbab819422077">position</a>={ 0, 2.0f, 0, 1.0f }, bool isSpot=false, glm::vec4 ambient={ 0.12f, 0.12f, 0.12f, 1.0f }, glm::vec4 diffuse={ 2.0f, 2.0f, 2.0f, 1.0f }, glm::vec4 specular={ 1.0f, 1.0f, 1.0f, 1.0f }, glm::vec4 cone_direction={0.0, -1.0, 0.0, 1.0}, float spot_cos_cutoff=0.1, float spot_exponent=10)</td></tr>
 <tr class="separator:aa73403d421e453c2a86a40f0c3d6fbb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25fc2b0b3783d8fa9a4a9f3223a83b65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#a25fc2b0b3783d8fa9a4a9f3223a83b65">Render</a> (<a class="el" href="class_shader.html">Shader</a> *shader)</td></tr>
+<tr class="memitem:a25fc2b0b3783d8fa9a4a9f3223a83b65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#a25fc2b0b3783d8fa9a4a9f3223a83b65">Render</a> (<a class="el" href="class_shader.html">Shader</a> *<a class="el" href="class_light.html#a340b8c1b38e4e99ccf5d5be71825505f">shader</a>)</td></tr>
 <tr class="separator:a25fc2b0b3783d8fa9a4a9f3223a83b65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a240653e7032ae5e2e1fbbab819422077"><td class="memItemLeft" align="right" valign="top">glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#a240653e7032ae5e2e1fbbab819422077">position</a></td></tr>
 <tr class="separator:a240653e7032ae5e2e1fbbab819422077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a340b8c1b38e4e99ccf5d5be71825505f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_shader.html">Shader</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#a340b8c1b38e4e99ccf5d5be71825505f">shader</a></td></tr>
+<tr class="separator:a340b8c1b38e4e99ccf5d5be71825505f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f60d9fcafb836802f45e99dafd0241d"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#a9f60d9fcafb836802f45e99dafd0241d">lightIndex</a></td></tr>
+<tr class="separator:a9f60d9fcafb836802f45e99dafd0241d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68f5048cd6ef73f18c088945124a168f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#a68f5048cd6ef73f18c088945124a168f">isSpot</a></td></tr>
+<tr class="separator:a68f5048cd6ef73f18c088945124a168f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcd118cea5b6bb284d218b1df62bbbce"><td class="memItemLeft" align="right" valign="top">glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#abcd118cea5b6bb284d218b1df62bbbce">ambient</a></td></tr>
+<tr class="separator:abcd118cea5b6bb284d218b1df62bbbce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af933e4c1087a91fa621fa9f28ccf3e76"><td class="memItemLeft" align="right" valign="top">glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#af933e4c1087a91fa621fa9f28ccf3e76">diffuse</a></td></tr>
+<tr class="separator:af933e4c1087a91fa621fa9f28ccf3e76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a083c715bd3f644581975c3d0192ceebb"><td class="memItemLeft" align="right" valign="top">glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#a083c715bd3f644581975c3d0192ceebb">specular</a></td></tr>
+<tr class="separator:a083c715bd3f644581975c3d0192ceebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a916d1fdad0ea12c41165fc247219944d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#a916d1fdad0ea12c41165fc247219944d">shininess</a></td></tr>
+<tr class="separator:a916d1fdad0ea12c41165fc247219944d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa41071dfed65fd6983bcad74cc64bca8"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#aa41071dfed65fd6983bcad74cc64bca8">strength</a></td></tr>
+<tr class="separator:aa41071dfed65fd6983bcad74cc64bca8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a937c18db19fa1d31486f21e40f2c9342"><td class="memItemLeft" align="right" valign="top">glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#a937c18db19fa1d31486f21e40f2c9342">eye_direction</a></td></tr>
+<tr class="separator:a937c18db19fa1d31486f21e40f2c9342"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6aaea1302b295a6b27a62c0b5400860"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#ad6aaea1302b295a6b27a62c0b5400860">constant_attenuation</a></td></tr>
+<tr class="separator:ad6aaea1302b295a6b27a62c0b5400860"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecbb764a0d834bf21442a937493b95d8"><td class="memItemLeft" align="right" valign="top">glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#aecbb764a0d834bf21442a937493b95d8">cone_direction</a></td></tr>
+<tr class="separator:aecbb764a0d834bf21442a937493b95d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1179c0b5aa64a11dab26817804cfa5d8"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#a1179c0b5aa64a11dab26817804cfa5d8">spot_cos_cutoff</a></td></tr>
+<tr class="separator:a1179c0b5aa64a11dab26817804cfa5d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98cba567e15aea4a6e6480ff26cd379f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#a98cba567e15aea4a6e6480ff26cd379f">spot_exponent</a></td></tr>
+<tr class="separator:a98cba567e15aea4a6e6480ff26cd379f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21d880f9905887f4aacb7d5ec7b590ac"><td class="memItemLeft" align="right" valign="top">glm::mat4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_light.html#a21d880f9905887f4aacb7d5ec7b590ac">translation</a></td></tr>
+<tr class="separator:a21d880f9905887f4aacb7d5ec7b590ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Handles game light. </p>
+<p>Uploads light info to light properties structure in the shader. See <a class="el" href="_shader_strings_8h.html">ShaderStrings.h</a> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa73403d421e453c2a86a40f0c3d6fbb0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa73403d421e453c2a86a40f0c3d6fbb0">&#9670;&nbsp;</a></span>Light()</h2>
 
@@ -183,6 +221,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Constructs a light with desired properties. Many set to default values. </p>
 
 </div>
 </div>
@@ -202,10 +241,165 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Called during rendering loop to render the light. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="abcd118cea5b6bb284d218b1df62bbbce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcd118cea5b6bb284d218b1df62bbbce">&#9670;&nbsp;</a></span>ambient</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec4 Light::ambient</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aecbb764a0d834bf21442a937493b95d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecbb764a0d834bf21442a937493b95d8">&#9670;&nbsp;</a></span>cone_direction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec4 Light::cone_direction</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad6aaea1302b295a6b27a62c0b5400860"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6aaea1302b295a6b27a62c0b5400860">&#9670;&nbsp;</a></span>constant_attenuation</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Light::constant_attenuation</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af933e4c1087a91fa621fa9f28ccf3e76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af933e4c1087a91fa621fa9f28ccf3e76">&#9670;&nbsp;</a></span>diffuse</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec4 Light::diffuse</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a937c18db19fa1d31486f21e40f2c9342"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a937c18db19fa1d31486f21e40f2c9342">&#9670;&nbsp;</a></span>eye_direction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec4 Light::eye_direction</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a68f5048cd6ef73f18c088945124a168f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68f5048cd6ef73f18c088945124a168f">&#9670;&nbsp;</a></span>isSpot</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Light::isSpot</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9f60d9fcafb836802f45e99dafd0241d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f60d9fcafb836802f45e99dafd0241d">&#9670;&nbsp;</a></span>lightIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Light::lightIndex</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a240653e7032ae5e2e1fbbab819422077"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a240653e7032ae5e2e1fbbab819422077">&#9670;&nbsp;</a></span>position</h2>
 
@@ -216,6 +410,161 @@ Public Attributes</h2></td></tr>
           <td class="memname">glm::vec4 Light::position</td>
         </tr>
       </table>
+</div><div class="memdoc">
+<p><a class="el" href="class_light.html" title="Handles game light. ">Light</a> position in world space. Needed to be uploaded to several shaders during rendering. </p>
+
+</div>
+</div>
+<a id="a340b8c1b38e4e99ccf5d5be71825505f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a340b8c1b38e4e99ccf5d5be71825505f">&#9670;&nbsp;</a></span>shader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_shader.html">Shader</a>* Light::shader</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a916d1fdad0ea12c41165fc247219944d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a916d1fdad0ea12c41165fc247219944d">&#9670;&nbsp;</a></span>shininess</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Light::shininess</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a083c715bd3f644581975c3d0192ceebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a083c715bd3f644581975c3d0192ceebb">&#9670;&nbsp;</a></span>specular</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec4 Light::specular</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1179c0b5aa64a11dab26817804cfa5d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1179c0b5aa64a11dab26817804cfa5d8">&#9670;&nbsp;</a></span>spot_cos_cutoff</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Light::spot_cos_cutoff</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a98cba567e15aea4a6e6480ff26cd379f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98cba567e15aea4a6e6480ff26cd379f">&#9670;&nbsp;</a></span>spot_exponent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Light::spot_exponent</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa41071dfed65fd6983bcad74cc64bca8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa41071dfed65fd6983bcad74cc64bca8">&#9670;&nbsp;</a></span>strength</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Light::strength</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a21d880f9905887f4aacb7d5ec7b590ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21d880f9905887f4aacb7d5ec7b590ac">&#9670;&nbsp;</a></span>translation</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::mat4 Light::translation</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

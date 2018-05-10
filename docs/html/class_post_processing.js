@@ -8,5 +8,8 @@ var class_post_processing =
     [ "PrintError", "class_post_processing.html#a510cd0fdbe23fe61697c494635929708", null ],
     [ "UnbindFPFramebuffer", "class_post_processing.html#a5c8e993ca755d2a2545941382cf37bd0", null ],
     [ "fbo", "class_post_processing.html#a1a6aec0e14a71305584d379e57e693f7", null ],
-    [ "fbo_texture", "class_post_processing.html#a267234bd2231ae67dccb6633d774841b", null ]
+    [ "fbo_texture", "class_post_processing.html#a267234bd2231ae67dccb6633d774841b", null ],
+    [ "h", "class_post_processing.html#a907398d44bc094770b97bb7f321d5e24", null ],
+    [ "rboDepth", "class_post_processing.html#ab6f92a30df27d4d395d8d1df2471a511", null ],
+    [ "w", "class_post_processing.html#a1ff84022adde4751084ee8f2aeff2358", null ]
 ];

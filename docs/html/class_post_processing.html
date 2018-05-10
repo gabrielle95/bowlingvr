@@ -89,18 +89,21 @@ $(document).ready(function(){initNavTree('class_post_processing.html','');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_post_processing-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">PostProcessing Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>Creates a floating point framebuffer for post processing with a 2D texture attachment.  
+ <a href="class_post_processing.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_post_processing_8h_source.html">PostProcessing.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3c0ba00d781976dcfa34b80919077f7c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_post_processing.html#a3c0ba00d781976dcfa34b80919077f7c">PostProcessing</a> (float w, float h)</td></tr>
-<tr class="memdesc:a3c0ba00d781976dcfa34b80919077f7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">TODO - get rid of code redundancy.  <a href="#a3c0ba00d781976dcfa34b80919077f7c">More...</a><br /></td></tr>
+<tr class="memitem:a3c0ba00d781976dcfa34b80919077f7c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_post_processing.html#a3c0ba00d781976dcfa34b80919077f7c">PostProcessing</a> (float <a class="el" href="class_post_processing.html#a1ff84022adde4751084ee8f2aeff2358">w</a>, float <a class="el" href="class_post_processing.html#a907398d44bc094770b97bb7f321d5e24">h</a>)</td></tr>
 <tr class="separator:a3c0ba00d781976dcfa34b80919077f7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc6ce4cd68fefd47f2e000184f1b058b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_post_processing.html#abc6ce4cd68fefd47f2e000184f1b058b">Init</a> ()</td></tr>
 <tr class="separator:abc6ce4cd68fefd47f2e000184f1b058b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,8 +124,19 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a267234bd2231ae67dccb6633d774841b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a6aec0e14a71305584d379e57e693f7"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_post_processing.html#a1a6aec0e14a71305584d379e57e693f7">fbo</a></td></tr>
 <tr class="separator:a1a6aec0e14a71305584d379e57e693f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ab6f92a30df27d4d395d8d1df2471a511"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_post_processing.html#ab6f92a30df27d4d395d8d1df2471a511">rboDepth</a></td></tr>
+<tr class="separator:ab6f92a30df27d4d395d8d1df2471a511"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ff84022adde4751084ee8f2aeff2358"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_post_processing.html#a1ff84022adde4751084ee8f2aeff2358">w</a></td></tr>
+<tr class="separator:a1ff84022adde4751084ee8f2aeff2358"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a907398d44bc094770b97bb7f321d5e24"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_post_processing.html#a907398d44bc094770b97bb7f321d5e24">h</a></td></tr>
+<tr class="separator:a907398d44bc094770b97bb7f321d5e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Creates a floating point framebuffer for post processing with a 2D texture attachment. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3c0ba00d781976dcfa34b80919077f7c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3c0ba00d781976dcfa34b80919077f7c">&#9670;&nbsp;</a></span>PostProcessing()</h2>
 
@@ -148,8 +162,6 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>TODO - get rid of code redundancy. </p>
 
 </div>
 </div>
@@ -281,6 +293,72 @@ Public Attributes</h2></td></tr>
           <td class="memname">GLuint PostProcessing::fbo_texture</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a907398d44bc094770b97bb7f321d5e24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a907398d44bc094770b97bb7f321d5e24">&#9670;&nbsp;</a></span>h</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PostProcessing::h</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab6f92a30df27d4d395d8d1df2471a511"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6f92a30df27d4d395d8d1df2471a511">&#9670;&nbsp;</a></span>rboDepth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint PostProcessing::rboDepth</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1ff84022adde4751084ee8f2aeff2358"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ff84022adde4751084ee8f2aeff2358">&#9670;&nbsp;</a></span>w</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float PostProcessing::w</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

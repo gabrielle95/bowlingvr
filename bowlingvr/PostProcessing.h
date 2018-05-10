@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include "Shader.h"
-/* i have no clue what im doing */
 
+//! Creates a floating point framebuffer for post processing with a 2D texture attachment.
 class PostProcessing
 {
 public:
@@ -24,6 +24,7 @@ private:
 };
 
 //has multiple render targets
+//! Creates a floating point framebuffer for post processing with a multiple color attachments.
 class Hdr
 {
 public:
@@ -46,6 +47,7 @@ private:
 };
 
 //Multisample anti aliasing
+//! Creates a framebuffer with multisampled texture attachment.
 class MSAA
 {
 public:
@@ -64,6 +66,7 @@ private:
 	void Init();
 };
 
+//! Creates a framebuffer with RGB texture attachment, no floating points (UNSIGNED_BYTE).
 class GeneralFramebuffer
 {
 public:

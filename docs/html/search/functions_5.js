@@ -2,7 +2,8 @@ var searchData=
 [
   ['gamestate',['GameState',['../class_game_state.html#aaa4abe9f8348fc8175729bdecfe36963',1,'GameState']]],
   ['generalframebuffer',['GeneralFramebuffer',['../class_general_framebuffer.html#a8c6804f1d0340dbabfc70ad3898bc01f',1,'GeneralFramebuffer']]],
-  ['getattr',['getAttr',['../class_shader.html#a9edfd46c8648e422b98b042c6b3cd6b5',1,'Shader']]],
+  ['getcontrollerposition',['GetControllerPosition',['../class_main_scene_v_r.html#ad2c72d4e9dbfda0e077ed1d7d9a24a10',1,'MainSceneVR']]],
+  ['getcontrollerraycastdirection',['GetControllerRaycastDirection',['../class_main_scene_v_r.html#ae585d1bd0c4bf57d7e324588ac1ee0e5',1,'MainSceneVR']]],
   ['getcurrentprojectionmatrix',['GetCurrentProjectionMatrix',['../class_main_scene_v_r.html#a4d3556616a3babf96fc3dab2fefd3b1b',1,'MainSceneVR']]],
   ['getcurrentviewmatrix',['GetCurrentViewMatrix',['../class_main_scene_v_r.html#a26d73798e35286b3955598d188fd89a2',1,'MainSceneVR']]],
   ['getcurrentviewprojectionmatrix',['GetCurrentViewProjectionMatrix',['../class_main_scene_v_r.html#ae348852aa9a396b7a103c652fd0da541',1,'MainSceneVR']]],
@@ -16,6 +17,7 @@ var searchData=
   ['getposition',['getPosition',['../class_camera.html#a520c5a7413b3e704f2f442288db17bcf',1,'Camera']]],
   ['getprojectionmatrix',['getProjectionMatrix',['../class_camera.html#adf09522521723786b9f405c99d6594c7',1,'Camera']]],
   ['getsdlwindowptr',['GetSDLWindowPtr',['../class_window.html#a7913a661924d3e5a1b6ab9a668dd932f',1,'Window']]],
+  ['gettrackeddevicestring',['GetTrackedDeviceString',['../class_main_scene_v_r.html#a387a47a7d48379b4514a1ba67689d3ae',1,'MainSceneVR']]],
   ['getunilocation',['getUniLocation',['../class_shader.html#ac3e117876a4fd1e1bc6199a6e1a765d8',1,'Shader']]],
   ['getviewmatrix',['getViewMatrix',['../class_camera.html#a5569ca5967e01d3344fbf6aba36d9820',1,'Camera']]],
   ['getvrpointer',['getVRpointer',['../class_application.html#aed6bd9a6985d4dd48b9730439160763a',1,'Application']]],

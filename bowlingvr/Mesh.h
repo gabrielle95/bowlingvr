@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma once
-
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -25,6 +23,10 @@ typedef struct Texture {
 	aiString path;
 } Texture;
 
+//! Processes Assimp meshes. 
+/*!
+Extracts vertices, textures and material from Assimp structures.
+*/
 class Mesh
 {
 public:
@@ -34,7 +36,6 @@ public:
 	GLuint textureFromFile(const char * path, std::string dir);
 	void Render(Shader *shader);
 	void RenderWithNoTextures();
-	void RenderEmission(Shader *shader);
 
 	GLuint VAO, VBO, EBO;
 	std::vector<Vertex> vertices;
@@ -54,5 +55,4 @@ public:
 	unsigned int specularCount;
 	unsigned int elementCount;
 	std::string directory;
-
 };

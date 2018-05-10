@@ -88,11 +88,16 @@ $(document).ready(function(){initNavTree('class_shader.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_shader-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Shader Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Creates a compiled shader object.  
+ <a href="class_shader.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_shader_8h_source.html">Shader.h</a>&gt;</code></p>
 <table class="memberdecls">
@@ -114,10 +119,57 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7982747baa5d27f1f533b995e584c939"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85bc18b6d64a0360e6b4a753f1f0dfda"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#a85bc18b6d64a0360e6b4a753f1f0dfda">Use</a> ()</td></tr>
 <tr class="separator:a85bc18b6d64a0360e6b4a753f1f0dfda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9edfd46c8648e422b98b042c6b3cd6b5"><td class="memItemLeft" align="right" valign="top">GLint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#a9edfd46c8648e422b98b042c6b3cd6b5">getAttr</a> (std::string attr)</td></tr>
-<tr class="separator:a9edfd46c8648e422b98b042c6b3cd6b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ab40286f245b55dc4e5ea3a530e5a4e13"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#ab40286f245b55dc4e5ea3a530e5a4e13">Load</a> ()</td></tr>
+<tr class="separator:ab40286f245b55dc4e5ea3a530e5a4e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acae614870cd87a57fa41c02a47bb1d1a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#acae614870cd87a57fa41c02a47bb1d1a">Compile</a> ()</td></tr>
+<tr class="separator:acae614870cd87a57fa41c02a47bb1d1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2b66e2a580ca317305a188f8c488d33"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#ac2b66e2a580ca317305a188f8c488d33">Link</a> ()</td></tr>
+<tr class="separator:ac2b66e2a580ca317305a188f8c488d33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a49603510120408b282bb9cf03dd47dd8"><td class="memItemLeft" align="right" valign="top">std::ifstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#a49603510120408b282bb9cf03dd47dd8">vxFile</a></td></tr>
+<tr class="separator:a49603510120408b282bb9cf03dd47dd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab949fdc724fc443d31affdc9606d5849"><td class="memItemLeft" align="right" valign="top">std::ifstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#ab949fdc724fc443d31affdc9606d5849">fgFile</a></td></tr>
+<tr class="separator:ab949fdc724fc443d31affdc9606d5849"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ba7132fa500b1e418b598bd1733d569"><td class="memItemLeft" align="right" valign="top">std::ifstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#a1ba7132fa500b1e418b598bd1733d569">gsFile</a></td></tr>
+<tr class="separator:a1ba7132fa500b1e418b598bd1733d569"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fd37c88b213f1763b5d30d6e47a1353"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#a7fd37c88b213f1763b5d30d6e47a1353">vxname</a></td></tr>
+<tr class="separator:a7fd37c88b213f1763b5d30d6e47a1353"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf958d639c8cc2e71cffd342a0668b43"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#acf958d639c8cc2e71cffd342a0668b43">fgname</a></td></tr>
+<tr class="separator:acf958d639c8cc2e71cffd342a0668b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dd2ab31f15238acaa625921107ecd78"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#a2dd2ab31f15238acaa625921107ecd78">gsname</a></td></tr>
+<tr class="separator:a2dd2ab31f15238acaa625921107ecd78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb2a9c6b8bd66167fdd96029b3f64579"><td class="memItemLeft" align="right" valign="top">std::stringstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#abb2a9c6b8bd66167fdd96029b3f64579">vxStream</a></td></tr>
+<tr class="separator:abb2a9c6b8bd66167fdd96029b3f64579"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af01d894de5098228becca9bc3743b469"><td class="memItemLeft" align="right" valign="top">std::stringstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#af01d894de5098228becca9bc3743b469">fgStream</a></td></tr>
+<tr class="separator:af01d894de5098228becca9bc3743b469"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a059c3441a2adc2229c46cfb1025119f8"><td class="memItemLeft" align="right" valign="top">std::stringstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#a059c3441a2adc2229c46cfb1025119f8">gsStream</a></td></tr>
+<tr class="separator:a059c3441a2adc2229c46cfb1025119f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3bc177d8c6637df70a6ef6b501fa71a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#ac3bc177d8c6637df70a6ef6b501fa71a">vxSource</a></td></tr>
+<tr class="separator:ac3bc177d8c6637df70a6ef6b501fa71a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fc1e06e83c7df89654741f0bc3f8614"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#a4fc1e06e83c7df89654741f0bc3f8614">fgSource</a></td></tr>
+<tr class="separator:a4fc1e06e83c7df89654741f0bc3f8614"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d0cc8d102e3cfe4556754b57786999d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#a2d0cc8d102e3cfe4556754b57786999d">gsSource</a></td></tr>
+<tr class="separator:a2d0cc8d102e3cfe4556754b57786999d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42f4aeeb60b3322e13beb2fc4e6ebd45"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#a42f4aeeb60b3322e13beb2fc4e6ebd45">vertexShader</a></td></tr>
+<tr class="separator:a42f4aeeb60b3322e13beb2fc4e6ebd45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba31ef08f1d2a0fd79188b105945ed13"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#aba31ef08f1d2a0fd79188b105945ed13">fragmentShader</a></td></tr>
+<tr class="separator:aba31ef08f1d2a0fd79188b105945ed13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6806f903c11f094d478490013d582848"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#a6806f903c11f094d478490013d582848">geomShader</a></td></tr>
+<tr class="separator:a6806f903c11f094d478490013d582848"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd931b86aee746b644913712e0882940"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#acd931b86aee746b644913712e0882940">shaderProgram</a></td></tr>
+<tr class="separator:acd931b86aee746b644913712e0882940"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1271bc1aef543fffd1c6e0b3c5d64aa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shader.html#ac1271bc1aef543fffd1c6e0b3c5d64aa">ready</a></td></tr>
+<tr class="separator:ac1271bc1aef543fffd1c6e0b3c5d64aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Creates a compiled shader object. </p>
+<p>Loads, compiles and links a desired shader source suppliying it in const char* format. Allows to upload values to a shader. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="_shader_strings_8h.html">ShaderStrings.h</a> </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a823e50455950b3393bc9ece9da040e82"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a823e50455950b3393bc9ece9da040e82">&#9670;&nbsp;</a></span>Shader()</h2>
 
@@ -159,20 +211,27 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9edfd46c8648e422b98b042c6b3cd6b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9edfd46c8648e422b98b042c6b3cd6b5">&#9670;&nbsp;</a></span>getAttr()</h2>
+<a id="acae614870cd87a57fa41c02a47bb1d1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acae614870cd87a57fa41c02a47bb1d1a">&#9670;&nbsp;</a></span>Compile()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">GLint Shader::getAttr </td>
+          <td class="memname">int Shader::Compile </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>attr</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -208,6 +267,56 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac2b66e2a580ca317305a188f8c488d33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2b66e2a580ca317305a188f8c488d33">&#9670;&nbsp;</a></span>Link()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Shader::Link </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab40286f245b55dc4e5ea3a530e5a4e13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab40286f245b55dc4e5ea3a530e5a4e13">&#9670;&nbsp;</a></span>Load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Shader::Load </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -337,6 +446,381 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ab949fdc724fc443d31affdc9606d5849"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab949fdc724fc443d31affdc9606d5849">&#9670;&nbsp;</a></span>fgFile</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ifstream Shader::fgFile</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acf958d639c8cc2e71cffd342a0668b43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf958d639c8cc2e71cffd342a0668b43">&#9670;&nbsp;</a></span>fgname</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Shader::fgname</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4fc1e06e83c7df89654741f0bc3f8614"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fc1e06e83c7df89654741f0bc3f8614">&#9670;&nbsp;</a></span>fgSource</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Shader::fgSource</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af01d894de5098228becca9bc3743b469"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af01d894de5098228becca9bc3743b469">&#9670;&nbsp;</a></span>fgStream</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::stringstream Shader::fgStream</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aba31ef08f1d2a0fd79188b105945ed13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba31ef08f1d2a0fd79188b105945ed13">&#9670;&nbsp;</a></span>fragmentShader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint Shader::fragmentShader</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6806f903c11f094d478490013d582848"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6806f903c11f094d478490013d582848">&#9670;&nbsp;</a></span>geomShader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint Shader::geomShader</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1ba7132fa500b1e418b598bd1733d569"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ba7132fa500b1e418b598bd1733d569">&#9670;&nbsp;</a></span>gsFile</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ifstream Shader::gsFile</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2dd2ab31f15238acaa625921107ecd78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dd2ab31f15238acaa625921107ecd78">&#9670;&nbsp;</a></span>gsname</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Shader::gsname</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2d0cc8d102e3cfe4556754b57786999d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d0cc8d102e3cfe4556754b57786999d">&#9670;&nbsp;</a></span>gsSource</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Shader::gsSource</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a059c3441a2adc2229c46cfb1025119f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a059c3441a2adc2229c46cfb1025119f8">&#9670;&nbsp;</a></span>gsStream</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::stringstream Shader::gsStream</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac1271bc1aef543fffd1c6e0b3c5d64aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1271bc1aef543fffd1c6e0b3c5d64aa">&#9670;&nbsp;</a></span>ready</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Shader::ready</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acd931b86aee746b644913712e0882940"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd931b86aee746b644913712e0882940">&#9670;&nbsp;</a></span>shaderProgram</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint Shader::shaderProgram</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a42f4aeeb60b3322e13beb2fc4e6ebd45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42f4aeeb60b3322e13beb2fc4e6ebd45">&#9670;&nbsp;</a></span>vertexShader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint Shader::vertexShader</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a49603510120408b282bb9cf03dd47dd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49603510120408b282bb9cf03dd47dd8">&#9670;&nbsp;</a></span>vxFile</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ifstream Shader::vxFile</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7fd37c88b213f1763b5d30d6e47a1353"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fd37c88b213f1763b5d30d6e47a1353">&#9670;&nbsp;</a></span>vxname</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Shader::vxname</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac3bc177d8c6637df70a6ef6b501fa71a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3bc177d8c6637df70a6ef6b501fa71a">&#9670;&nbsp;</a></span>vxSource</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Shader::vxSource</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb2a9c6b8bd66167fdd96029b3f64579"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb2a9c6b8bd66167fdd96029b3f64579">&#9670;&nbsp;</a></span>vxStream</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::stringstream Shader::vxStream</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

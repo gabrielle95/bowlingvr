@@ -11,5 +11,14 @@ var class_camera =
     [ "SetTranslation", "class_camera.html#a00d4a8b84448e5587f43aee05205171d", null ],
     [ "setViewMatrix", "class_camera.html#a3bd901a0237dbb0daefa311e679ed066", null ],
     [ "Translate", "class_camera.html#a63b3eaa48e31fb212dfb5e3841705406", null ],
-    [ "Update", "class_camera.html#a4a596a3ea1fdc7d244ba4268031a360b", null ]
+    [ "Update", "class_camera.html#a4a596a3ea1fdc7d244ba4268031a360b", null ],
+    [ "UpdateViewMatrix", "class_camera.html#a69369efae2a33da50510cc8c43c58bc5", null ],
+    [ "modelMat", "class_camera.html#a69cebbe18089d3a143837dea9624557c", null ],
+    [ "projMat", "class_camera.html#aac4ef81728f68a571955d72639f90f24", null ],
+    [ "pUniform", "class_camera.html#a6ea91816b22fb3cc03d043a44001b510", null ],
+    [ "rotation", "class_camera.html#a3d5da474594adcf3d02a6fb5dc368f2d", null ],
+    [ "shader", "class_camera.html#a02b7a165b37f83c3e572d81b6c957c6c", null ],
+    [ "translation", "class_camera.html#a33167f9e50902b2cc639e10e83c31c51", null ],
+    [ "viewMat", "class_camera.html#aaad8aac8f0fdb3f9c17208b85214f4d7", null ],
+    [ "vUniform", "class_camera.html#a4cf3944413c82007385ad79d4021d7b4", null ]
 ];

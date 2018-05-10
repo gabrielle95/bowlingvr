@@ -88,17 +88,22 @@ $(document).ready(function(){initNavTree('class_m_s_a_a.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_m_s_a_a-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">MSAA Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>Creates a framebuffer with multisampled texture attachment.  
+ <a href="class_m_s_a_a.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_post_processing_8h_source.html">PostProcessing.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abbaaa56d0d7f3ebed24c088de30e7f63"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_s_a_a.html#abbaaa56d0d7f3ebed24c088de30e7f63">MSAA</a> (float w, float h)</td></tr>
+<tr class="memitem:abbaaa56d0d7f3ebed24c088de30e7f63"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_s_a_a.html#abbaaa56d0d7f3ebed24c088de30e7f63">MSAA</a> (float <a class="el" href="class_m_s_a_a.html#a9e95570751ee8a91904b19eb2234fd2a">w</a>, float <a class="el" href="class_m_s_a_a.html#a121066bba358740ab8c8e12fd73c1810">h</a>)</td></tr>
 <tr class="separator:abbaaa56d0d7f3ebed24c088de30e7f63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd0f1cd707cd5709cc555ff133956be7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_s_a_a.html#afd0f1cd707cd5709cc555ff133956be7">BlitToFBO</a> (GLuint fbo)</td></tr>
 <tr class="separator:afd0f1cd707cd5709cc555ff133956be7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -106,8 +111,30 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a32fae5cf898a7c68a37cc8a13f1c41bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad528523d31325cec763acf942751769a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_s_a_a.html#ad528523d31325cec763acf942751769a">UnbindFBO</a> ()</td></tr>
 <tr class="separator:ad528523d31325cec763acf942751769a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:ad6f9e46c170e5380bbcc291d4e8b3219"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_s_a_a.html#ad6f9e46c170e5380bbcc291d4e8b3219">Init</a> ()</td></tr>
+<tr class="separator:ad6f9e46c170e5380bbcc291d4e8b3219"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a451765413aeba792d59df5610fa10a6a"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_s_a_a.html#a451765413aeba792d59df5610fa10a6a">msFBO</a></td></tr>
+<tr class="separator:a451765413aeba792d59df5610fa10a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7238b0203d7eb733f9681f73b9534a71"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_s_a_a.html#a7238b0203d7eb733f9681f73b9534a71">msTex</a></td></tr>
+<tr class="separator:a7238b0203d7eb733f9681f73b9534a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e95570751ee8a91904b19eb2234fd2a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_s_a_a.html#a9e95570751ee8a91904b19eb2234fd2a">w</a></td></tr>
+<tr class="separator:a9e95570751ee8a91904b19eb2234fd2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a121066bba358740ab8c8e12fd73c1810"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_s_a_a.html#a121066bba358740ab8c8e12fd73c1810">h</a></td></tr>
+<tr class="separator:a121066bba358740ab8c8e12fd73c1810"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c1d90328254abd1a4b23af24e42d17c"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_s_a_a.html#a5c1d90328254abd1a4b23af24e42d17c">samples</a> = 8</td></tr>
+<tr class="separator:a5c1d90328254abd1a4b23af24e42d17c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4cfc20fdbc756d141375af07331ce20"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_s_a_a.html#ae4cfc20fdbc756d141375af07331ce20">rboDepth</a></td></tr>
+<tr class="separator:ae4cfc20fdbc756d141375af07331ce20"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Creates a framebuffer with multisampled texture attachment. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="abbaaa56d0d7f3ebed24c088de30e7f63"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abbaaa56d0d7f3ebed24c088de30e7f63">&#9670;&nbsp;</a></span>MSAA()</h2>
 
@@ -172,6 +199,31 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad6f9e46c170e5380bbcc291d4e8b3219"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6f9e46c170e5380bbcc291d4e8b3219">&#9670;&nbsp;</a></span>Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MSAA::Init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad528523d31325cec763acf942751769a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad528523d31325cec763acf942751769a">&#9670;&nbsp;</a></span>UnbindFBO()</h2>
 
@@ -185,6 +237,139 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a121066bba358740ab8c8e12fd73c1810"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a121066bba358740ab8c8e12fd73c1810">&#9670;&nbsp;</a></span>h</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float MSAA::h</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a451765413aeba792d59df5610fa10a6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a451765413aeba792d59df5610fa10a6a">&#9670;&nbsp;</a></span>msFBO</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint MSAA::msFBO</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7238b0203d7eb733f9681f73b9534a71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7238b0203d7eb733f9681f73b9534a71">&#9670;&nbsp;</a></span>msTex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint MSAA::msTex</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae4cfc20fdbc756d141375af07331ce20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4cfc20fdbc756d141375af07331ce20">&#9670;&nbsp;</a></span>rboDepth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint MSAA::rboDepth</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c1d90328254abd1a4b23af24e42d17c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c1d90328254abd1a4b23af24e42d17c">&#9670;&nbsp;</a></span>samples</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint MSAA::samples = 8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9e95570751ee8a91904b19eb2234fd2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e95570751ee8a91904b19eb2234fd2a">&#9670;&nbsp;</a></span>w</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float MSAA::w</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

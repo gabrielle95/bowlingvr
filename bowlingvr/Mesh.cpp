@@ -131,7 +131,6 @@ void Mesh::loadMaterialTextures(aiMaterial *mat, aiTextureType type)
 	if (!texCount) {
 		texture.id = 0;
 		texture.type = aiTextureType_NONE;
-		//texture.path = NULL;
 	}
 	else {
 		aiGetMaterialTexture(mat, type, 0, &str);
@@ -220,14 +219,6 @@ void Mesh::Render(Shader *shader)
 
 void Mesh::RenderWithNoTextures()
 {
-	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, elementCount, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-}
-
-void Mesh::RenderEmission(Shader *shader)
-{
-	glUniform4fv(shader->getUniLocation("Material.emission"), 1, glm::value_ptr(emissiveColor));
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, elementCount, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);

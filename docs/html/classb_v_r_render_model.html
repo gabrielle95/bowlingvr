@@ -88,13 +88,14 @@ $(document).ready(function(){initNavTree('classb_v_r_render_model.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classb_v_r_render_model-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">bVRRenderModel Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>VR Render <a class="el" href="class_model.html">Model</a> class.  
+<p>VR Render <a class="el" href="class_model.html" title="Constructs an OpenGL model from Assimp. ">Model</a> class.  
  <a href="classb_v_r_render_model.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="b_v_r_render_model_8h_source.html">bVRRenderModel.h</a>&gt;</code></p>
@@ -113,9 +114,24 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aca40e85d80f66191d91a51e8521390a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a386d3156e578ce75505eda677b11fddf"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classb_v_r_render_model.html#a386d3156e578ce75505eda677b11fddf">GetName</a> () const</td></tr>
 <tr class="separator:a386d3156e578ce75505eda677b11fddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a970b1f8b80af716ec1dcb881b1069017"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classb_v_r_render_model.html#a970b1f8b80af716ec1dcb881b1069017">m_glVertBuffer</a></td></tr>
+<tr class="separator:a970b1f8b80af716ec1dcb881b1069017"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdb607552e5d6ef8cffe5b4810f47628"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classb_v_r_render_model.html#acdb607552e5d6ef8cffe5b4810f47628">m_glIndexBuffer</a></td></tr>
+<tr class="separator:acdb607552e5d6ef8cffe5b4810f47628"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8398ee873305ad008e21dbbe2012ee6"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classb_v_r_render_model.html#ad8398ee873305ad008e21dbbe2012ee6">m_glVertArray</a></td></tr>
+<tr class="separator:ad8398ee873305ad008e21dbbe2012ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94884e9415d8bf06676cd1c37c5c9e73"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classb_v_r_render_model.html#a94884e9415d8bf06676cd1c37c5c9e73">m_glTexture</a></td></tr>
+<tr class="separator:a94884e9415d8bf06676cd1c37c5c9e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10186490be4ef605467d599f6023858f"><td class="memItemLeft" align="right" valign="top">GLsizei&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classb_v_r_render_model.html#a10186490be4ef605467d599f6023858f">m_unVertexCount</a></td></tr>
+<tr class="separator:a10186490be4ef605467d599f6023858f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d61e31a3e14bcae097cb10e0c9148ae"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classb_v_r_render_model.html#a1d61e31a3e14bcae097cb10e0c9148ae">m_sModelName</a></td></tr>
+<tr class="separator:a1d61e31a3e14bcae097cb10e0c9148ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>VR Render <a class="el" href="class_model.html">Model</a> class. </p>
+<div class="textblock"><p>VR Render <a class="el" href="class_model.html" title="Constructs an OpenGL model from Assimp. ">Model</a> class. </p>
 <p>Creates and draws the OpenGL render models (controllers, base stations) from VR model data. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a50e38ac5cb3cadfd0aad9faa94faf7b1"></a>
@@ -244,6 +260,139 @@ Public Member Functions</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="acdb607552e5d6ef8cffe5b4810f47628"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdb607552e5d6ef8cffe5b4810f47628">&#9670;&nbsp;</a></span>m_glIndexBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint bVRRenderModel::m_glIndexBuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a94884e9415d8bf06676cd1c37c5c9e73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94884e9415d8bf06676cd1c37c5c9e73">&#9670;&nbsp;</a></span>m_glTexture</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint bVRRenderModel::m_glTexture</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad8398ee873305ad008e21dbbe2012ee6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8398ee873305ad008e21dbbe2012ee6">&#9670;&nbsp;</a></span>m_glVertArray</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint bVRRenderModel::m_glVertArray</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a970b1f8b80af716ec1dcb881b1069017"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a970b1f8b80af716ec1dcb881b1069017">&#9670;&nbsp;</a></span>m_glVertBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint bVRRenderModel::m_glVertBuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1d61e31a3e14bcae097cb10e0c9148ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d61e31a3e14bcae097cb10e0c9148ae">&#9670;&nbsp;</a></span>m_sModelName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string bVRRenderModel::m_sModelName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a10186490be4ef605467d599f6023858f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10186490be4ef605467d599f6023858f">&#9670;&nbsp;</a></span>m_unVertexCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLsizei bVRRenderModel::m_unVertexCount</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

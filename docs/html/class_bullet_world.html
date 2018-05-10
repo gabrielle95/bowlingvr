@@ -90,6 +90,8 @@ $(document).ready(function(){initNavTree('class_bullet_world.html','');});
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_bullet_world-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">BulletWorld Class Reference</div>  </div>
@@ -119,6 +121,22 @@ Public Attributes</h2></td></tr>
 <tr class="separator:aed003ac4c59d676b2c9992574e37ba67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c7b4f3ca32ad4e8c0c6ee3c36a78222"><td class="memItemLeft" align="right" valign="top">btDynamicsWorld *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bullet_world.html#a4c7b4f3ca32ad4e8c0c6ee3c36a78222">dynamicWorld</a></td></tr>
 <tr class="separator:a4c7b4f3ca32ad4e8c0c6ee3c36a78222"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a7f25fd605c1297324a2a86a199c0e1c8"><td class="memItemLeft" align="right" valign="top">btDispatcher *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bullet_world.html#a7f25fd605c1297324a2a86a199c0e1c8">bwDispatcher</a></td></tr>
+<tr class="separator:a7f25fd605c1297324a2a86a199c0e1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2c428fe4c98687ce14fe2f2fe8e89ea"><td class="memItemLeft" align="right" valign="top">btBroadphaseInterface *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bullet_world.html#ae2c428fe4c98687ce14fe2f2fe8e89ea">bwBPInterface</a></td></tr>
+<tr class="separator:ae2c428fe4c98687ce14fe2f2fe8e89ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dbdf1a4d1567e513442349be1d89e01"><td class="memItemLeft" align="right" valign="top">btConstraintSolver *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bullet_world.html#a1dbdf1a4d1567e513442349be1d89e01">bwConstraintSolver</a></td></tr>
+<tr class="separator:a1dbdf1a4d1567e513442349be1d89e01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab49a9e1a40359c5b6f38bc49d5468e50"><td class="memItemLeft" align="right" valign="top">btCollisionConfiguration *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bullet_world.html#ab49a9e1a40359c5b6f38bc49d5468e50">bwColConfig</a></td></tr>
+<tr class="separator:ab49a9e1a40359c5b6f38bc49d5468e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a9b7a85ce47565d88f60a9bd68926ce88"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_bullet_world.html">BulletWorld</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bullet_world.html#a9b7a85ce47565d88f60a9bd68926ce88">bwInstancePtr</a> = nullptr</td></tr>
+<tr class="separator:a9b7a85ce47565d88f60a9bd68926ce88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Initialises the physics. </p>
@@ -186,6 +204,116 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae2c428fe4c98687ce14fe2f2fe8e89ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2c428fe4c98687ce14fe2f2fe8e89ea">&#9670;&nbsp;</a></span>bwBPInterface</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">btBroadphaseInterface* BulletWorld::bwBPInterface</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab49a9e1a40359c5b6f38bc49d5468e50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab49a9e1a40359c5b6f38bc49d5468e50">&#9670;&nbsp;</a></span>bwColConfig</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">btCollisionConfiguration* BulletWorld::bwColConfig</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1dbdf1a4d1567e513442349be1d89e01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dbdf1a4d1567e513442349be1d89e01">&#9670;&nbsp;</a></span>bwConstraintSolver</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">btConstraintSolver* BulletWorld::bwConstraintSolver</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f25fd605c1297324a2a86a199c0e1c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f25fd605c1297324a2a86a199c0e1c8">&#9670;&nbsp;</a></span>bwDispatcher</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">btDispatcher* BulletWorld::bwDispatcher</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9b7a85ce47565d88f60a9bd68926ce88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b7a85ce47565d88f60a9bd68926ce88">&#9670;&nbsp;</a></span>bwInstancePtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_bullet_world.html">BulletWorld</a> * BulletWorld::bwInstancePtr = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aed003ac4c59d676b2c9992574e37ba67"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aed003ac4c59d676b2c9992574e37ba67">&#9670;&nbsp;</a></span>debugDraw</h2>
 

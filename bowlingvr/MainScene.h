@@ -15,16 +15,32 @@
 
 //! Class of the main game level. 
 /*!
-Handles shader and model loading, component initialisation and keyboard .
+Handles shader and model loading, component initialisation and keyboard input in non-vr mode.
 */
 class MainScene : public GameState
 {
 public:
 	MainScene(Application * application);
+
+	/**
+	* Initialises the scene.
+	*/
 	bool Init();
+
+	/**
+	* Renders a frame and updates the scene, steps simulation.
+	*/
 	bool Update();
 	bool Destroy();
+
+	/**
+	*Throws a sphere by pressing C im non-VR mode.
+	*/
 	void ShootSphere(btVector3 direction, btVector3 origin);
+
+	/**
+	*Renders the OpenGL visualisation.
+	*/
 	void RenderScene();
 
 	~MainScene();

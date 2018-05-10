@@ -41,5 +41,6 @@ var hierarchy =
     [ "Shadowmap", "class_shadowmap.html", null ],
     [ "Texture", "struct_texture.html", null ],
     [ "Vertex", "struct_vertex.html", null ],
+    [ "MainSceneVR::VertexDataWindow", "struct_main_scene_v_r_1_1_vertex_data_window.html", null ],
     [ "Window", "class_window.html", null ]
 ];

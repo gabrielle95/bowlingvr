@@ -88,17 +88,21 @@ $(document).ready(function(){initNavTree('class_object_picking_v_r.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_object_picking_v_r-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ObjectPickingVR Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>This class takes care of object picking using Bullet constraints.  
+ <a href="class_object_picking_v_r.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_object_picking_v_r_8h_source.html">ObjectPickingVR.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a440fcb285b9b90f0148b135eb728e39c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object_picking_v_r.html#a440fcb285b9b90f0148b135eb728e39c">ObjectPickingVR</a> (vr::IVRSystem *pHmd, btDynamicsWorld *dynamicWorld)</td></tr>
+<tr class="memitem:a440fcb285b9b90f0148b135eb728e39c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object_picking_v_r.html#a440fcb285b9b90f0148b135eb728e39c">ObjectPickingVR</a> (vr::IVRSystem *<a class="el" href="class_object_picking_v_r.html#a0c6a4a391a26b008aacb9c6b71860176">pHmd</a>, btDynamicsWorld *<a class="el" href="class_object_picking_v_r.html#a33ec8aaf0ad12180f78b2b7aa4be6cab">dynamicWorld</a>)</td></tr>
 <tr class="memdesc:a440fcb285b9b90f0148b135eb728e39c"><td class="mdescLeft">&#160;</td><td class="mdescRight">todo  <a href="#a440fcb285b9b90f0148b135eb728e39c">More...</a><br /></td></tr>
 <tr class="separator:a440fcb285b9b90f0148b135eb728e39c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a524f182370adced4052b2b15ecf70410"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object_picking_v_r.html#a524f182370adced4052b2b15ecf70410">pickBody</a> (btVector3 origin, btVector3 direction)</td></tr>
@@ -107,8 +111,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a132e772ea2eb9cf1bfc7a2fe13c709d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6f699879d1a4194e3bee299ce39fcc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object_picking_v_r.html#ad6f699879d1a4194e3bee299ce39fcc2">removePickingConstraint</a> ()</td></tr>
 <tr class="separator:ad6f699879d1a4194e3bee299ce39fcc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a0c6a4a391a26b008aacb9c6b71860176"><td class="memItemLeft" align="right" valign="top">vr::IVRSystem *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object_picking_v_r.html#a0c6a4a391a26b008aacb9c6b71860176">pHmd</a> = NULL</td></tr>
+<tr class="separator:a0c6a4a391a26b008aacb9c6b71860176"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33ec8aaf0ad12180f78b2b7aa4be6cab"><td class="memItemLeft" align="right" valign="top">btDynamicsWorld *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object_picking_v_r.html#a33ec8aaf0ad12180f78b2b7aa4be6cab">dynamicWorld</a></td></tr>
+<tr class="separator:a33ec8aaf0ad12180f78b2b7aa4be6cab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a018a4a4db745b21ffe1fdacd9182b58d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_picked_body_data.html">PickedBodyData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object_picking_v_r.html#a018a4a4db745b21ffe1fdacd9182b58d">pickData</a></td></tr>
+<tr class="separator:a018a4a4db745b21ffe1fdacd9182b58d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class takes care of object picking using Bullet constraints. </p>
+<p>Performs ray test and creates constraints to interact with dynamic bodies. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a440fcb285b9b90f0148b135eb728e39c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a440fcb285b9b90f0148b135eb728e39c">&#9670;&nbsp;</a></span>ObjectPickingVR()</h2>
 
@@ -136,6 +152,13 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>todo </p>
+<p>Sets the camera rotation to a certain absolute value. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pHmd</td><td>pointer to the VR system </td></tr>
+    <tr><td class="paramname">dynamicWorld</td><td>pointer to the BulletPhysics world </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -165,6 +188,13 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Moves a picked a body. Manipulates the constraint appropriately. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">origin</td><td>the updated origin of the parent body </td></tr>
+    <tr><td class="paramname">direction</td><td>the direction of the parent body movement </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -193,6 +223,13 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Picks up a body. Performs ray test and creates a constraint. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">origin</td><td>the origin of the raycast </td></tr>
+    <tr><td class="paramname">direction</td><td>the direction of the raycast </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -209,6 +246,73 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a33ec8aaf0ad12180f78b2b7aa4be6cab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33ec8aaf0ad12180f78b2b7aa4be6cab">&#9670;&nbsp;</a></span>dynamicWorld</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">btDynamicsWorld* ObjectPickingVR::dynamicWorld</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0c6a4a391a26b008aacb9c6b71860176"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c6a4a391a26b008aacb9c6b71860176">&#9670;&nbsp;</a></span>pHmd</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vr::IVRSystem* ObjectPickingVR::pHmd = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a018a4a4db745b21ffe1fdacd9182b58d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a018a4a4db745b21ffe1fdacd9182b58d">&#9670;&nbsp;</a></span>pickData</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_picked_body_data.html">PickedBodyData</a> ObjectPickingVR::pickData</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

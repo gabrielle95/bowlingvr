@@ -1,12 +1,16 @@
 #pragma once
-#ifndef SHADER_H
-#define SHADER_H
+
 #include <string>
 #include <sstream>
 #include <iostream>
 #include <fstream>
 #include <glm/glm.hpp>
 
+//! Creates a compiled shader object. 
+/*!
+Loads, compiles and links a desired shader source suppliying it in const char* format. Allows to upload values to a shader.
+@see ShaderStrings.h
+*/
 class Shader
 {
 public:
@@ -18,9 +22,7 @@ public:
 	void setFloat(std::string location, float value);
 	void setVec3(std::string location, glm::vec3 value);
 	std::string getName();
-	bool Use();
-	GLint getAttr(std::string attr);
-	
+	bool Use();	
 
 private:
 	std::ifstream vxFile, fgFile, gsFile;
@@ -34,4 +36,3 @@ private:
 	int Compile();
 	int Link();
 };
-#endif

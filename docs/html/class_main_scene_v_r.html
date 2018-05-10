@@ -89,11 +89,16 @@ $(document).ready(function(){initNavTree('class_main_scene_v_r.html','');});
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_main_scene_v_r-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">MainSceneVR Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Class of the main game VR level.  
+ <a href="class_main_scene_v_r.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_main_scene_v_r_8h_source.html">MainSceneVR.h</a>&gt;</code></p>
 <div class="dynheader">
@@ -102,7 +107,7 @@ Inheritance diagram for MainSceneVR:</div>
  <div class="center">
   <img src="class_main_scene_v_r.png" usemap="#MainSceneVR_map" alt=""/>
   <map id="MainSceneVR_map" name="MainSceneVR_map">
-<area href="class_main_scene.html" alt="MainScene" shape="rect" coords="0,112,122,136"/>
+<area href="class_main_scene.html" title="Class of the main game level. " alt="MainScene" shape="rect" coords="0,112,122,136"/>
 <area href="class_game_state.html" alt="GameState" shape="rect" coords="0,56,122,80"/>
 <area href="class_game_state_interface.html" alt="GameStateInterface" shape="rect" coords="0,0,122,24"/>
 </map>
@@ -112,10 +117,12 @@ Inheritance diagram for MainSceneVR:</div>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_main_scene_v_r_1_1_framebuffer_desc.html">FramebufferDesc</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_main_scene_v_r_1_1_vertex_data_window.html">VertexDataWindow</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1cab4abdd1cc71f4ea2e5d0ca455128a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a1cab4abdd1cc71f4ea2e5d0ca455128a">MainSceneVR</a> (<a class="el" href="class_application.html">Application</a> *application)</td></tr>
+<tr class="memitem:a1cab4abdd1cc71f4ea2e5d0ca455128a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a1cab4abdd1cc71f4ea2e5d0ca455128a">MainSceneVR</a> (<a class="el" href="class_application.html">Application</a> *<a class="el" href="class_game_state.html#aec5272b46c6aa0bc5d1a4fbde3ca4951">application</a>)</td></tr>
 <tr class="separator:a1cab4abdd1cc71f4ea2e5d0ca455128a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a608cdc6b6204b1b2b36275c853578b6f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a608cdc6b6204b1b2b36275c853578b6f">Init</a> ()</td></tr>
 <tr class="separator:a608cdc6b6204b1b2b36275c853578b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,10 +130,35 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7f5a2d493793d244e9a4cd7b35e54a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05787194de640aafa64092aedad2830a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a05787194de640aafa64092aedad2830a">Destroy</a> ()</td></tr>
 <tr class="separator:a05787194de640aafa64092aedad2830a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61750d925febc2f83ba4d2de50cd153d"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a61750d925febc2f83ba4d2de50cd153d">GetHMDMatrixProjectionEye</a> (vr::Hmd_Eye nEye)</td></tr>
-<tr class="separator:a61750d925febc2f83ba4d2de50cd153d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab121fca73012de1cd77526aeca7b7cd"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#aab121fca73012de1cd77526aeca7b7cd">GetHMDMatrixPoseEye</a> (vr::Hmd_Eye nEye)</td></tr>
-<tr class="separator:aab121fca73012de1cd77526aeca7b7cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4f1b97e00823acc7477f8172bfce78a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classb_v_r_render_model.html">bVRRenderModel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#aa4f1b97e00823acc7477f8172bfce78a">FindOrLoadRenderModel</a> (const char *renderModelString)</td></tr>
+<tr class="separator:aa4f1b97e00823acc7477f8172bfce78a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a387a47a7d48379b4514a1ba67689d3ae"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a387a47a7d48379b4514a1ba67689d3ae">GetTrackedDeviceString</a> (vr::IVRSystem *<a class="el" href="class_main_scene_v_r.html#a7909b1ca69314128f78764d5d4414571">pHmd</a>, vr::TrackedDeviceIndex_t unDevice, vr::TrackedDeviceProperty prop, vr::TrackedPropertyError *peError=NULL)</td></tr>
+<tr class="separator:a387a47a7d48379b4514a1ba67689d3ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b3377400e820be80268bc7eeb101160"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a7b3377400e820be80268bc7eeb101160">~MainSceneVR</a> ()</td></tr>
+<tr class="separator:a7b3377400e820be80268bc7eeb101160"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_main_scene"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_main_scene')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_main_scene.html">MainScene</a></td></tr>
+<tr class="memitem:a276848ef3d48e1cb54c95ea27ee235b3 inherit pub_methods_class_main_scene"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene.html#a276848ef3d48e1cb54c95ea27ee235b3">MainScene</a> (<a class="el" href="class_application.html">Application</a> *<a class="el" href="class_game_state.html#aec5272b46c6aa0bc5d1a4fbde3ca4951">application</a>)</td></tr>
+<tr class="separator:a276848ef3d48e1cb54c95ea27ee235b3 inherit pub_methods_class_main_scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac623470dffee0a5ffc1839cb806180bc inherit pub_methods_class_main_scene"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene.html#ac623470dffee0a5ffc1839cb806180bc">ShootSphere</a> (btVector3 direction, btVector3 origin)</td></tr>
+<tr class="separator:ac623470dffee0a5ffc1839cb806180bc inherit pub_methods_class_main_scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d37e6feff4698567c1ff9046aaf270c inherit pub_methods_class_main_scene"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene.html#a7d37e6feff4698567c1ff9046aaf270c">RenderScene</a> ()</td></tr>
+<tr class="separator:a7d37e6feff4698567c1ff9046aaf270c inherit pub_methods_class_main_scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f5a9b6606eb0534d828a11881e0a73f inherit pub_methods_class_main_scene"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene.html#a6f5a9b6606eb0534d828a11881e0a73f">~MainScene</a> ()</td></tr>
+<tr class="separator:a6f5a9b6606eb0534d828a11881e0a73f inherit pub_methods_class_main_scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_game_state"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_game_state')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_game_state.html">GameState</a></td></tr>
+<tr class="memitem:aaa4abe9f8348fc8175729bdecfe36963 inherit pub_methods_class_game_state"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_state.html#aaa4abe9f8348fc8175729bdecfe36963">GameState</a> (<a class="el" href="class_application.html">Application</a> *<a class="el" href="class_game_state.html#aec5272b46c6aa0bc5d1a4fbde3ca4951">application</a>)</td></tr>
+<tr class="separator:aaa4abe9f8348fc8175729bdecfe36963 inherit pub_methods_class_game_state"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:abbde3f85c6b17adb6f570e250a3f64b7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#abbde3f85c6b17adb6f570e250a3f64b7">InitializeComponents</a> ()</td></tr>
+<tr class="separator:abbde3f85c6b17adb6f570e250a3f64b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30ae8b0e10bc3227d540bcdeb8d89234"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a30ae8b0e10bc3227d540bcdeb8d89234">InitVRCompositor</a> ()</td></tr>
+<tr class="separator:a30ae8b0e10bc3227d540bcdeb8d89234"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e11c55c77ac145c83ab028074876291"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a5e11c55c77ac145c83ab028074876291">InitRenderModels</a> ()</td></tr>
+<tr class="separator:a5e11c55c77ac145c83ab028074876291"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e0ea5168436754aac19f5591f82a6fb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a1e0ea5168436754aac19f5591f82a6fb">InitEyeBuffer</a> (int nWidth, int nHeight, <a class="el" href="struct_main_scene_v_r_1_1_framebuffer_desc.html">FramebufferDesc</a> &amp;framebufferDesc)</td></tr>
+<tr class="separator:a1e0ea5168436754aac19f5591f82a6fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73e642d9d76358a73326710ec9a83746"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a73e642d9d76358a73326710ec9a83746">SetupCameras</a> ()</td></tr>
 <tr class="separator:a73e642d9d76358a73326710ec9a83746"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ffdfd64dcfca3efcae660cf4beb8514"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a4ffdfd64dcfca3efcae660cf4beb8514">SetupStereoRenderTargets</a> ()</td></tr>
@@ -145,10 +177,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afecf2d92e8ea2ef1f5ee51854e3af5d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6e50d5ef898f8dd0bfb46ce81ef3868"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ab6e50d5ef898f8dd0bfb46ce81ef3868">RenderCompanionWindow</a> ()</td></tr>
 <tr class="separator:ab6e50d5ef898f8dd0bfb46ce81ef3868"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8749fb49508cdcae212583d81605624c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a8749fb49508cdcae212583d81605624c">RenderEyeQuad</a> (vr::Hmd_Eye nEye)</td></tr>
-<tr class="separator:a8749fb49508cdcae212583d81605624c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac528d50a95d234530f98e6efb82bb7ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ac528d50a95d234530f98e6efb82bb7ee">ResetPositions</a> ()</td></tr>
-<tr class="separator:ac528d50a95d234530f98e6efb82bb7ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb2906bda717f2a9fd380c7fca4f5478"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#abb2906bda717f2a9fd380c7fca4f5478">RenderScene</a> (vr::Hmd_Eye nEye)</td></tr>
 <tr class="separator:abb2906bda717f2a9fd380c7fca4f5478"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae348852aa9a396b7a103c652fd0da541"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ae348852aa9a396b7a103c652fd0da541">GetCurrentViewProjectionMatrix</a> (vr::Hmd_Eye nEye)</td></tr>
@@ -157,25 +185,22 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a26d73798e35286b3955598d188fd89a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d3556616a3babf96fc3dab2fefd3b1b"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a4d3556616a3babf96fc3dab2fefd3b1b">GetCurrentProjectionMatrix</a> (vr::Hmd_Eye nEye)</td></tr>
 <tr class="separator:a4d3556616a3babf96fc3dab2fefd3b1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4f1b97e00823acc7477f8172bfce78a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classb_v_r_render_model.html">bVRRenderModel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#aa4f1b97e00823acc7477f8172bfce78a">FindOrLoadRenderModel</a> (const char *renderModelString)</td></tr>
-<tr class="separator:aa4f1b97e00823acc7477f8172bfce78a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b3377400e820be80268bc7eeb101160"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a7b3377400e820be80268bc7eeb101160">~MainSceneVR</a> ()</td></tr>
-<tr class="separator:a7b3377400e820be80268bc7eeb101160"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_main_scene"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_main_scene')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_main_scene.html">MainScene</a></td></tr>
-<tr class="memitem:a276848ef3d48e1cb54c95ea27ee235b3 inherit pub_methods_class_main_scene"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene.html#a276848ef3d48e1cb54c95ea27ee235b3">MainScene</a> (<a class="el" href="class_application.html">Application</a> *<a class="el" href="class_game_state.html#aec5272b46c6aa0bc5d1a4fbde3ca4951">application</a>)</td></tr>
-<tr class="separator:a276848ef3d48e1cb54c95ea27ee235b3 inherit pub_methods_class_main_scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac623470dffee0a5ffc1839cb806180bc inherit pub_methods_class_main_scene"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene.html#ac623470dffee0a5ffc1839cb806180bc">ShootSphere</a> (btVector3 direction, btVector3 origin)</td></tr>
-<tr class="separator:ac623470dffee0a5ffc1839cb806180bc inherit pub_methods_class_main_scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d37e6feff4698567c1ff9046aaf270c inherit pub_methods_class_main_scene"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene.html#a7d37e6feff4698567c1ff9046aaf270c">RenderScene</a> ()</td></tr>
-<tr class="separator:a7d37e6feff4698567c1ff9046aaf270c inherit pub_methods_class_main_scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f5a9b6606eb0534d828a11881e0a73f inherit pub_methods_class_main_scene"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene.html#a6f5a9b6606eb0534d828a11881e0a73f">~MainScene</a> ()</td></tr>
-<tr class="separator:a6f5a9b6606eb0534d828a11881e0a73f inherit pub_methods_class_main_scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_game_state"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_game_state')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_game_state.html">GameState</a></td></tr>
-<tr class="memitem:aaa4abe9f8348fc8175729bdecfe36963 inherit pub_methods_class_game_state"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_state.html#aaa4abe9f8348fc8175729bdecfe36963">GameState</a> (<a class="el" href="class_application.html">Application</a> *<a class="el" href="class_game_state.html#aec5272b46c6aa0bc5d1a4fbde3ca4951">application</a>)</td></tr>
-<tr class="separator:aaa4abe9f8348fc8175729bdecfe36963 inherit pub_methods_class_game_state"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
+<tr class="memitem:acf3b56ba802a16a542cf8546236a668a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#acf3b56ba802a16a542cf8546236a668a">UpdateHMDMatrixPose</a> ()</td></tr>
+<tr class="separator:acf3b56ba802a16a542cf8546236a668a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b7fe1c6dc9c298cb8ecb484cfc8c449"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a8b7fe1c6dc9c298cb8ecb484cfc8c449">Mat4FromSteamVRMatrix</a> (const vr::HmdMatrix34_t &amp;matPose)</td></tr>
+<tr class="separator:a8b7fe1c6dc9c298cb8ecb484cfc8c449"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2c72d4e9dbfda0e077ed1d7d9a24a10"><td class="memItemLeft" align="right" valign="top">btVector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ad2c72d4e9dbfda0e077ed1d7d9a24a10">GetControllerPosition</a> (vr::TrackedDeviceIndex_t trackedDeviceIndex)</td></tr>
+<tr class="separator:ad2c72d4e9dbfda0e077ed1d7d9a24a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae585d1bd0c4bf57d7e324588ac1ee0e5"><td class="memItemLeft" align="right" valign="top">btVector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ae585d1bd0c4bf57d7e324588ac1ee0e5">GetControllerRaycastDirection</a> (vr::TrackedDeviceIndex_t trackedDeviceIndex)</td></tr>
+<tr class="separator:ae585d1bd0c4bf57d7e324588ac1ee0e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61750d925febc2f83ba4d2de50cd153d"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a61750d925febc2f83ba4d2de50cd153d">GetHMDMatrixProjectionEye</a> (vr::Hmd_Eye nEye)</td></tr>
+<tr class="separator:a61750d925febc2f83ba4d2de50cd153d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab121fca73012de1cd77526aeca7b7cd"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#aab121fca73012de1cd77526aeca7b7cd">GetHMDMatrixPoseEye</a> (vr::Hmd_Eye nEye)</td></tr>
+<tr class="separator:aab121fca73012de1cd77526aeca7b7cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeee66142d8e5f951ff3430e2b9fa53c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#aeee66142d8e5f951ff3430e2b9fa53c7">PollVREvent</a> ()</td></tr>
+<tr class="separator:aeee66142d8e5f951ff3430e2b9fa53c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a074057fd49169282c748884fc5ab2634"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a074057fd49169282c748884fc5ab2634">ProcessButtonEvent</a> (vr::VREvent_t event)</td></tr>
+<tr class="separator:a074057fd49169282c748884fc5ab2634"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_main_scene"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_main_scene')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_main_scene.html">MainScene</a></td></tr>
 <tr class="memitem:a8d4715c72ff218ad9d1fda2e44999452 inherit pro_methods_class_main_scene"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene.html#a8d4715c72ff218ad9d1fda2e44999452">GetInputCallback</a> ()</td></tr>
 <tr class="separator:a8d4715c72ff218ad9d1fda2e44999452 inherit pro_methods_class_main_scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -187,6 +212,102 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a678d5aa0334cd1f37bf80d62e820c570 inherit pro_methods_class_main_scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8519f7c814eb96af89f0fc2ada6d313 inherit pro_methods_class_main_scene"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene.html#ad8519f7c814eb96af89f0fc2ada6d313">RenderTVSceneQuad</a> ()</td></tr>
 <tr class="separator:ad8519f7c814eb96af89f0fc2ada6d313 inherit pro_methods_class_main_scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a4c5de264644e095f9fa4ee3eb5997371"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_main_scene_v_r_1_1_framebuffer_desc.html">FramebufferDesc</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a4c5de264644e095f9fa4ee3eb5997371">leftEyeDesc</a></td></tr>
+<tr class="separator:a4c5de264644e095f9fa4ee3eb5997371"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92bdcd8f2e9a1869c7ab107eb126aa66"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_main_scene_v_r_1_1_framebuffer_desc.html">FramebufferDesc</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a92bdcd8f2e9a1869c7ab107eb126aa66">rightEyeDesc</a></td></tr>
+<tr class="separator:a92bdcd8f2e9a1869c7ab107eb126aa66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7909b1ca69314128f78764d5d4414571"><td class="memItemLeft" align="right" valign="top">vr::IVRSystem *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a7909b1ca69314128f78764d5d4414571">pHmd</a> = NULL</td></tr>
+<tr class="separator:a7909b1ca69314128f78764d5d4414571"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d117b6d8691b040a78f3991a7ad194c"><td class="memItemLeft" align="right" valign="top">vr::EVRInitError&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a1d117b6d8691b040a78f3991a7ad194c">eError</a> = vr::VRInitError_None</td></tr>
+<tr class="separator:a1d117b6d8691b040a78f3991a7ad194c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a45cdef8aea361e5a783c040480deb6"><td class="memItemLeft" align="right" valign="top">vr::IVRRenderModels *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a7a45cdef8aea361e5a783c040480deb6">m_pRenderModels</a> = NULL</td></tr>
+<tr class="separator:a7a45cdef8aea361e5a783c040480deb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0008b5ab0ccf19bb28d54fd417476d5b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a0008b5ab0ccf19bb28d54fd417476d5b">m_rbShowTrackedDevice</a> [vr::k_unMaxTrackedDeviceCount]</td></tr>
+<tr class="separator:a0008b5ab0ccf19bb28d54fd417476d5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac56e90f0d330e26e492fc382c23cf898"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_object_picking_v_r.html">ObjectPickingVR</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ac56e90f0d330e26e492fc382c23cf898">Picker</a> = nullptr</td></tr>
+<tr class="separator:ac56e90f0d330e26e492fc382c23cf898"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08393d01603abb87f65742693e0ddfb1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_shader.html">Shader</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a08393d01603abb87f65742693e0ddfb1">VRcontrollerShader</a> = nullptr</td></tr>
+<tr class="separator:a08393d01603abb87f65742693e0ddfb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf430d54777451bcc984edbac382c602"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_shader.html">Shader</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#adf430d54777451bcc984edbac382c602">VRrendermodelShader</a> = nullptr</td></tr>
+<tr class="separator:adf430d54777451bcc984edbac382c602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59ef97ee2b34b8db148bbe33e99c18a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_shader.html">Shader</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a59ef97ee2b34b8db148bbe33e99c18a5">VRcompanionwindowShader</a> = nullptr</td></tr>
+<tr class="separator:a59ef97ee2b34b8db148bbe33e99c18a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a554d5a5be53ce294bb08e515749e4dd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_shader.html">Shader</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a554d5a5be53ce294bb08e515749e4dd3">tvShader</a> = nullptr</td></tr>
+<tr class="separator:a554d5a5be53ce294bb08e515749e4dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d13bef0b2c89c1be63e0e485ab3ee7c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_camera.html">Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a6d13bef0b2c89c1be63e0e485ab3ee7c">leftEyeCamera</a> = nullptr</td></tr>
+<tr class="separator:a6d13bef0b2c89c1be63e0e485ab3ee7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b43bdadad82c6d2f924a0a52460159f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_camera.html">Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a0b43bdadad82c6d2f924a0a52460159f">rightEyeCamera</a> = nullptr</td></tr>
+<tr class="separator:a0b43bdadad82c6d2f924a0a52460159f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fb2cee2fd365dc1d3c1d0e319aa5040"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_post_processing.html">PostProcessing</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a4fb2cee2fd365dc1d3c1d0e319aa5040">leftEyeFBO</a> = nullptr</td></tr>
+<tr class="separator:a4fb2cee2fd365dc1d3c1d0e319aa5040"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac579419118742634f91b59de7c47f93b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_post_processing.html">PostProcessing</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ac579419118742634f91b59de7c47f93b">rightEyeFBO</a> = nullptr</td></tr>
+<tr class="separator:ac579419118742634f91b59de7c47f93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d1d88927d6859f030c553bfc4709981"><td class="memItemLeft" align="right" valign="top">vr::TrackedDevicePose_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a5d1d88927d6859f030c553bfc4709981">m_rTrackedDevicePose</a> [vr::k_unMaxTrackedDeviceCount]</td></tr>
+<tr class="separator:a5d1d88927d6859f030c553bfc4709981"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a151f4db208297cc5066bd9ae82ee6d20"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a151f4db208297cc5066bd9ae82ee6d20">m_rmat4DevicePose</a> [vr::k_unMaxTrackedDeviceCount]</td></tr>
+<tr class="separator:a151f4db208297cc5066bd9ae82ee6d20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a4c16ebf46c807245a9e5009efbded0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a3a4c16ebf46c807245a9e5009efbded0">m_iValidPoseCount</a></td></tr>
+<tr class="separator:a3a4c16ebf46c807245a9e5009efbded0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aade8dc20e76775d5592c8d6a5a7e5d24"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#aade8dc20e76775d5592c8d6a5a7e5d24">m_iValidPoseCount_Last</a></td></tr>
+<tr class="separator:aade8dc20e76775d5592c8d6a5a7e5d24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bee73ea46e18d4c3d837fa62d632c7d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a0bee73ea46e18d4c3d837fa62d632c7d">m_strPoseClasses</a></td></tr>
+<tr class="separator:a0bee73ea46e18d4c3d837fa62d632c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0e41d52a5917f537957fbf58ee12116"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#af0e41d52a5917f537957fbf58ee12116">m_rDevClassChar</a> [vr::k_unMaxTrackedDeviceCount]</td></tr>
+<tr class="separator:af0e41d52a5917f537957fbf58ee12116"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a200212b7e82cb820faf3b0222637b937"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classb_v_r_render_model.html">bVRRenderModel</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a200212b7e82cb820faf3b0222637b937">m_vecRenderModels</a></td></tr>
+<tr class="separator:a200212b7e82cb820faf3b0222637b937"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e361f839fb20b0ca76322b14ba7937e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classb_v_r_render_model.html">bVRRenderModel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a2e361f839fb20b0ca76322b14ba7937e">m_rTrackedDeviceToRenderModel</a> [vr::k_unMaxTrackedDeviceCount]</td></tr>
+<tr class="separator:a2e361f839fb20b0ca76322b14ba7937e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa82812beace3629574de1eeb6a77d65c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#aa82812beace3629574de1eeb6a77d65c">m_iTrackedControllerCount</a></td></tr>
+<tr class="separator:aa82812beace3629574de1eeb6a77d65c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af69b1f7646bc4a87ac9399e4e016cdd2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#af69b1f7646bc4a87ac9399e4e016cdd2">m_iTrackedControllerCount_Last</a></td></tr>
+<tr class="separator:af69b1f7646bc4a87ac9399e4e016cdd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae34f50aa764d767185d1ff6f240b6454"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ae34f50aa764d767185d1ff6f240b6454">m_glControllerVertBuffer</a></td></tr>
+<tr class="separator:ae34f50aa764d767185d1ff6f240b6454"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1cfadcf13c9d4f7b80735848ef5cf27"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ac1cfadcf13c9d4f7b80735848ef5cf27">m_unControllerVAO</a></td></tr>
+<tr class="separator:ac1cfadcf13c9d4f7b80735848ef5cf27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3808ab7e45a654d66d3ce69a987fdc94"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a3808ab7e45a654d66d3ce69a987fdc94">m_uiControllerVertcount</a></td></tr>
+<tr class="separator:a3808ab7e45a654d66d3ce69a987fdc94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30e75fa6e234ed8fe3377cc40454913c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a30e75fa6e234ed8fe3377cc40454913c">m_nRenderWidth</a></td></tr>
+<tr class="separator:a30e75fa6e234ed8fe3377cc40454913c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade33efc034e697aee028f2848053f5b7"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ade33efc034e697aee028f2848053f5b7">m_nRenderHeight</a></td></tr>
+<tr class="separator:ade33efc034e697aee028f2848053f5b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0ba4d0b79647c4b3061e535301f14b5"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ad0ba4d0b79647c4b3061e535301f14b5">m_mat4HMDPose</a></td></tr>
+<tr class="separator:ad0ba4d0b79647c4b3061e535301f14b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad72f0c78f19c43089e3168d2021705dc"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ad72f0c78f19c43089e3168d2021705dc">m_mat4ProjectionLeft</a></td></tr>
+<tr class="separator:ad72f0c78f19c43089e3168d2021705dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1aff34f1167438b77ab8447264299cba"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a1aff34f1167438b77ab8447264299cba">m_mat4ProjectionRight</a></td></tr>
+<tr class="separator:a1aff34f1167438b77ab8447264299cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acead4c733d978c1d17c245a7fb08a7c0"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#acead4c733d978c1d17c245a7fb08a7c0">m_mat4eyePosLeft</a></td></tr>
+<tr class="separator:acead4c733d978c1d17c245a7fb08a7c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae52535f6f72773f9a482d4e5ecce830f"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ae52535f6f72773f9a482d4e5ecce830f">m_mat4eyePosRight</a></td></tr>
+<tr class="separator:ae52535f6f72773f9a482d4e5ecce830f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa85f8281369b8071715f8e1ebd2cf54c"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#aa85f8281369b8071715f8e1ebd2cf54c">m_vr_controllerlocation</a></td></tr>
+<tr class="separator:aa85f8281369b8071715f8e1ebd2cf54c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a473cbc26838010b58ee5b31479987301"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a473cbc26838010b58ee5b31479987301">m_vr_rendermodellocation</a></td></tr>
+<tr class="separator:a473cbc26838010b58ee5b31479987301"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac60fecd364becc1371d599b9d3b8b6a0"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#ac60fecd364becc1371d599b9d3b8b6a0">m_unCompanionWindowVAO</a></td></tr>
+<tr class="separator:ac60fecd364becc1371d599b9d3b8b6a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ba859f401a8ad4434578e1d823d866b"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a2ba859f401a8ad4434578e1d823d866b">m_glCompanionWindowIDVertBuffer</a></td></tr>
+<tr class="separator:a2ba859f401a8ad4434578e1d823d866b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d9e409ba2eb937e80ffe408ec1212d7"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a4d9e409ba2eb937e80ffe408ec1212d7">m_glCompanionWindowIDIndexBuffer</a></td></tr>
+<tr class="separator:a4d9e409ba2eb937e80ffe408ec1212d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf0375bdabe80e7b36ec0a1055e197e9"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#acf0375bdabe80e7b36ec0a1055e197e9">m_uiCompanionWindowIndexSize</a></td></tr>
+<tr class="separator:acf0375bdabe80e7b36ec0a1055e197e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5243a582105286fc2a159cf0c26c2e3c"><td class="memItemLeft" align="right" valign="top">Matrix4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a5243a582105286fc2a159cf0c26c2e3c">view</a></td></tr>
+<tr class="separator:a5243a582105286fc2a159cf0c26c2e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa06271a880be06803fdeeb3641f6278d"><td class="memItemLeft" align="right" valign="top">vr::TrackedDeviceIndex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#aa06271a880be06803fdeeb3641f6278d">pickCtrlIndex</a></td></tr>
+<tr class="separator:aa06271a880be06803fdeeb3641f6278d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a264ebf454d38607c9f0688eb05445c9a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a264ebf454d38607c9f0688eb05445c9a">bTriggerDown</a> = false</td></tr>
+<tr class="separator:a264ebf454d38607c9f0688eb05445c9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59fedc3e7aa53971b713a1c89d7e0ad6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene_v_r.html#a59fedc3e7aa53971b713a1c89d7e0ad6">bHit</a> = false</td></tr>
+<tr class="separator:a59fedc3e7aa53971b713a1c89d7e0ad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_class_main_scene"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_main_scene')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_main_scene.html">MainScene</a></td></tr>
 <tr class="memitem:a3fba5434546a4aa33a189d505f69b7df inherit pro_attribs_class_main_scene"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_shader.html">Shader</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_main_scene.html#a3fba5434546a4aa33a189d505f69b7df">modelShader</a> = nullptr</td></tr>
 <tr class="separator:a3fba5434546a4aa33a189d505f69b7df inherit pro_attribs_class_main_scene"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -296,7 +417,10 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:aec5272b46c6aa0bc5d1a4fbde3ca4951 inherit pro_attribs_class_game_state"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_application.html">Application</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_state.html#aec5272b46c6aa0bc5d1a4fbde3ca4951">application</a></td></tr>
 <tr class="separator:aec5272b46c6aa0bc5d1a4fbde3ca4951 inherit pro_attribs_class_game_state"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class of the main game VR level. </p>
+<p>Handles device tracking, rendering in the scene, object interaction. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1cab4abdd1cc71f4ea2e5d0ca455128a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1cab4abdd1cc71f4ea2e5d0ca455128a">&#9670;&nbsp;</a></span>MainSceneVR()</h2>
 
@@ -375,6 +499,66 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Retreives the model of the tracked device from SteamVR. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderModelString</td><td>name of the model </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>RenderModel object of the tracked device </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="b_v_r_render_model_8h.html">bVRRenderModel.h</a> </dd></dl>
+
+</div>
+</div>
+<a id="ad2c72d4e9dbfda0e077ed1d7d9a24a10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2c72d4e9dbfda0e077ed1d7d9a24a10">&#9670;&nbsp;</a></span>GetControllerPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">btVector3 MainSceneVR::GetControllerPosition </td>
+          <td>(</td>
+          <td class="paramtype">vr::TrackedDeviceIndex_t&#160;</td>
+          <td class="paramname"><em>trackedDeviceIndex</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae585d1bd0c4bf57d7e324588ac1ee0e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae585d1bd0c4bf57d7e324588ac1ee0e5">&#9670;&nbsp;</a></span>GetControllerRaycastDirection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">btVector3 MainSceneVR::GetControllerRaycastDirection </td>
+          <td>(</td>
+          <td class="paramtype">vr::TrackedDeviceIndex_t&#160;</td>
+          <td class="paramname"><em>trackedDeviceIndex</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -383,6 +567,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Matrix4 MainSceneVR::GetCurrentProjectionMatrix </td>
@@ -392,6 +579,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -401,6 +593,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Matrix4 MainSceneVR::GetCurrentViewMatrix </td>
@@ -410,6 +605,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -419,6 +619,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Matrix4 MainSceneVR::GetCurrentViewProjectionMatrix </td>
@@ -428,6 +631,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -437,6 +645,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Matrix4 MainSceneVR::GetHMDMatrixPoseEye </td>
@@ -446,6 +657,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -455,6 +671,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Matrix4 MainSceneVR::GetHMDMatrixProjectionEye </td>
@@ -464,7 +683,61 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a387a47a7d48379b4514a1ba67689d3ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a387a47a7d48379b4514a1ba67689d3ae">&#9670;&nbsp;</a></span>GetTrackedDeviceString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string MainSceneVR::GetTrackedDeviceString </td>
+          <td>(</td>
+          <td class="paramtype">vr::IVRSystem *&#160;</td>
+          <td class="paramname"><em>pHmd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vr::TrackedDeviceIndex_t&#160;</td>
+          <td class="paramname"><em>unDevice</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vr::TrackedDeviceProperty&#160;</td>
+          <td class="paramname"><em>prop</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vr::TrackedPropertyError *&#160;</td>
+          <td class="paramname"><em>peError</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Retreives the model of the tracked device from SteamVR. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pHmd</td><td>VR System pointer </td></tr>
+    <tr><td class="paramname">unDevice</td><td>index of the tracked device </td></tr>
+    <tr><td class="paramname">prop</td><td>properties of the tracked device </td></tr>
+    <tr><td class="paramname">peError</td><td>openvr property error structure </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -490,9 +763,210 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>SHADERS </p>
+<p>Initialises the scene. </p>
 
 <p>Reimplemented from <a class="el" href="class_main_scene.html#a9462ff71b5c05af7b295dbe0fbc5953b">MainScene</a>.</p>
+
+</div>
+</div>
+<a id="a1e0ea5168436754aac19f5591f82a6fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e0ea5168436754aac19f5591f82a6fb">&#9670;&nbsp;</a></span>InitEyeBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MainSceneVR::InitEyeBuffer </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nHeight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_main_scene_v_r_1_1_framebuffer_desc.html">FramebufferDesc</a> &amp;&#160;</td>
+          <td class="paramname"><em>framebufferDesc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abbde3f85c6b17adb6f570e250a3f64b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbde3f85c6b17adb6f570e250a3f64b7">&#9670;&nbsp;</a></span>InitializeComponents()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MainSceneVR::InitializeComponents </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5e11c55c77ac145c83ab028074876291"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e11c55c77ac145c83ab028074876291">&#9670;&nbsp;</a></span>InitRenderModels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MainSceneVR::InitRenderModels </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a30ae8b0e10bc3227d540bcdeb8d89234"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30ae8b0e10bc3227d540bcdeb8d89234">&#9670;&nbsp;</a></span>InitVRCompositor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MainSceneVR::InitVRCompositor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8b7fe1c6dc9c298cb8ecb484cfc8c449"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b7fe1c6dc9c298cb8ecb484cfc8c449">&#9670;&nbsp;</a></span>Mat4FromSteamVRMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Matrix4 MainSceneVR::Mat4FromSteamVRMatrix </td>
+          <td>(</td>
+          <td class="paramtype">const vr::HmdMatrix34_t &amp;&#160;</td>
+          <td class="paramname"><em>matPose</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeee66142d8e5f951ff3430e2b9fa53c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeee66142d8e5f951ff3430e2b9fa53c7">&#9670;&nbsp;</a></span>PollVREvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MainSceneVR::PollVREvent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Processes VR system events. </p>
+
+</div>
+</div>
+<a id="a074057fd49169282c748884fc5ab2634"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a074057fd49169282c748884fc5ab2634">&#9670;&nbsp;</a></span>ProcessButtonEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MainSceneVR::ProcessButtonEvent </td>
+          <td>(</td>
+          <td class="paramtype">vr::VREvent_t&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Processes events related to controller buttons. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>the event generated by the system </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -501,6 +975,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void MainSceneVR::RenderCompanionWindow </td>
@@ -509,6 +986,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -518,6 +1000,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void MainSceneVR::RenderControllerAxes </td>
@@ -526,24 +1011,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8749fb49508cdcae212583d81605624c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8749fb49508cdcae212583d81605624c">&#9670;&nbsp;</a></span>RenderEyeQuad()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MainSceneVR::RenderEyeQuad </td>
-          <td>(</td>
-          <td class="paramtype">vr::Hmd_Eye&#160;</td>
-          <td class="paramname"><em>nEye</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -553,6 +1025,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void MainSceneVR::RenderScene </td>
@@ -562,7 +1037,18 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+<p>Renders the scene for the dedicated eye. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nEye</td><td>eye index to render the view from </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -571,6 +1057,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void MainSceneVR::RenderStereoTargets </td>
@@ -579,6 +1068,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -588,6 +1082,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void MainSceneVR::RenderToTV </td>
@@ -596,25 +1093,12 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac528d50a95d234530f98e6efb82bb7ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac528d50a95d234530f98e6efb82bb7ee">&#9670;&nbsp;</a></span>ResetPositions()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void MainSceneVR::ResetPositions </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>TODO ?? </p>
 
 </div>
 </div>
@@ -623,6 +1107,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void MainSceneVR::SetupCameras </td>
@@ -631,6 +1118,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -640,6 +1132,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void MainSceneVR::SetupCompanionWindow </td>
@@ -648,6 +1143,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -657,6 +1157,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void MainSceneVR::SetupRenderModelForTrackedDevice </td>
@@ -666,6 +1169,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -675,6 +1183,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void MainSceneVR::SetupRenderModels </td>
@@ -683,6 +1194,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -692,6 +1208,9 @@ Additional Inherited Members</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool MainSceneVR::SetupStereoRenderTargets </td>
@@ -700,6 +1219,11 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -726,8 +1250,1025 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Renders a frame and updates the scene, steps simulation. </p>
 
 <p>Reimplemented from <a class="el" href="class_main_scene.html#af139a74d507e849eb269fb7e15b2e921">MainScene</a>.</p>
+
+</div>
+</div>
+<a id="acf3b56ba802a16a542cf8546236a668a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf3b56ba802a16a542cf8546236a668a">&#9670;&nbsp;</a></span>UpdateHMDMatrixPose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MainSceneVR::UpdateHMDMatrixPose </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a59fedc3e7aa53971b713a1c89d7e0ad6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59fedc3e7aa53971b713a1c89d7e0ad6">&#9670;&nbsp;</a></span>bHit</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MainSceneVR::bHit = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a264ebf454d38607c9f0688eb05445c9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a264ebf454d38607c9f0688eb05445c9a">&#9670;&nbsp;</a></span>bTriggerDown</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MainSceneVR::bTriggerDown = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1d117b6d8691b040a78f3991a7ad194c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d117b6d8691b040a78f3991a7ad194c">&#9670;&nbsp;</a></span>eError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vr::EVRInitError MainSceneVR::eError = vr::VRInitError_None</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6d13bef0b2c89c1be63e0e485ab3ee7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d13bef0b2c89c1be63e0e485ab3ee7c">&#9670;&nbsp;</a></span>leftEyeCamera</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_camera.html">Camera</a>* MainSceneVR::leftEyeCamera = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4c5de264644e095f9fa4ee3eb5997371"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c5de264644e095f9fa4ee3eb5997371">&#9670;&nbsp;</a></span>leftEyeDesc</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_main_scene_v_r_1_1_framebuffer_desc.html">FramebufferDesc</a> MainSceneVR::leftEyeDesc</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4fb2cee2fd365dc1d3c1d0e319aa5040"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fb2cee2fd365dc1d3c1d0e319aa5040">&#9670;&nbsp;</a></span>leftEyeFBO</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_post_processing.html">PostProcessing</a>* MainSceneVR::leftEyeFBO = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4d9e409ba2eb937e80ffe408ec1212d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d9e409ba2eb937e80ffe408ec1212d7">&#9670;&nbsp;</a></span>m_glCompanionWindowIDIndexBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint MainSceneVR::m_glCompanionWindowIDIndexBuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ba859f401a8ad4434578e1d823d866b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ba859f401a8ad4434578e1d823d866b">&#9670;&nbsp;</a></span>m_glCompanionWindowIDVertBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint MainSceneVR::m_glCompanionWindowIDVertBuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae34f50aa764d767185d1ff6f240b6454"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae34f50aa764d767185d1ff6f240b6454">&#9670;&nbsp;</a></span>m_glControllerVertBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint MainSceneVR::m_glControllerVertBuffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa82812beace3629574de1eeb6a77d65c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa82812beace3629574de1eeb6a77d65c">&#9670;&nbsp;</a></span>m_iTrackedControllerCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MainSceneVR::m_iTrackedControllerCount</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af69b1f7646bc4a87ac9399e4e016cdd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af69b1f7646bc4a87ac9399e4e016cdd2">&#9670;&nbsp;</a></span>m_iTrackedControllerCount_Last</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MainSceneVR::m_iTrackedControllerCount_Last</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a4c16ebf46c807245a9e5009efbded0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a4c16ebf46c807245a9e5009efbded0">&#9670;&nbsp;</a></span>m_iValidPoseCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MainSceneVR::m_iValidPoseCount</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aade8dc20e76775d5592c8d6a5a7e5d24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aade8dc20e76775d5592c8d6a5a7e5d24">&#9670;&nbsp;</a></span>m_iValidPoseCount_Last</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int MainSceneVR::m_iValidPoseCount_Last</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acead4c733d978c1d17c245a7fb08a7c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acead4c733d978c1d17c245a7fb08a7c0">&#9670;&nbsp;</a></span>m_mat4eyePosLeft</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Matrix4 MainSceneVR::m_mat4eyePosLeft</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae52535f6f72773f9a482d4e5ecce830f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae52535f6f72773f9a482d4e5ecce830f">&#9670;&nbsp;</a></span>m_mat4eyePosRight</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Matrix4 MainSceneVR::m_mat4eyePosRight</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad0ba4d0b79647c4b3061e535301f14b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0ba4d0b79647c4b3061e535301f14b5">&#9670;&nbsp;</a></span>m_mat4HMDPose</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Matrix4 MainSceneVR::m_mat4HMDPose</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad72f0c78f19c43089e3168d2021705dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad72f0c78f19c43089e3168d2021705dc">&#9670;&nbsp;</a></span>m_mat4ProjectionLeft</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Matrix4 MainSceneVR::m_mat4ProjectionLeft</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1aff34f1167438b77ab8447264299cba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1aff34f1167438b77ab8447264299cba">&#9670;&nbsp;</a></span>m_mat4ProjectionRight</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Matrix4 MainSceneVR::m_mat4ProjectionRight</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ade33efc034e697aee028f2848053f5b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade33efc034e697aee028f2848053f5b7">&#9670;&nbsp;</a></span>m_nRenderHeight</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t MainSceneVR::m_nRenderHeight</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a30e75fa6e234ed8fe3377cc40454913c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30e75fa6e234ed8fe3377cc40454913c">&#9670;&nbsp;</a></span>m_nRenderWidth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t MainSceneVR::m_nRenderWidth</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7a45cdef8aea361e5a783c040480deb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a45cdef8aea361e5a783c040480deb6">&#9670;&nbsp;</a></span>m_pRenderModels</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vr::IVRRenderModels* MainSceneVR::m_pRenderModels = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0008b5ab0ccf19bb28d54fd417476d5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0008b5ab0ccf19bb28d54fd417476d5b">&#9670;&nbsp;</a></span>m_rbShowTrackedDevice</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool MainSceneVR::m_rbShowTrackedDevice[vr::k_unMaxTrackedDeviceCount]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af0e41d52a5917f537957fbf58ee12116"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0e41d52a5917f537957fbf58ee12116">&#9670;&nbsp;</a></span>m_rDevClassChar</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char MainSceneVR::m_rDevClassChar[vr::k_unMaxTrackedDeviceCount]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a151f4db208297cc5066bd9ae82ee6d20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a151f4db208297cc5066bd9ae82ee6d20">&#9670;&nbsp;</a></span>m_rmat4DevicePose</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Matrix4 MainSceneVR::m_rmat4DevicePose[vr::k_unMaxTrackedDeviceCount]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5d1d88927d6859f030c553bfc4709981"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d1d88927d6859f030c553bfc4709981">&#9670;&nbsp;</a></span>m_rTrackedDevicePose</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vr::TrackedDevicePose_t MainSceneVR::m_rTrackedDevicePose[vr::k_unMaxTrackedDeviceCount]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2e361f839fb20b0ca76322b14ba7937e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e361f839fb20b0ca76322b14ba7937e">&#9670;&nbsp;</a></span>m_rTrackedDeviceToRenderModel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classb_v_r_render_model.html">bVRRenderModel</a>* MainSceneVR::m_rTrackedDeviceToRenderModel[vr::k_unMaxTrackedDeviceCount]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0bee73ea46e18d4c3d837fa62d632c7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bee73ea46e18d4c3d837fa62d632c7d">&#9670;&nbsp;</a></span>m_strPoseClasses</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string MainSceneVR::m_strPoseClasses</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acf0375bdabe80e7b36ec0a1055e197e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf0375bdabe80e7b36ec0a1055e197e9">&#9670;&nbsp;</a></span>m_uiCompanionWindowIndexSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int MainSceneVR::m_uiCompanionWindowIndexSize</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3808ab7e45a654d66d3ce69a987fdc94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3808ab7e45a654d66d3ce69a987fdc94">&#9670;&nbsp;</a></span>m_uiControllerVertcount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int MainSceneVR::m_uiControllerVertcount</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac60fecd364becc1371d599b9d3b8b6a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac60fecd364becc1371d599b9d3b8b6a0">&#9670;&nbsp;</a></span>m_unCompanionWindowVAO</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint MainSceneVR::m_unCompanionWindowVAO</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac1cfadcf13c9d4f7b80735848ef5cf27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1cfadcf13c9d4f7b80735848ef5cf27">&#9670;&nbsp;</a></span>m_unControllerVAO</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint MainSceneVR::m_unControllerVAO</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a200212b7e82cb820faf3b0222637b937"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a200212b7e82cb820faf3b0222637b937">&#9670;&nbsp;</a></span>m_vecRenderModels</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="classb_v_r_render_model.html">bVRRenderModel</a> *&gt; MainSceneVR::m_vecRenderModels</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa85f8281369b8071715f8e1ebd2cf54c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa85f8281369b8071715f8e1ebd2cf54c">&#9670;&nbsp;</a></span>m_vr_controllerlocation</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int MainSceneVR::m_vr_controllerlocation</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a473cbc26838010b58ee5b31479987301"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a473cbc26838010b58ee5b31479987301">&#9670;&nbsp;</a></span>m_vr_rendermodellocation</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int MainSceneVR::m_vr_rendermodellocation</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7909b1ca69314128f78764d5d4414571"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7909b1ca69314128f78764d5d4414571">&#9670;&nbsp;</a></span>pHmd</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vr::IVRSystem* MainSceneVR::pHmd = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa06271a880be06803fdeeb3641f6278d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa06271a880be06803fdeeb3641f6278d">&#9670;&nbsp;</a></span>pickCtrlIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vr::TrackedDeviceIndex_t MainSceneVR::pickCtrlIndex</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac56e90f0d330e26e492fc382c23cf898"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac56e90f0d330e26e492fc382c23cf898">&#9670;&nbsp;</a></span>Picker</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_object_picking_v_r.html">ObjectPickingVR</a>* MainSceneVR::Picker = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0b43bdadad82c6d2f924a0a52460159f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b43bdadad82c6d2f924a0a52460159f">&#9670;&nbsp;</a></span>rightEyeCamera</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_camera.html">Camera</a>* MainSceneVR::rightEyeCamera = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a92bdcd8f2e9a1869c7ab107eb126aa66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92bdcd8f2e9a1869c7ab107eb126aa66">&#9670;&nbsp;</a></span>rightEyeDesc</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_main_scene_v_r_1_1_framebuffer_desc.html">FramebufferDesc</a> MainSceneVR::rightEyeDesc</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac579419118742634f91b59de7c47f93b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac579419118742634f91b59de7c47f93b">&#9670;&nbsp;</a></span>rightEyeFBO</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_post_processing.html">PostProcessing</a>* MainSceneVR::rightEyeFBO = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a554d5a5be53ce294bb08e515749e4dd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a554d5a5be53ce294bb08e515749e4dd3">&#9670;&nbsp;</a></span>tvShader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_shader.html">Shader</a>* MainSceneVR::tvShader = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5243a582105286fc2a159cf0c26c2e3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5243a582105286fc2a159cf0c26c2e3c">&#9670;&nbsp;</a></span>view</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Matrix4 MainSceneVR::view</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a59ef97ee2b34b8db148bbe33e99c18a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59ef97ee2b34b8db148bbe33e99c18a5">&#9670;&nbsp;</a></span>VRcompanionwindowShader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_shader.html">Shader</a>* MainSceneVR::VRcompanionwindowShader = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a08393d01603abb87f65742693e0ddfb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08393d01603abb87f65742693e0ddfb1">&#9670;&nbsp;</a></span>VRcontrollerShader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_shader.html">Shader</a>* MainSceneVR::VRcontrollerShader = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adf430d54777451bcc984edbac382c602"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf430d54777451bcc984edbac382c602">&#9670;&nbsp;</a></span>VRrendermodelShader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_shader.html">Shader</a>* MainSceneVR::VRrendermodelShader = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

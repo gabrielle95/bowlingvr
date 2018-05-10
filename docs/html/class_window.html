@@ -88,11 +88,16 @@ $(document).ready(function(){initNavTree('class_window.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_window-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Window Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Creates an SDL window.  
+ <a href="class_window.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_window_8h_source.html">Window.h</a>&gt;</code></p>
 <table class="memberdecls">
@@ -108,8 +113,23 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7913a661924d3e5a1b6ab9a668dd932f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a245d821e6016fa1f6970ccbbedd635f6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a245d821e6016fa1f6970ccbbedd635f6">~Window</a> ()</td></tr>
 <tr class="separator:a245d821e6016fa1f6970ccbbedd635f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a9e14a04c4fdf2bd1fae7fcb7254b41e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a9e14a04c4fdf2bd1fae7fcb7254b41e2">InitRenderer</a> ()</td></tr>
+<tr class="separator:a9e14a04c4fdf2bd1fae7fcb7254b41e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a6be667ef970fd951a4853e7bcc933ac8"><td class="memItemLeft" align="right" valign="top">SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a6be667ef970fd951a4853e7bcc933ac8">sdlWindow</a></td></tr>
+<tr class="separator:a6be667ef970fd951a4853e7bcc933ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cc1e8d79b03b3a1ad40f72b6b56e7ab"><td class="memItemLeft" align="right" valign="top">SDL_GLContext&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window.html#a4cc1e8d79b03b3a1ad40f72b6b56e7ab">sdlGLContext</a></td></tr>
+<tr class="separator:a4cc1e8d79b03b3a1ad40f72b6b56e7ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Creates an SDL window. </p>
+<p>Handles SDL window and OpenGL context creation </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa75e2e442088a062e3f7751e0f33a63d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa75e2e442088a062e3f7751e0f33a63d">&#9670;&nbsp;</a></span>Window() <span class="overload">[1/2]</span></h2>
 
@@ -225,6 +245,31 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9e14a04c4fdf2bd1fae7fcb7254b41e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e14a04c4fdf2bd1fae7fcb7254b41e2">&#9670;&nbsp;</a></span>InitRenderer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Window::InitRenderer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ab8d28dce3166c70eb5744466460795df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab8d28dce3166c70eb5744466460795df">&#9670;&nbsp;</a></span>Update()</h2>
 
@@ -238,6 +283,51 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a4cc1e8d79b03b3a1ad40f72b6b56e7ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cc1e8d79b03b3a1ad40f72b6b56e7ab">&#9670;&nbsp;</a></span>sdlGLContext</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_GLContext Window::sdlGLContext</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6be667ef970fd951a4853e7bcc933ac8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6be667ef970fd951a4853e7bcc933ac8">&#9670;&nbsp;</a></span>sdlWindow</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Window* Window::sdlWindow</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

@@ -5,6 +5,10 @@
 #include <vector>
 #include "Shader.h"
 
+//! Creates a shadow map. 
+/*!
+Creates a cubemap framebuffer texture attachment for omni-directional shadows.
+*/
 class Shadowmap
 {
 public:
@@ -15,7 +19,6 @@ public:
 	void UnbindFBO();
 
 	void BindDepthTexture();
-
 
 	~Shadowmap();
 

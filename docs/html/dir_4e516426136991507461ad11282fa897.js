@@ -41,7 +41,8 @@ var dir_4e516426136991507461ad11282fa897 =
     [ "MainSceneVR.cpp", "_main_scene_v_r_8cpp.html", "_main_scene_v_r_8cpp" ],
     [ "MainSceneVR.h", "_main_scene_v_r_8h.html", [
       [ "MainSceneVR", "class_main_scene_v_r.html", "class_main_scene_v_r" ],
-      [ "FramebufferDesc", "struct_main_scene_v_r_1_1_framebuffer_desc.html", "struct_main_scene_v_r_1_1_framebuffer_desc" ]
+      [ "FramebufferDesc", "struct_main_scene_v_r_1_1_framebuffer_desc.html", "struct_main_scene_v_r_1_1_framebuffer_desc" ],
+      [ "VertexDataWindow", "struct_main_scene_v_r_1_1_vertex_data_window.html", "struct_main_scene_v_r_1_1_vertex_data_window" ]
     ] ],
     [ "Mesh.cpp", "_mesh_8cpp.html", null ],
     [ "Mesh.h", "_mesh_8h.html", "_mesh_8h" ],
@@ -66,7 +67,9 @@ var dir_4e516426136991507461ad11282fa897 =
       [ "GeneralFramebuffer", "class_general_framebuffer.html", "class_general_framebuffer" ]
     ] ],
     [ "Shader.cpp", "_shader_8cpp.html", null ],
-    [ "Shader.h", "_shader_8h.html", "_shader_8h" ],
+    [ "Shader.h", "_shader_8h.html", [
+      [ "Shader", "class_shader.html", "class_shader" ]
+    ] ],
     [ "ShaderStrings.h", "_shader_strings_8h.html", "_shader_strings_8h" ],
     [ "Shadowmap.cpp", "_shadowmap_8cpp.html", null ],
     [ "Shadowmap.h", "_shadowmap_8h.html", [

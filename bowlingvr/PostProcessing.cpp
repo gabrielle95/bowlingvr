@@ -1,8 +1,6 @@
 #include <GL/glew.h>
 #include "PostProcessing.h"
 
-/// TODO - get rid of code redundancy
-
 PostProcessing::PostProcessing(float w, float h)
 {
 	this->w = w;
@@ -236,9 +234,6 @@ GeneralFramebuffer::GeneralFramebuffer(float w, float h)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 	// attach texture to framebuffer
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);

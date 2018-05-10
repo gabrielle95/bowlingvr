@@ -2,6 +2,10 @@
 
 #include <bullet/btBulletDynamicsCommon.h>
 
+//! Creates a player rigid body in the non-VR version. 
+/*!
+The player body can collide with objects and jump using space.
+*/
 class PlayerBody
 {
 public:

@@ -3,7 +3,6 @@ var class_mesh =
     [ "Mesh", "class_mesh.html#a62b0c4f949f1a945e4d8ce6ee4832a36", null ],
     [ "loadMaterialTextures", "class_mesh.html#aa229eb6a31167d3ce029a4e301edf394", null ],
     [ "Render", "class_mesh.html#a30f987a6ba37dc07266532e0b68a71e9", null ],
-    [ "RenderEmission", "class_mesh.html#aadd3feac585cdfc69b2108c12eb38316", null ],
     [ "RenderWithNoTextures", "class_mesh.html#ac899af822bfe8db90b240e17bcc57fd7", null ],
     [ "setupMesh", "class_mesh.html#aafa4e21067a9b0c4407daf5e3c9ea991", null ],
     [ "textureFromFile", "class_mesh.html#aaf7ca77f7541edd5dc02ba77c3a285c3", null ],

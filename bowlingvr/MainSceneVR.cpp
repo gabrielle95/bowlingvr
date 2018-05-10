@@ -7,8 +7,6 @@
 
 MainSceneVR::MainSceneVR(Application * application) : MainScene(application)
 {
-	this->application = application;
-	//bullet App_PhysicsServer_shadermemory_VR PhysicsServerCommandProcessor::pickBody
 }
 
 MainSceneVR::~MainSceneVR()
@@ -16,7 +14,7 @@ MainSceneVR::~MainSceneVR()
 	delete VRcontrollerShader;
 	delete VRrendermodelShader;
 	delete VRcompanionwindowShader;
-	//delete mainScenePtr;
+	delete Picker;
 	vr::VR_Shutdown();
 }
 
@@ -29,9 +27,7 @@ bool MainSceneVR::Init()
 		return false;
 	}
 
-	/*************/
-	/**SHADERS***/
-	/************/
+	/*SHADERS*/
 
 	this->VRcontrollerShader = new Shader("controller", c_VRcontrollerShaderVert, c_VRcontrollerShaderFrag);
 	assert(this->VRcontrollerShader != nullptr);
@@ -385,12 +381,6 @@ Matrix4 MainSceneVR::GetHMDMatrixProjectionEye(vr::Hmd_Eye nEye)
 		mat.m[0][2], mat.m[1][2], mat.m[2][2], mat.m[3][2],
 		mat.m[0][3], mat.m[1][3], mat.m[2][3], mat.m[3][3]
 	);
-	/*return Matrix4(
-		mat.m[0][0], mat.m[0][1], mat.m[0][2], mat.m[0][3],
-		mat.m[1][0], mat.m[1][1], mat.m[1][2], mat.m[1][3],
-		mat.m[2][0], mat.m[2][1], mat.m[2][2], mat.m[2][3],
-		mat.m[3][0], mat.m[3][1], mat.m[3][2], mat.m[3][3]
-	);*/
 }
 
 Matrix4 MainSceneVR::GetHMDMatrixPoseEye(vr::Hmd_Eye nEye)
@@ -405,14 +395,7 @@ Matrix4 MainSceneVR::GetHMDMatrixPoseEye(vr::Hmd_Eye nEye)
 		matEyeRight.m[0][2], matEyeRight.m[1][2], matEyeRight.m[2][2], 0.0,
 		matEyeRight.m[0][3], matEyeRight.m[1][3], matEyeRight.m[2][3], 1.0f
 	);
-	/*Matrix4 matrixObj(
-		mat.m[0][0], mat.m[0][1], mat.m[0][2], mat.m[0][3],
-		mat.m[1][0], mat.m[1][1], mat.m[1][2], mat.m[1][3],
-		mat.m[2][0], mat.m[2][1], mat.m[2][2], mat.m[2][3],
-		1,0,0,0
-	);*/
 	return matrixObj.invert();
-	//return matrixObj;
 }
 
 Matrix4 MainSceneVR::GetCurrentViewProjectionMatrix(vr::Hmd_Eye nEye)
@@ -481,7 +464,7 @@ void MainSceneVR::PollVREvent()
 			std::cout << "OPENVR:: Device " << event.trackedDeviceIndex << " updated." << std::endl;
 			break;
 
-			//and so on, can test for any amount of vr events
+			//and so on
 		default:
 			break;
 		/*default:
@@ -500,8 +483,6 @@ void MainSceneVR::PollVREvent()
 	}
 
 	ProcessButtonEvent(event);
-
-	//Output tracking data or do other things
 }
 
 void MainSceneVR::ProcessButtonEvent(vr::VREvent_t event)
@@ -515,17 +496,10 @@ void MainSceneVR::ProcessButtonEvent(vr::VREvent_t event)
 		switch (event.eventType)
 		{
 		case vr::VREvent_ButtonPress:
-			/*if (Picker->pickBody(getControllerPosition(event.trackedDeviceIndex), getControllerRaycastDirection(event.trackedDeviceIndex)))
-			{
-				Picker->movePickedBody(getControllerPosition(event.trackedDeviceIndex), getControllerRaycastDirection(event.trackedDeviceIndex));
-			}*/
-			/*if (Picker->pickBody(getControllerPosition(event.trackedDeviceIndex), getControllerRaycastDirection(event.trackedDeviceIndex)))
-			{
-				pickCtrlIndex = event.trackedDeviceIndex;
-			}*/
-			bHit = Picker->pickBody(getControllerPosition(event.trackedDeviceIndex), getControllerRaycastDirection(event.trackedDeviceIndex));
+
+			bHit = Picker->pickBody(GetControllerPosition(event.trackedDeviceIndex), GetControllerRaycastDirection(event.trackedDeviceIndex));
 			pickCtrlIndex = event.trackedDeviceIndex;
-			//Picker->pickBody(getControllerPosition(event.trackedDeviceIndex), getControllerRaycastDirection(event.trackedDeviceIndex));
+
 			if (pHmd->GetControllerState(event.trackedDeviceIndex, &state, sizeof(state)))
 			{
 				bTriggerDown = !(state.ulButtonPressed == 0);
@@ -548,7 +522,6 @@ void MainSceneVR::ProcessButtonEvent(vr::VREvent_t event)
 		switch (event.eventType)
 		{
 		case vr::VREvent_ButtonPress:
-			ResetPositions();
 			break;
 
 		case vr::VREvent_ButtonUnpress:
@@ -566,21 +539,20 @@ void MainSceneVR::ProcessButtonEvent(vr::VREvent_t event)
 		// MOVE PICKED BODY
 		if (bTriggerDown && bHit)
 		{
-			//std::cout << "TriggerPressed --  ";
-			Picker->movePickedBody(getControllerPosition(pickCtrlIndex), getControllerRaycastDirection(pickCtrlIndex));
+			Picker->movePickedBody(GetControllerPosition(pickCtrlIndex), GetControllerRaycastDirection(pickCtrlIndex));
 		}
 		break;
 	}
 
 }
 
-btVector3 MainSceneVR::getControllerPosition(vr::TrackedDeviceIndex_t trackedDeviceIndex)
+btVector3 MainSceneVR::GetControllerPosition(vr::TrackedDeviceIndex_t trackedDeviceIndex)
 {
 	const Matrix4 & mat = m_rmat4DevicePose[trackedDeviceIndex];
 	return btVector3(mat[12], mat[13], mat[14]);
 }
 
-btVector3 MainSceneVR::getControllerRaycastDirection(vr::TrackedDeviceIndex_t trackedDeviceIndex)
+btVector3 MainSceneVR::GetControllerRaycastDirection(vr::TrackedDeviceIndex_t trackedDeviceIndex)
 {
 	const Matrix4 & mat = m_rmat4DevicePose[trackedDeviceIndex];
 	return btVector3(-mat[8], -mat[9], -mat[10]);
@@ -600,7 +572,7 @@ void MainSceneVR::UpdateHMDMatrixPose()
 		if (m_rTrackedDevicePose[nDevice].bPoseIsValid)
 		{
 			m_iValidPoseCount++;
-			m_rmat4DevicePose[nDevice] = glmFromSteamVRMatrix(m_rTrackedDevicePose[nDevice].mDeviceToAbsoluteTracking);
+			m_rmat4DevicePose[nDevice] = Mat4FromSteamVRMatrix(m_rTrackedDevicePose[nDevice].mDeviceToAbsoluteTracking);
 			if (m_rDevClassChar[nDevice] == 0)
 			{
 				switch (pHmd->GetTrackedDeviceClass(nDevice))
@@ -624,7 +596,7 @@ void MainSceneVR::UpdateHMDMatrixPose()
 	}
 }
 
-Matrix4 MainSceneVR::glmFromSteamVRMatrix(const vr::HmdMatrix34_t & matPose)
+Matrix4 MainSceneVR::Mat4FromSteamVRMatrix(const vr::HmdMatrix34_t & matPose)
 {
 	Matrix4 pose(
 		matPose.m[0][0], matPose.m[1][0], matPose.m[2][0], 0.0,
@@ -632,12 +604,6 @@ Matrix4 MainSceneVR::glmFromSteamVRMatrix(const vr::HmdMatrix34_t & matPose)
 		matPose.m[0][2], matPose.m[1][2], matPose.m[2][2], 0.0,
 		matPose.m[0][3], matPose.m[1][3], matPose.m[2][3], 1.0f
 	);
-	/*Matrix4 pose(
-		matPose.m[0][0], matPose.m[0][1], matPose.m[0][2], matPose.m[0][3],
-		matPose.m[1][0], matPose.m[1][1], matPose.m[1][2], matPose.m[1][3],
-		matPose.m[2][0], matPose.m[2][1], matPose.m[2][2], matPose.m[2][3],
-		1, 0, 0, 0
-	);*/
 	return pose;
 }
 
@@ -734,9 +700,7 @@ void MainSceneVR::RenderControllerAxes()
 	// set vertex data if we have some
 	if (vertdataarray.size() > 0)
 	{
-		//$ TODO: Use glBufferSubData for this...
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertdataarray.size(), &vertdataarray[0], GL_STREAM_DRAW);
-		//glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(float) * vertdataarray.size(), &vertdataarray[0]);
 	}
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
@@ -789,7 +753,6 @@ void MainSceneVR::RenderScene(vr::Hmd_Eye nEye)
 			continue;
 
 		const Matrix4 & matDeviceToTracking = m_rmat4DevicePose[unTrackedDevice];
-		//std::cout << "Controller position: " << matDeviceToTracking[12] << " - " << matDeviceToTracking[13] << " - " << matDeviceToTracking[14] << std::endl;
 		Matrix4 matMVP = GetCurrentViewProjectionMatrix(nEye) * matDeviceToTracking;
 		glUniformMatrix4fv(VRrendermodelShader->getUniLocation("matrix"), 1, GL_FALSE, matMVP.get());
 
@@ -803,8 +766,9 @@ void MainSceneVR::RenderScene(vr::Hmd_Eye nEye)
 /* renders left eye and right eye to framebuffers */
 void MainSceneVR::RenderStereoTargets()
 {
+	// render to TV in the VR environment
 	RenderToTV();
-	//glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+
 	glEnable(GL_MULTISAMPLE);
 
 	// Left Eye
@@ -820,7 +784,6 @@ void MainSceneVR::RenderStereoTargets()
 
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, leftEyeDesc.m_nRenderFramebufferId);
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, leftEyeDesc.m_nResolveFramebufferId);
-	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, NoEffects->fbo);
 
 	glBlitFramebuffer(0, 0, m_nRenderWidth, m_nRenderHeight, 0, 0, m_nRenderWidth, m_nRenderHeight,
 	GL_COLOR_BUFFER_BIT,
@@ -864,7 +827,6 @@ void MainSceneVR::RenderCompanionWindow()
 
 	// render left eye (first half of index array )
 	glBindTexture(GL_TEXTURE_2D, leftEyeDesc.m_nResolveTextureId);
-	//HdrEffect->Bind(HdrEffect->fbo_textures[1]);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -883,26 +845,18 @@ void MainSceneVR::RenderCompanionWindow()
 	glUseProgram(0);
 }
 
-void MainSceneVR::RenderEyeQuad(vr::Hmd_Eye nEye)
+/*void MainSceneVR::RenderEyeQuad(vr::Hmd_Eye nEye)
 {
 	if (nEye == vr::Eye_Left)
 	{
 		glBindVertexArray(m_unCompanionWindowVAO);
-		// render left eye (first half of index array )
-		//glBindTexture(GL_TEXTURE_2D, leftEyeDesc.m_nResolveTextureId);
 		glDrawElements(GL_TRIANGLES, m_uiCompanionWindowIndexSize / 2, GL_UNSIGNED_SHORT, 0);
 		glBindVertexArray(0);
 	}
 	else if (nEye == vr::Eye_Right)
 	{
 		glBindVertexArray(m_unCompanionWindowVAO);
-		//glBindTexture(GL_TEXTURE_2D, rightEyeDesc.m_nResolveTextureId);
 		glDrawElements(GL_TRIANGLES, m_uiCompanionWindowIndexSize / 2, GL_UNSIGNED_SHORT, (const void *)(uintptr_t)(m_uiCompanionWindowIndexSize));
 		glBindVertexArray(0);
 	}
-}
-
-void MainSceneVR::ResetPositions()
-{
-	/// TODO ??
-}
+}*/

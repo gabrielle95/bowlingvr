@@ -88,11 +88,15 @@ $(document).ready(function(){initNavTree('class_general_framebuffer.html','');})
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_general_framebuffer-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">GeneralFramebuffer Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Creates a framebuffer with RGB texture attachment, no floating points (UNSIGNED_BYTE).  
+ <a href="class_general_framebuffer.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_post_processing_8h_source.html">PostProcessing.h</a>&gt;</code></p>
 <table class="memberdecls">
@@ -106,8 +110,19 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aaa0a8d95e94b17aee5ef523bc2e63337"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab67ce6c7e7a8a0187f237c069ade546a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_general_framebuffer.html#ab67ce6c7e7a8a0187f237c069ade546a">Bind</a> ()</td></tr>
 <tr class="separator:ab67ce6c7e7a8a0187f237c069ade546a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a082668b23573b3cd60bef9f89c856bdf"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_general_framebuffer.html#a082668b23573b3cd60bef9f89c856bdf">fbo</a></td></tr>
+<tr class="separator:a082668b23573b3cd60bef9f89c856bdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae3333296d4aef665ae1082a8e79417f"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_general_framebuffer.html#aae3333296d4aef665ae1082a8e79417f">fbo_texture</a></td></tr>
+<tr class="separator:aae3333296d4aef665ae1082a8e79417f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e7ab1aac4d8a8f7f5d8576e07f0cb64"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_general_framebuffer.html#a5e7ab1aac4d8a8f7f5d8576e07f0cb64">rboDepth</a></td></tr>
+<tr class="separator:a5e7ab1aac4d8a8f7f5d8576e07f0cb64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Creates a framebuffer with RGB texture attachment, no floating points (UNSIGNED_BYTE). </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8c6804f1d0340dbabfc70ad3898bc01f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8c6804f1d0340dbabfc70ad3898bc01f">&#9670;&nbsp;</a></span>GeneralFramebuffer()</h2>
 
@@ -184,6 +199,73 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a082668b23573b3cd60bef9f89c856bdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a082668b23573b3cd60bef9f89c856bdf">&#9670;&nbsp;</a></span>fbo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint GeneralFramebuffer::fbo</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aae3333296d4aef665ae1082a8e79417f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae3333296d4aef665ae1082a8e79417f">&#9670;&nbsp;</a></span>fbo_texture</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint GeneralFramebuffer::fbo_texture</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5e7ab1aac4d8a8f7f5d8576e07f0cb64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e7ab1aac4d8a8f7f5d8576e07f0cb64">&#9670;&nbsp;</a></span>rboDepth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint GeneralFramebuffer::rboDepth</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

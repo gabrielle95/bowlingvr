@@ -13,12 +13,9 @@ PlayerBody::PlayerBody(btVector3 origin)
 
 	this->collisionShape->calculateLocalInertia(mass, inertia);
 
-
 	btRigidBody::btRigidBodyConstructionInfo rbInfo
 	(mass, this->motionstate, this->collisionShape, inertia);
 	rbInfo.m_friction = 20.0f;
-	//rbInfo.m_rollingFriction = 0.1f;
-	//rbInfo.m_spinningFriction = 0.1f;
 	this->rigidBody = new btRigidBody(rbInfo);
 	this->rigidBody->setAngularFactor(btVector3(0, 0, 0));
 	this->rigidBody->forceActivationState(DISABLE_DEACTIVATION);

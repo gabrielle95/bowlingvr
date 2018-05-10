@@ -13,6 +13,10 @@
 
 //ASSIMP MODEL
 
+//! Constructs an OpenGL model from Assimp. 
+/*!
+Imports the model from Assimp and processes the meshes. Can also be created using already processed meshes.
+*/
 class Model
 {
 public:

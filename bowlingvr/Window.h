@@ -8,7 +8,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-#define WFLAGS SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE // | SDL_WINDOW_FULLSCREEN
+#define WFLAGS SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE
 
 class window_exception : public std::runtime_error
 {
@@ -22,6 +22,10 @@ public:
 	context_exception(const std::string& error) : std::runtime_error(error) {}
 };
 
+//! Creates an SDL window. 
+/*!
+Handles SDL window and OpenGL context creation
+*/
 class Window
 {
 public:

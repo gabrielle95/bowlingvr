@@ -88,6 +88,8 @@ $(document).ready(function(){initNavTree('class_application.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_application-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Application Class Reference</div>  </div>
@@ -101,7 +103,7 @@ $(document).ready(function(){initNavTree('class_application.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a09a54472efc77ff4b8bd8a0c9d9b96ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a09a54472efc77ff4b8bd8a0c9d9b96ae">Application</a> (vr::IVRSystem *vr_pointer)</td></tr>
+<tr class="memitem:a09a54472efc77ff4b8bd8a0c9d9b96ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a09a54472efc77ff4b8bd8a0c9d9b96ae">Application</a> (vr::IVRSystem *<a class="el" href="class_application.html#a7204e6d72cd49f1cdf0246408af812f3">vr_pointer</a>)</td></tr>
 <tr class="separator:a09a54472efc77ff4b8bd8a0c9d9b96ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a748bca84fefb9c12661cfaa2f623748d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a748bca84fefb9c12661cfaa2f623748d">~Application</a> ()</td></tr>
 <tr class="separator:a748bca84fefb9c12661cfaa2f623748d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,7 +111,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aef2942a3c82699c72397afd4e7e966a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac017244251b5c3b1b6b808c6c8815a4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#ac017244251b5c3b1b6b808c6c8815a4b">Stop</a> ()</td></tr>
 <tr class="separator:ac017244251b5c3b1b6b808c6c8815a4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad35611e0e4f0e3238577990e28486826"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#ad35611e0e4f0e3238577990e28486826">SetState</a> (<a class="el" href="class_game_state_interface.html">GameStateInterface</a> *state)</td></tr>
+<tr class="memitem:ad35611e0e4f0e3238577990e28486826"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#ad35611e0e4f0e3238577990e28486826">SetState</a> (<a class="el" href="class_game_state_interface.html">GameStateInterface</a> *<a class="el" href="class_application.html#a94ea4455563d9cf8ba216873eeb55171">state</a>)</td></tr>
 <tr class="separator:ad35611e0e4f0e3238577990e28486826"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae21424a0bb81bcc7b1f43130af449c6d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#ae21424a0bb81bcc7b1f43130af449c6d">IsWindowActive</a> ()</td></tr>
 <tr class="separator:ae21424a0bb81bcc7b1f43130af449c6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,6 +121,29 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:affa9c4233ef6a58eba7ae480b00ab04b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed6bd9a6985d4dd48b9730439160763a"><td class="memItemLeft" align="right" valign="top">vr::IVRSystem *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#aed6bd9a6985d4dd48b9730439160763a">getVRpointer</a> ()</td></tr>
 <tr class="separator:aed6bd9a6985d4dd48b9730439160763a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a09114f3400be3c9907a53be6ec4862af"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a09114f3400be3c9907a53be6ec4862af">active</a></td></tr>
+<tr class="separator:a09114f3400be3c9907a53be6ec4862af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a852d1eea757820a51f3d0cc1ddd157e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_window.html">Window</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a852d1eea757820a51f3d0cc1ddd157e3">window</a></td></tr>
+<tr class="separator:a852d1eea757820a51f3d0cc1ddd157e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94ea4455563d9cf8ba216873eeb55171"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_state_interface.html">GameStateInterface</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a94ea4455563d9cf8ba216873eeb55171">state</a> = nullptr</td></tr>
+<tr class="separator:a94ea4455563d9cf8ba216873eeb55171"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9292301f1a19ee3967320e382acc3c2c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a9292301f1a19ee3967320e382acc3c2c">windowFocused</a></td></tr>
+<tr class="separator:a9292301f1a19ee3967320e382acc3c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acffc4a0ab4469dbf6f494ab51637921a"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#acffc4a0ab4469dbf6f494ab51637921a">width</a></td></tr>
+<tr class="separator:acffc4a0ab4469dbf6f494ab51637921a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad68c14963ff983271a22e87f32b55e93"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#ad68c14963ff983271a22e87f32b55e93">height</a></td></tr>
+<tr class="separator:ad68c14963ff983271a22e87f32b55e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7204e6d72cd49f1cdf0246408af812f3"><td class="memItemLeft" align="right" valign="top">vr::IVRSystem *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a7204e6d72cd49f1cdf0246408af812f3">vr_pointer</a> = NULL</td></tr>
+<tr class="memdesc:a7204e6d72cd49f1cdf0246408af812f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The VR system pointer.  <a href="#a7204e6d72cd49f1cdf0246408af812f3">More...</a><br /></td></tr>
+<tr class="separator:a7204e6d72cd49f1cdf0246408af812f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a6fa9a0ac0f897721d3c5dd147134d845"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_application.html">Application</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application.html#a6fa9a0ac0f897721d3c5dd147134d845">applicationInstance</a></td></tr>
+<tr class="separator:a6fa9a0ac0f897721d3c5dd147134d845"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The core class of the program. </p>
@@ -276,6 +301,186 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a09114f3400be3c9907a53be6ec4862af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09114f3400be3c9907a53be6ec4862af">&#9670;&nbsp;</a></span>active</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Application::active</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6fa9a0ac0f897721d3c5dd147134d845"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fa9a0ac0f897721d3c5dd147134d845">&#9670;&nbsp;</a></span>applicationInstance</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_application.html">Application</a>* Application::applicationInstance</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad68c14963ff983271a22e87f32b55e93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad68c14963ff983271a22e87f32b55e93">&#9670;&nbsp;</a></span>height</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Application::height</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a94ea4455563d9cf8ba216873eeb55171"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94ea4455563d9cf8ba216873eeb55171">&#9670;&nbsp;</a></span>state</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_game_state_interface.html">GameStateInterface</a>* Application::state = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7204e6d72cd49f1cdf0246408af812f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7204e6d72cd49f1cdf0246408af812f3">&#9670;&nbsp;</a></span>vr_pointer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">vr::IVRSystem* Application::vr_pointer = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The VR system pointer. </p>
+<p>Allows access to HTC Vive system, tracking data, etc. </p>
+
+</div>
+</div>
+<a id="acffc4a0ab4469dbf6f494ab51637921a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acffc4a0ab4469dbf6f494ab51637921a">&#9670;&nbsp;</a></span>width</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int Application::width</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a852d1eea757820a51f3d0cc1ddd157e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a852d1eea757820a51f3d0cc1ddd157e3">&#9670;&nbsp;</a></span>window</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_window.html">Window</a>* Application::window</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9292301f1a19ee3967320e382acc3c2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9292301f1a19ee3967320e382acc3c2c">&#9670;&nbsp;</a></span>windowFocused</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Application::windowFocused</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

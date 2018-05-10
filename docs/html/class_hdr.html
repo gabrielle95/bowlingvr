@@ -89,17 +89,21 @@ $(document).ready(function(){initNavTree('class_hdr.html','');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_hdr-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Hdr Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>Creates a floating point framebuffer for post processing with a multiple color attachments.  
+ <a href="class_hdr.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_post_processing_8h_source.html">PostProcessing.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aef1ddd8d5d80c1435246142e6de139e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hdr.html#aef1ddd8d5d80c1435246142e6de139e3">Hdr</a> (float w, float h)</td></tr>
+<tr class="memitem:aef1ddd8d5d80c1435246142e6de139e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hdr.html#aef1ddd8d5d80c1435246142e6de139e3">Hdr</a> (float <a class="el" href="class_hdr.html#a87845621ccdf7d09228ce3446a202d12">w</a>, float <a class="el" href="class_hdr.html#af5bc0601abd4892f498d7ff9a0fd837e">h</a>)</td></tr>
 <tr class="separator:aef1ddd8d5d80c1435246142e6de139e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3eb14c688aaeb732f1f18b9cc97ba072"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hdr.html#a3eb14c688aaeb732f1f18b9cc97ba072">Init</a> ()</td></tr>
 <tr class="separator:a3eb14c688aaeb732f1f18b9cc97ba072"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,8 +126,21 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a44b580681f40333faf4fb7821411bb2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a988c40e21b154576e4bf8973d561ce01"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hdr.html#a988c40e21b154576e4bf8973d561ce01">pingpongColorbuffers</a> [2]</td></tr>
 <tr class="separator:a988c40e21b154576e4bf8973d561ce01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aa3b70c554884184bad94ceafeec5c36e"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hdr.html#aa3b70c554884184bad94ceafeec5c36e">fbo</a></td></tr>
+<tr class="separator:aa3b70c554884184bad94ceafeec5c36e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a673b524e66be1e861f5ca6595376b834"><td class="memItemLeft" align="right" valign="top">GLuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hdr.html#a673b524e66be1e861f5ca6595376b834">rboDepth</a></td></tr>
+<tr class="separator:a673b524e66be1e861f5ca6595376b834"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87845621ccdf7d09228ce3446a202d12"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hdr.html#a87845621ccdf7d09228ce3446a202d12">w</a></td></tr>
+<tr class="separator:a87845621ccdf7d09228ce3446a202d12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5bc0601abd4892f498d7ff9a0fd837e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_hdr.html#af5bc0601abd4892f498d7ff9a0fd837e">h</a></td></tr>
+<tr class="separator:af5bc0601abd4892f498d7ff9a0fd837e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Creates a floating point framebuffer for post processing with a multiple color attachments. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aef1ddd8d5d80c1435246142e6de139e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aef1ddd8d5d80c1435246142e6de139e3">&#9670;&nbsp;</a></span>Hdr()</h2>
 
@@ -268,6 +285,28 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="aa3b70c554884184bad94ceafeec5c36e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3b70c554884184bad94ceafeec5c36e">&#9670;&nbsp;</a></span>fbo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint Hdr::fbo</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a33d2dcff049b2e509d314fa0d99120e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a33d2dcff049b2e509d314fa0d99120e3">&#9670;&nbsp;</a></span>fbo_textures</h2>
 
@@ -278,6 +317,28 @@ Public Attributes</h2></td></tr>
           <td class="memname">GLuint Hdr::fbo_textures[2]</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af5bc0601abd4892f498d7ff9a0fd837e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5bc0601abd4892f498d7ff9a0fd837e">&#9670;&nbsp;</a></span>h</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Hdr::h</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -306,6 +367,50 @@ Public Attributes</h2></td></tr>
           <td class="memname">unsigned int Hdr::pingpongFBO[2]</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a673b524e66be1e861f5ca6595376b834"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a673b524e66be1e861f5ca6595376b834">&#9670;&nbsp;</a></span>rboDepth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GLuint Hdr::rboDepth</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a87845621ccdf7d09228ce3446a202d12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87845621ccdf7d09228ce3446a202d12">&#9670;&nbsp;</a></span>w</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Hdr::w</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
